@@ -23,6 +23,7 @@
 		info.matrix-quartz.2000.properties
 		info.matrix-cache.3000.properties
 		info.matrix-manager.4000.properties
+		info.matrix-file.5000.properties
 		
 		info.matrix-example.99999.properties
 

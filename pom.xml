@@ -11,6 +11,7 @@
 		<module>matrix-cache</module>
 		<module>matrix-quartz</module>  	
 		<module>matrix-manager</module>
+		<module>matrix-file</module>
 
 		<module>matrix-admin</module>
 		<module>matrix-example</module>
