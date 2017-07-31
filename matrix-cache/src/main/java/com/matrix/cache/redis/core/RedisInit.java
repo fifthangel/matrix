@@ -1,10 +1,18 @@
 package com.matrix.cache.redis.core;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.matrix.base.BaseClass;
 import com.matrix.cache.inf.IRedisCall;
 
 public class RedisInit extends BaseClass {
 	private static RedisCacheConfig CONFIG = new RedisCacheConfig();
+	
+	private static String model = "";
+	
+	public RedisInit(){
+		model = this.getConfig("matrix-core.model");
+	}
 	
 	/**
 	 * @descriptions 读取 config.matrix-cache.properties 中的Redis默认配置路径 cache_url_default
@@ -14,7 +22,10 @@ public class RedisInit extends BaseClass {
 	 * @version 1.0.0.1
 	 */
 	public static IRedisCall getDefault() {
-		return CONFIG.getValue("default");   // default or matrix-cache.cache_url_default         T ODO 潜在的异常点  
+		if(StringUtils.isBlank(model)){
+			new RedisInit();
+		}
+		return CONFIG.getValue("default");   // matrix-cache.cache_url_  |dev or master
 	}
 	
 	/**
