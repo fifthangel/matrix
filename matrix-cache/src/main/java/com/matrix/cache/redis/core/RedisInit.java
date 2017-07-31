@@ -25,7 +25,7 @@ public class RedisInit extends BaseClass {
 		if(StringUtils.isBlank(model)){
 			new RedisInit();
 		}
-		return CONFIG.getValue("default");   // matrix-cache.cache_url_  |dev or master
+		return CONFIG.getValue(model);   // matrix-cache.cache_url_  |dev or master
 	}
 	
 	/**
