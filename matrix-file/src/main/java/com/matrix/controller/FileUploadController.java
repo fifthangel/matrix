@@ -13,7 +13,7 @@ import com.matrix.base.BaseController;
 import com.matrix.service.IFileUploadService;
 
 /**
- * @descriptions 上传文件相关接口
+ * @descriptions 上传文件相关接口 | 所有上传的文件必须以二进制方式上传
  *
  * @author Yangcl 
  * @home https://github.com/PowerYangcl

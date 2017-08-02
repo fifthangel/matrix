@@ -293,4 +293,43 @@ public class DateUtil {
 		return sdfDateTime.format(new Date());
 	}
 
+	public static String formatDate(String pattern) {
+		SimpleDateFormat sFormat = new SimpleDateFormat(pattern);
+		return sFormat.format(new Date());
+	}
+	
+	/**
+	 * @descriptions 获取16进制表示的当前时间
+	 *
+	 * @return
+	 * @date 2017年8月2日 下午3:32:12
+	 * @author Yangcl 
+	 * @version 1.0.0.1
+	 */
+	public static String getDateHex() {
+		return Integer.toHexString(Integer.valueOf(formatDate("yyMMdd")));
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
