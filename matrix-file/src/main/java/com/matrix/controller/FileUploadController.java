@@ -14,6 +14,7 @@ import com.matrix.service.IFileUploadService;
 
 /**
  * @descriptions 上传文件相关接口 | 所有上传的文件必须以二进制方式上传
+ * 		所有的文件上传操作每次只允许上传一个文件，不允许多个文件同时提交
  *
  * @author Yangcl 
  * @home https://github.com/PowerYangcl
@@ -30,7 +31,7 @@ public class FileUploadController  extends BaseController{
 	private IFileUploadService service;
 	
 	/**
-	 * @descriptions 
+	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器
 	 *
 	 * @param request 页面提交的数据
 	 * @param type 上传文件类型 |image or word or excel or html or vedio

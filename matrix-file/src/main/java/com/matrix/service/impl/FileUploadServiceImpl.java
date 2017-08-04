@@ -27,16 +27,9 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 
 	@Override
 	public JSONObject apiFileRemoteUpload(HttpServletRequest request, String type) {
-		JSONObject result = new JSONObject();
-		result.put("status", "success"); 
-		result.put("msg", "文件上传成功!");
-		result.put("title", "");
-		result.put("original", "");
-		result.put("type","文件后缀名");
-		result.put("url", "文件路径名");
-		result.put("size", "文件大小");
+		JSONObject result = null;
 		
-		
+		List<FileItem> fileItems = this.getFileFromRequest(request);
 		
 		
 		

@@ -2,6 +2,8 @@ package com.matrix.base;
 
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+
+import com.alibaba.fastjson.JSONObject;
 import com.matrix.pojo.view.McUserInfoView;
 
 public class BaseController {
@@ -27,5 +29,45 @@ public class BaseController {
 		logger.info( name + " - 尝试请求 - " + action + "() - 方法 - " + remark); 
 		return true;
 	}
+	
+	/**
+	 * @descriptions api权限验证|内网web项目间的服务访问跟踪|非对外开发类型的api适用此方法
+	 *
+	 * @param key 所属项目名称，在config.matrix-file中会定义每一个项目的名称以及为他分配的验证秘钥
+	 * @param value md5加密验证的结果
+	 * @param type 是否为内网接口。标识为内网间的api调用
+	 * 
+	 * @date 2017年8月4日 上午10:15:42
+	 * @author Yangcl 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject apiAuthorityValidata(boolean type  , String key , String value){
+		JSONObject re = new JSONObject();
+		
+		
+		return re;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
