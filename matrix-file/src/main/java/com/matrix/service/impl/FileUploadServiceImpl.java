@@ -26,13 +26,16 @@ import com.matrix.util.UuidUtil;
 public class FileUploadServiceImpl extends BaseClass implements IFileUploadService{
 
 	@Override
-	public JSONObject apiFileRemoteUpload(HttpServletRequest request, String type) {
+	public JSONObject apiFileRemoteUpload(HttpServletRequest request) {
 		JSONObject result = null;
-		
 		List<FileItem> fileItems = this.getFileFromRequest(request);
-		
-		
-		
+		if(fileItems != null && fileItems.size() != 0){
+			result = this.saveFile(fileItems.get(0));
+		}else{
+			result = new JSONObject();
+			result.put("status", "error");
+			result.put("msg", this.getInfo(500010006));   // 500010006=未发现要上传的文件，请核实。
+		}
 		return result;
 	}
 	
@@ -60,6 +63,10 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 		return items;
 	}
 	
+	private JSONObject saveFile(FileItem item){
+		return this.saveFile(item.getName(), item.get() , item.getSize());
+	}
+	
 	/**
 	 * @descriptions 持久化一个文件到硬盘
 	 *
@@ -69,7 +76,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 	 * @author Yangcl 
 	 * @version 1.0.0.1
 	 */
-	private JSONObject saveFile(String fileName , byte[] file){
+	private JSONObject saveFile(String fileName , byte[] file , long size){
 		JSONObject result = new JSONObject();
 		if(StringUtils.isBlank(fileName)){
 			result.put("status", "error");
@@ -106,13 +113,11 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			result.put("original" , fileName);
 			result.put("type" , postfix_);
 			result.put("url" , this.getConfig("matrix-file.visit_url") + filePath + newName);
+			result.put("size", Long.toString(size));   
 			if(postfix.equals("image")){
 				JSONObject img = FileSupport.getInstance().getImageProperty(this.getConfig("matrix-file.visit_url") + filePath + newName);
 				result.put("width", img.getString("width"));
 				result.put("height", img.getString("height"));
-				result.put("size", img.getString("size"));
-			}else{
-				result.put("size" , String.valueOf(out.length() / 1024.0)); 
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

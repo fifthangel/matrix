@@ -34,15 +34,21 @@ public class FileUploadController  extends BaseController{
 	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器
 	 *
 	 * @param request 页面提交的数据
-	 * @param type 上传文件类型 |image or word or excel or html or vedio
+	 * @param key 所属项目名称
+	 * @param value md5加密验证的结果
+	 *   
 	 * @date 2017年7月31日 下午10:42:29
 	 * @author Yangcl 
 	 * @version 1.0.0.1
 	 */
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject apiFileRemoteUpload(HttpServletRequest request , String type){
-		return service.apiFileRemoteUpload(request , type);
+	public JSONObject apiFileRemoteUpload(HttpServletRequest request , String key , String value){
+		JSONObject validate = super.apiAuthorityValidata(key, value, logger, "api_file_remote_upload", "支持其他web系统上传文件到公司指定文件服务器");
+		if(validate.getString("status").equals("error")){
+			return validate;
+		}
+		return service.apiFileRemoteUpload(request);
 	}
 }
 

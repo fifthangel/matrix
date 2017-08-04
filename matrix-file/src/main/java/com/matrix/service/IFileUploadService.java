@@ -6,6 +6,6 @@ import com.alibaba.fastjson.JSONObject;
 
 public interface IFileUploadService {
 
-	public JSONObject apiFileRemoteUpload(HttpServletRequest request, String type);
+	public JSONObject apiFileRemoteUpload(HttpServletRequest request);
 
 }
