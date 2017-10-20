@@ -10,15 +10,18 @@
 		<span style="display: none">jsp/example/pageExampleFileUpload.jsp</span>
 	</div>
 
-	<div id="validation" class="subcontent" style="display: block">
-		<p>
+	 
+	
+	<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
+		<div id="validation" class="subcontent" style="display: block">
+			<p>
 				<label>图片上传</label>
 				<iframe src="../jsp/sys_page/uploadImage.jsp" style="height:40px;"></iframe>
-				
 				<input type="hidden" name="titlePic" id="title-pic" />
 				<div class="field" id="show-upload-image-div" ></div>
 			</p>
-	</div> 
+		</div>
+	</div>
 	
 	
 </div>
