@@ -44,10 +44,10 @@ public class FileUploadController  extends BaseController{
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject apiFileRemoteUpload(HttpServletRequest request , String key , String value){
-		JSONObject validate = super.apiAuthorityValidata(key, value, logger, "api_file_remote_upload", "支持其他web系统上传文件到公司指定文件服务器");
-		if(validate.getString("status").equals("error")){
-			return validate;
-		}
+//		JSONObject validate = super.apiAuthorityValidata(key, value, logger, "api_file_remote_upload", "支持其他web系统上传文件到公司指定文件服务器");
+//		if(validate.getString("status").equals("error")){           TODO 暂时不用
+//			return validate;
+//		}
 		return service.apiFileRemoteUpload(request);
 	}
 }

@@ -232,6 +232,21 @@ public class ExampleController extends BaseController{
 		super.userBehavior(session, logger, "ajax_upload_file_cfile", "针对UE，采用自定义的上传图片方式 此种方式使用cfile接口将图片上传到图片服务器");
 		return exampleService.ajaxUploadFileCfile(type , request); 
 	}
+	
+	
+	/**
+	 * @description: 图片与文件上传应用示例
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年10月20日 下午2:35:39 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_example_file_upload")
+	public String pageExampleFileUpload(HttpSession session){ 
+		super.userBehavior(session, logger, "page_example_file_upload", "图片与文件上传应用示例");
+		return "jsp/example/pageExampleFileUpload"; 
+	}
 }
 
 
