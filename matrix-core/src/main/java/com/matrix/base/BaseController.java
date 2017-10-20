@@ -28,6 +28,11 @@ public class BaseController extends BaseClass{
 			name = "用户:  " + e.getUserName();
 		}
 		logger.info( name + " - 尝试请求 - " + action + "() - 方法 - " + remark); 
+		
+		
+		// TODO 开始拦截用户的按钮权限 2017-10-20
+		
+		
 		return true;
 	}
 	

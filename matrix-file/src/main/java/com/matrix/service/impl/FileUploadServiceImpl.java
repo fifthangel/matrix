@@ -83,7 +83,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			result.put("msg", this.getInfo(500010001));   // 500010001=文件名称不得为空 
 			return result;
 		}
-		if(fileName.split(".").length < 2){
+		if(fileName.split("\\.").length < 2){
 			result.put("status", "error");
 			result.put("msg", this.getInfo(500010002));   // 500010002=文件名称错误，缺少后缀
 			return result;

@@ -26,6 +26,12 @@
 			<version>${project.version}</version>
 		</dependency> 
 		
+		<dependency>
+			<groupId>com.matrix</groupId>
+			<artifactId>matrix-file</artifactId>
+			<version>${project.version}</version>
+		</dependency> 
+		
 		<!-- <dependency>
 			<groupId>com.media-platform</groupId>
 			<artifactId>db-media</artifactId>
