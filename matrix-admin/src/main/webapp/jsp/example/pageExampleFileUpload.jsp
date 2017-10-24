@@ -15,10 +15,9 @@
 	<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
 		<div id="validation" class="subcontent" style="display: block">
 			<p>
-				<label>图片上传</label>
+				<div id="show-upload-image-div"  class="field" style="margin-bottom:20px"></div>
+				
 				<iframe src="../jsp/sys_page/uploadImage.jsp" style="height:40px;"></iframe>
-				<input type="hidden" name="titlePic" id="title-pic" />
-				<div class="field" id="show-upload-image-div" ></div>
 			</p>
 		</div>
 	</div>
@@ -31,18 +30,16 @@
 	/**
 	 * uploadImage.jsp 回调此方法
 	 */
-	function uploadedImage(imgs) {
-		$("#title-pic").val(imgs);
-		var tHtml = '';
-		var imgArr ;
-		if(imgs.length > 0) {
-			imgArr = imgs.split(",");
-			for(var i=0;i<imgArr.length ;i++) {
-				tHtml += '<img src="'+imgArr[i]+'" style="width:100px;" />';
+	function uploadedImage(e) {
+		var html_ = '';
+		if(e.status == 'success'){
+			if(e.type == 'image'){
+				html_ = '<img src="' + e.url + '" title= "' + e.original + '" style="margin-bottom:20px" /></br>';
+			}else{
+				html_ = '<a href="' + e.url + '" style="margin-bottom:20px;cursor:pointer"/>' + e.original + '</a></br>';
 			}
-			$("#show-upload-image-div").html(tHtml);
+			$("#show-upload-image-div").append(html_);
 		}
-		
 	}
 </script>
 

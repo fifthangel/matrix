@@ -6,7 +6,7 @@
 <div class="field"> 
 	<form enctype="multipart/form-data"  action="${basePath}file/api_file_remote_upload.do" method="post" id="upload-image" target="rtn-uploaded-image">
 		<a href="javascript:void(0);" class="btn btn_orange btn_search radius50" style="cursor: pointer;"> 
-			<span> 选择 </span>
+			<span> 上传文件 </span>
 		</a>
 		<input type="file" name="file" id="select-pic" class="ae-form-input" style="width: 71px; height: 33px;position: absolute;left: 0;top: 0;opacity: 0;" />
 	</form>
@@ -22,8 +22,11 @@
 		
 		$("#rtn-uploaded-image-iframe").load(function(){
 			var imageJson = $(document.getElementById('rtn-uploaded-image-iframe').contentWindow.document.body).html();
-			var obj = eval("("+imageJson+")");
-			window.parent.uploadedImage(obj.imgs);
+			var reg = /<pre.+?>(.+)<\/pre>/g;  
+			var result = imageJson.match(reg);  
+			imageJson = RegExp.$1;
+			var obj = JSON.parse(imageJson);
+			window.parent.uploadedImage(obj);
 		});
 	});
 	
