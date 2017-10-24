@@ -31,7 +31,7 @@ public class FileUploadController  extends BaseController{
 	private IFileUploadService service;
 	
 	/**
-	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器
+	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器||TODO 还缺少一个方法，将服务器图片发布到CDN  ！！！！！！！！！！！！！！！！
 	 * @返回结构示例：
 			 {
 			    "status": "success",				状态：success or error
