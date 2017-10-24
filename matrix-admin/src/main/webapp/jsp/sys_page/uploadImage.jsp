@@ -29,5 +29,21 @@
 			window.parent.uploadedImage(obj);
 		});
 	});
-	
+	/* 
+		$("#select-pic").change(function(){
+			$.ajax({
+	            dataType : "multipart/form-data",
+	            type :"post",
+	            url : "${basePath}file/api_file_remote_upload.do",
+	            data : {file : $("#select-pic").val() },
+	            async : false,
+	            success : function(msg) {
+	                msg_ = msg;
+	            },
+	            error: function(msg) {
+	                msg_ = msg;
+	            }
+	        });
+		});
+	*/
  </script>

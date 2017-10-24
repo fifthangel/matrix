@@ -14,11 +14,11 @@
 	
 	<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
 		<div id="validation" class="subcontent" style="display: block">
-			<p>
+			<div>
 				<div id="show-upload-image-div"  class="field" style="margin-bottom:20px"></div>
 				
 				<iframe src="../jsp/sys_page/uploadImage.jsp" style="height:40px;"></iframe>
-			</p>
+			</div>
 		</div>
 	</div>
 	
@@ -36,7 +36,7 @@
 			if(e.type == 'image'){
 				html_ = '<img src="' + e.url + '" title= "' + e.original + '" style="margin-bottom:20px" /></br>';
 			}else{
-				html_ = '<a href="' + e.url + '" style="margin-bottom:20px;cursor:pointer"/>' + e.original + '</a></br>';
+				html_ = '<a href="' + e.url + '" style="margin-bottom:20px">' + e.original + '</a></br>';
 			}
 			$("#show-upload-image-div").append(html_);
 		}
