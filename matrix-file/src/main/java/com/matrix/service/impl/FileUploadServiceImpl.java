@@ -96,26 +96,31 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			return result;
 		}
 		String postfix_ = postfix;
-		String newName = UuidUtil.uid() + postfix;
-		if(StringUtils.indexOf(allowFile, postfix) != -1){
-			postfix = "image";  // 所有文件都放到 home//image 文件夹下
+		String newName = UuidUtil.uid() + "." + postfix; 
+		// 所有图片文件都放到 image 文件夹下
+		if(StringUtils.containsAny(this.getConfig("matrix-file.image_type") , postfix)){
+			postfix = "image";  
 		}
 		
 		// 文件保存路径
-		String filePath = this.getConfig("matrix-file.upload_path_" + postfix) + File.separator + DateUtil.getDateHex() + File.separator;
+		String hexFolder = DateUtil.getDateHex();
+		String filePath = this.getConfig("matrix-file.server_basic_folder") + File.separator 
+				+ this.getConfig("matrix-file.upload_path_" + postfix) + File.separator + hexFolder + File.separator;
 		try {
 			FileUtils.forceMkdir(new File(filePath));
 			File out = new File(filePath + newName);
 			FileCopyUtils.copy(file, out); // 复制文件到服务器
 			result.put("status", "success");
-			result.put("msg", this.getInfo(500010004));   // 500010005=文件上传完成
+			result.put("msg", this.getInfo(500010005));   // 500010005=文件上传完成
 			result.put("title" , newName);
 			result.put("original" , fileName);
 			result.put("type" , postfix_);
-			result.put("url" , this.getConfig("matrix-file.visit_url") + filePath + newName);
+			result.put("save", this.getConfig("matrix-file.upload_path_" + postfix) + "/"  + hexFolder + "/" + newName);  // 数据库的保存路径
+			result.put("url" , this.getConfig("matrix-file.visit_url") + result.getString("save"));  // 文件的可访问路径 
 			result.put("size", Long.toString(size));   
 			if(postfix.equals("image")){
-				JSONObject img = FileSupport.getInstance().getImageProperty(this.getConfig("matrix-file.visit_url") + filePath + newName);
+				result.put("type" , postfix);  // 图片全部归并为一个类型
+				JSONObject img = FileSupport.getInstance().getImageProperty(result.getString("url")); 
 				result.put("width", img.getString("width"));
 				result.put("height", img.getString("height"));
 			}
@@ -125,7 +130,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			result.put("msg", this.getInfo(500010004));   // 500010004=文件持久化异常，请参照FileUploadServiceImpl.java -> saveFile() 
 			return result;
 		}
-		
+		System.out.println(result.toJSONString()); 
 		return result;
 	}
 	

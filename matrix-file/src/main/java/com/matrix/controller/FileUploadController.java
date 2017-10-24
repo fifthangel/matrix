@@ -31,7 +31,20 @@ public class FileUploadController  extends BaseController{
 	private IFileUploadService service;
 	
 	/**
-	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器
+	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器||TODO 还缺少一个方法，将服务器图片发布到CDN  ！！！！！！！！！！！！！！！！
+	 * @返回结构示例：
+			 {
+			    "status": "success",				状态：success or error
+			    "msg": "文件上传完成",
+			    "original": "bc.png",			图片原标题
+			    "title": "bf92f1576b23470a948dbdcb8feba788.png",  		图片新标题
+			    "size": "62091",        文件大小
+			    "save": "image/29c10/bf92f1576b23470a948dbdcb8feba788.png",            用于保存到数据库
+			    "type": "image",		文件类型
+			    "url": "http://192.168.1.34:8080/matrix-file/image/29c10/bf92f1576b23470a948dbdcb8feba788.png",	可访问路径
+			    "height": "247"		图片高
+			    "width": "163",		图片宽
+			}
 	 *
 	 * @param request 页面提交的数据
 	 * @param key 所属项目名称
