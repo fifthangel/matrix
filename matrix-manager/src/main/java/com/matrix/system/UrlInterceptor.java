@@ -47,6 +47,9 @@ public class UrlInterceptor extends HandlerInterceptorAdapter{
             	return true;	
             }
         }
+        if(StringUtils.startsWith(url, "api_")){		// 公共调用接口则跳过验证。
+        	return true;
+        }
         
         // 如果这个".do"请求不在 ExcludeUri 数组中则验证Session是否有值，如果Session未超时则不拦截这个请求。
         HttpSession session = request.getSession();
@@ -55,7 +58,7 @@ public class UrlInterceptor extends HandlerInterceptorAdapter{
         	if( url.equals("page_manager_home.do") || url.equals("page_manager_index.do")){
         		return true;	// 如果用户已经登录则可以访问首页        
         	}
-        	if(StringUtils.startsWith(url, "page_")){
+        	if(StringUtils.startsWith(url, "page_")){ 
         		// 此时开始判断这个url 是否为该用户权限内的，如果不是，则返回false
         		McUserRoleCache cache = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McUserRole).get(info.getId().toString()), McUserRoleCache.class);
         		List<McSysFunction> list = cache.getMsfList();

@@ -28,13 +28,13 @@
 
 <script type="text/javascript">
 	/**
-	 * uploadImage.jsp 回调此方法
+	 * uploadImage.jsp 回调此方法，此处的方法名固定，不可修改。
 	 */
 	function uploadedImage(e) {
 		var html_ = '';
 		if(e.status == 'success'){
 			if(e.type == 'image'){
-				html_ = '<img src="' + e.url + '" title= "' + e.original + '" style="margin-bottom:20px" /></br>';
+				html_ = '<img src="' + e.url + '" title= "' + e.original + '" style="margin-bottom:20px;width:20%;" /></br>';
 			}else{
 				html_ = '<a href="' + e.url + '" style="margin-bottom:20px">' + e.original + '</a></br>';
 			}

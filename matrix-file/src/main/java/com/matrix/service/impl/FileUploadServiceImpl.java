@@ -113,6 +113,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			result.put("status", "success");
 			result.put("msg", this.getInfo(500010005));   // 500010005=文件上传完成
 			result.put("title" , newName);
+			result.put("filePath" , filePath);
 			result.put("original" , fileName);
 			result.put("type" , postfix_);
 			result.put("save", this.getConfig("matrix-file.upload_path_" + postfix) + "/"  + hexFolder + "/" + newName);  // 数据库的保存路径
