@@ -1,23 +1,11 @@
 package com.matrix.service.impl;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -25,7 +13,7 @@ import com.matrix.base.BaseServiceImpl;
 import com.matrix.dao.IUserDemoDao;
 import com.matrix.pojo.entity.UserDemo;
 import com.matrix.service.IExampleService;
-import com.matrix.support.FileUploadSupport;
+//import com.matrix.support.FileUploadSupport;
 import com.matrix.util.SignUtil;
 
 @Service("exampleService")
@@ -81,7 +69,8 @@ public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> impl
 	 */
 	public JSONObject ajaxUploadFileCfile(String type , HttpServletRequest request) {
 		if(type.equals("uploadimage")){
-			return FileUploadSupport.getInstance().uploadOnePicture(request);   
+			// return FileUploadSupport.getInstance().uploadOnePicture(request);   
+			return null;   
 		}else{
 			return null;  
 		}
