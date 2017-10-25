@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseClass;
 
 /**
+ * @deprecated 准备废弃的类
  * @description: 文件上传组件|将图片内容等上传到cfile服务器中
  * 	配置参照：config.matrix-core.properties
  *  FileUpload.getInstance().upFileFromRequest(request)
