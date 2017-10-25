@@ -4,46 +4,42 @@
 <%@ include file="/inc/iframe-head.jsp" %>
 
 <div class="field"> 
-	<form enctype="multipart/form-data"  action="http://192.168.1.100/matrix-admin/file/api_file_remote_upload.do" method="post" id="upload-image" target="rtn-uploaded-image">
+	<form id="upload-image" action="javascript:void(0)" >
 		<a href="javascript:void(0);" class="btn btn_orange btn_search radius50" style="cursor: pointer;"> 
 			<span> 上传文件 </span>
 		</a>
-		<input type="file" name="file" id="select-pic" class="ae-form-input" style="width: 71px; height: 33px;position: absolute;left: 0;top: 0;opacity: 0;" />
+		<input id="select-pic"  type="file" name="file" class="ae-form-input" style="width: 71px; height: 33px;position: absolute;left: 0;top: 0;opacity: 0;" />
 	</form>
-	<iframe id="rtn-uploaded-image-iframe" name="rtn-uploaded-image"  style="display:none;"></iframe>
 </div>
 
 
 <script type="text/javascript">
 	$(function() {
 		$("#select-pic").change(function(){
-			$("#upload-image").submit();
-		});
-		
-		$("#rtn-uploaded-image-iframe").load(function(){
-			var imageJson = $(document.getElementById('rtn-uploaded-image-iframe').contentWindow.document.body).html();
-			var reg = /<pre.+?>(.+)<\/pre>/g;  
-			var result = imageJson.match(reg);  
-			imageJson = RegExp.$1;
-			var obj = JSON.parse(imageJson);
-			window.parent.uploadedImage(obj);
+			var file_ = document.getElementById("select-pic").files[0]; // 获取文件对象
+            if (typeof (file_) == "undefined" || file_.size <= 0) {
+                // 没有择图片
+                return;
+            }
+			
+            var formFile = new FormData();
+            formFile.append("file", file_); // 加入文件对象
+            var data = formFile;
+            $.ajax({
+                url : "http://192.168.1.100/matrix-admin/file/api_file_remote_upload.do",
+                data : formFile,
+                type : "post",
+                dataType : "json",
+                cache : false,		// 上传文件无需缓存
+                processData : false,		// 用于对data参数进行序列化处理 这里必须false
+                contentType : false, 	// 必须
+                success : function (e) { 
+        			window.parent.uploadFile(e);
+                },
+                error : function(e){
+                }
+            })
 		});
 	});
-	/* 
-		$("#select-pic").change(function(){
-			$.ajax({
-	            dataType : "multipart/form-data",
-	            type :"post",
-	            url : "${basePath}file/api_file_remote_upload.do",
-	            data : {file : $("#select-pic").val() },
-	            async : false,
-	            success : function(msg) {
-	                msg_ = msg;
-	            },
-	            error: function(msg) {
-	                msg_ = msg;
-	            }
-	        });
-		});
-	*/
+	
  </script>

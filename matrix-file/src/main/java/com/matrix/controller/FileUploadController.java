@@ -1,6 +1,7 @@
 package com.matrix.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +57,14 @@ public class FileUploadController  extends BaseController{
 	 */
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject apiFileRemoteUpload(HttpServletRequest request , String key , String value){
+	public JSONObject apiFileRemoteUpload(HttpServletRequest request , HttpServletResponse response , String key , String value){
 //		JSONObject validate = super.apiAuthorityValidata(key, value, logger, "api_file_remote_upload", "支持其他web系统上传文件到公司指定文件服务器");
 //		if(validate.getString("status").equals("error")){           TODO 暂时不用
 //			return validate;
 //		}
+		response.setHeader("Access-Control-Allow-Origin", "*"); // 解决跨域访问限制
+		
+		
 		return service.apiFileRemoteUpload(request);
 	}
 }

@@ -15,8 +15,9 @@
 	<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
 		<div id="validation" class="subcontent" style="display: block">
 			<div>
-				<div id="show-upload-image-div"  class="field" style="margin-bottom:20px"></div>
-				
+				<div id="show-upload-image-div"  class="field" style="margin-bottom:20px">
+						<!-- 等待填充 -->
+				</div>
 				<iframe src="../jsp/sys_page/uploadImage.jsp" style="height:40px;"></iframe>
 			</div>
 		</div>
@@ -30,7 +31,7 @@
 	/**
 	 * uploadImage.jsp 回调此方法，此处的方法名固定，不可修改。
 	 */
-	function uploadedImage(e) {
+	function uploadFile(e) {
 		var html_ = '';
 		if(e.status == 'success'){
 			if(e.type == 'image'){
