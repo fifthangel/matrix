@@ -26,7 +26,7 @@
             formFile.append("file", file_); // 加入文件对象
             var data = formFile;
             $.ajax({
-                url : "http://192.168.1.100/matrix-admin/file/api_file_remote_upload.do",
+                url : "http://192.168.1.100/matrix-admin/file/api_file_remote_upload.do",  // 独立的文件服务器地址
                 data : formFile,
                 type : "post",
                 dataType : "json",
