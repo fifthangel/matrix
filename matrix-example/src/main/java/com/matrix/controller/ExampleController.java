@@ -247,6 +247,20 @@ public class ExampleController extends BaseController{
 		super.userBehavior(session, logger, "page_example_file_upload", "图片与文件上传应用示例");
 		return "jsp/example/pageExampleFileUpload"; 
 	}
+	
+	/**
+	 * @description: 开发者规约 
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年10月27日 下午3:42:32 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_developer_specification")
+	public String pageDeveloperSpecification(HttpSession session){
+		super.userBehavior(session, logger, "page_developer_specification", "开发者规约界面page-developer-specification.jsp");
+		return "jsp/readme/page-developer-specification";
+	}
 }
 
 
