@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.7.15 : Database - matrixcore
 *********************************************************************
 */
@@ -9,9 +9,16 @@ MySQL - 5.7.15 : Database - matrixcore
 /*!40101 SET SQL_MODE=''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`matrixcore` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `matrixcore`;
+
 /*Table structure for table `sys_error` */
+
+DROP TABLE IF EXISTS `sys_error`;
 
 CREATE TABLE `sys_error` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
@@ -30,6 +37,8 @@ CREATE TABLE `sys_error` (
 insert  into `sys_error`(`zid`,`uid`,`error_code`,`error_type`,`error_level`,`error_source`,`error_info`,`create_time`) values (158,'783f615144654f028eb3ce8eb0ecb543','sCode','sErrorType','20','sErrorSource','setErrorInfo #########askdfjielznnvf asdlkffjie asdli adsfw asdfoaisdf asdflaiefd asdf  asdfeadsdf','2016-06-21 22:36:40'),(159,'d79a307b31e64d7984a5f63200c8b3d6','sCode','sErrorType','20','sErrorSource','setErrorInfo #########TestException','2016-06-22 21:35:28');
 
 /*Table structure for table `sys_exectimer` */
+
+DROP TABLE IF EXISTS `sys_exectimer`;
 
 CREATE TABLE `sys_exectimer` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
@@ -50,6 +59,8 @@ CREATE TABLE `sys_exectimer` (
 /*Data for the table `sys_exectimer` */
 
 /*Table structure for table `sys_job` */
+
+DROP TABLE IF EXISTS `sys_job`;
 
 CREATE TABLE `sys_job` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,6 +86,8 @@ insert  into `sys_job`(`zid`,`uid`,`job_title`,`job_class`,`job_triger`,`run_gro
 
 /*Table structure for table `sys_job_exectimer` */
 
+DROP TABLE IF EXISTS `sys_job_exectimer`;
+
 CREATE TABLE `sys_job_exectimer` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` char(32) DEFAULT '',
@@ -95,6 +108,8 @@ CREATE TABLE `sys_job_exectimer` (
 
 /*Table structure for table `sys_lock` */
 
+DROP TABLE IF EXISTS `sys_lock`;
+
 CREATE TABLE `sys_lock` (
   `zid` int(8) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `uid` varchar(32) NOT NULL COMMENT 'UUID',
@@ -114,6 +129,8 @@ insert  into `sys_lock`(`zid`,`uid`,`keyid`,`keycode`,`creator`,`create_time`,`u
 
 /*Table structure for table `sys_webcode` */
 
+DROP TABLE IF EXISTS `sys_webcode`;
+
 CREATE TABLE `sys_webcode` (
   `zid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` char(32) DEFAULT '',
@@ -132,6 +149,8 @@ CREATE TABLE `sys_webcode` (
 insert  into `sys_webcode`(`zid`,`uid`,`code_start`,`date_apply`,`min_number`,`now_number`,`code_note`,`flag_date`) values (14,'75e615befb4a11e2ac71000c298b20fc','test','160419',100000,100002,'',1),(15,'77eaacbcfb5411e2ac71000c298b20fc','FS','130802',100000,100007,'',1),(16,'cbd34e62fb5711e2ac71000c298b20fc','FF','140414',100000,100013,'',1),(299,'d0e691ee37bc11e68984b8ee655812b8','fairy-','160621',100000,100030,'',1),(300,'f516a4106acc11e69f56b8ee655812b8','KCRL','160826',100000,100002,'',1);
 
 /* Procedure structure for procedure `proc_get_unique_code` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_get_unique_code` */;
 
 DELIMITER $$
 
@@ -180,6 +199,8 @@ end */$$
 DELIMITER ;
 
 /* Procedure structure for procedure `proc_lock_or_unlock_somekey` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_lock_or_unlock_somekey` */;
 
 DELIMITER $$
 
@@ -254,5 +275,6 @@ END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
