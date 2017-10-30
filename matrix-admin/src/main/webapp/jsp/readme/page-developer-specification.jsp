@@ -74,6 +74,52 @@
 			</div>
 		</div> 
 		
+		<div class="readme">
+			<h1 >2. Service层规范</h1> 
+			<div class="title-2">
+				<h3 >2.1 Service层处理约定</h1> 
+				<img src="../images/readme/service-a.png" title="service命名规则示例截图" style="margin-bottom:20px;width:986px;height:516px;"></br>
+				<div>
+					<p>Service层基本结构如上图。</p>
+					<p>A @Service有命名，不要为空</p>
+					<p>B 继承Service的基类：BaseServiceImpl.java，并以泛型作为约束。比如图中的McArticleType，这通常是一个表的实体类，</p>
+					<p>&nbsp&nbsp&nbsp&nbsp即项目pojo目录下entity文件夹中的类。Integer通常固定，代表数据库表的自增ID。极少会出现</p>
+					<p>&nbsp&nbsp&nbsp&nbsp不用继承BaseServiceImpl.java的现象。(如果你编写的是业务层的代码而不是底层代码的话)</p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+					<p></p>
+				</div>
+			</div>
+			
+			
+			<div class="title-2">
+				<h3 >2.2 列表分页处理</h1> 
+				<img src="../images/readme/service-b.png" title="分页处理" style="margin-bottom:20px;width:599px;height:575px;">
+				<div>
+					<p>对于涉及到与jsp页面有数据交互的方法，其典型特点如上图所示。</p>
+					<p></p>
+				</div>
+			</div>
+			
+			<div class="title-2">
+				<h3 >2.3 页面-服务器ajax交互规约</h1> 
+				<img src="../images/readme/controller-c.png" title="controller层返ajax方法示例截图" style="margin-bottom:20px;width:599px;height:575px;">
+				<div>
+					<p>对于涉及到与jsp页面有数据交互的方法，其典型特点如上图所示。</p>
+					<p></p>
+				</div>
+			</div>
+		</div> 
+		
+		
+		
+		
+		
+		
+		
 		
 	</div>
 	
