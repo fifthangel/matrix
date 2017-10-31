@@ -249,7 +249,7 @@ public class ExampleController extends BaseController{
 	}
 	
 	/**
-	 * @description: 开发者规约 
+	 * @description: 开发者规约 - java
 	 *
 	 * @param session
 	 * @author Yangcl
@@ -258,8 +258,22 @@ public class ExampleController extends BaseController{
 	 */
 	@RequestMapping("page_developer_specification")
 	public String pageDeveloperSpecification(HttpSession session){
-		super.userBehavior(session, logger, "page_developer_specification", "开发者规约界面page-developer-specification.jsp");
+		super.userBehavior(session, logger, "page_developer_specification", "开发者规约-java界面page-developer-specification.jsp");
 		return "jsp/readme/page-developer-specification";
+	}
+	
+	/**
+	 * @description: 开发者规约 - javascript
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年10月27日 下午3:42:32 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_developer_specification_js")
+	public String pageDeveloperSpecificationJs(HttpSession session){
+		super.userBehavior(session, logger, "page_developer_specification_js", "开发者规约-javascript界面page-developer-specification-js.jsp");
+		return "jsp/readme/page-developer-specification-js";
 	}
 }
 
