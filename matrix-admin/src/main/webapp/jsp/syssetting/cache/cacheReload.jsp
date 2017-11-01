@@ -12,7 +12,7 @@
 	<div id="contentwrapper" class="contentwrapper">
 		<div id="dyntable2_wrapper" class="dataTables_wrapper"> 
 			<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
-				<a id="reload-all-user" href="javascript:void(0);" class="anchorbutton">确认对话框 confirm</a> &nbsp; 
+				<a id="reload-all-user" href="javascript:void(0);" class="anchorbutton">用户缓存重置</a> &nbsp; 
 			</div>
 		</div>
 	</div>
