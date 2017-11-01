@@ -43,7 +43,7 @@
                                 <a href="javascript:void(0)">修改资料</a>
                             </li>
                             <li id="li-reload-cache">
-                                <a href="javascript:void(0)" id="reload-cache">刷新缓存</a>
+                                <a href="javascript:void(0)" >刷新缓存</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)">帮助</a> 

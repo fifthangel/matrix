@@ -34,6 +34,19 @@ public class PowerCacheController extends BaseController{
 		return "jsp/syssetting/cache/checkCache"; 
 	}
 	
+	/**
+	 * @description: 前往缓存重置页面
+	 *
+	 * @author Yangcl
+	 * @date 2017年11月1日 上午10:05:01 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_cache_reload")  
+	public String pageCacheReload(HttpSession session){ 
+		super.userBehavior(session, logger, "page_cache_reload", "前往缓存重置页面");
+		return "jsp/syssetting/cache/cacheReload"; 
+	}
+	
 
 	/**
 	 * @description: 查看缓存中的数据状态信息
@@ -45,7 +58,7 @@ public class PowerCacheController extends BaseController{
 	 * @date 2017年5月26日 上午11:30:50 
 	 * @version 1.0.0.1
 	 */
-	@RequestMapping(value = "get_cache_value", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "ajax_get_cache_value", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject getCacheValue(String prefix , String key , String type , HttpSession session){
 		super.userBehavior(session, logger, "get_cache_value", "查看缓存中的数据状态信息");

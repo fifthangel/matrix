@@ -156,14 +156,6 @@
 		            $('.iconmenu ul ul li:first-child').remove();
 		        }
 		    }); */
-		    
-		    // 刷新系统字典缓存 - 开发者和系统管理员的权限 不要分配给用户
-		    $('#reload-cache').click(function () {
-		        var url_ = '${basePath}sysrole/system_sysrole_dict_cache_reload.do';
-		        var data_ = null;
-		        var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
-	        	jAlert(obj.msg, '系统提示');  
-		    });
 		});  
 
     </script>

@@ -42,7 +42,7 @@
 <script type="text/javascript">
 	function getCache(){
 		var type_ = 'post';
-		var url_ = '${basePath}cache/get_cache_value.do?prefix=' + $("#prefix").val() + '&key=' + $("#cache-key").val() + '&type=' + $("#type").val();
+		var url_ = '${basePath}cache/ajax_get_cache_value.do?prefix=' + $("#prefix").val() + '&key=' + $("#cache-key").val() + '&type=' + $("#type").val();
 		var data_ = null;
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 		if (obj.status == 'success') {
