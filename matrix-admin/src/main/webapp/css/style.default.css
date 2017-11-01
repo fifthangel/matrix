@@ -2700,7 +2700,9 @@ blockquote.bq2 {
 	max-width:100%
 }
 
-
+.security-btn{
+	display:none;
+}
 
 
 

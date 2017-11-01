@@ -37,6 +37,15 @@
 			var pd = $(window.parent.document);
 			var lw = pd[0].body.clientWidth - pd.find("#left-menu div:visible")[0].clientWidth - 40; 
 			*/
+			if(localStorage.btns.length != 0){
+				var barr = localStorage.btns.split(",");
+				for(var i = 0 ; i < barr.length ; i ++){
+					var key = barr[i].split("@")[1];
+					$(".security-btn[key='" + key + "']").removeClass("security-btn"); 
+				}
+				$(".security-btn").remove();
+			}
+			
 		});  
 
 

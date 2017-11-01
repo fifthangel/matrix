@@ -11,7 +11,6 @@ var pageInit = {
 	init:function(obj , path_){
 		this.path = path_;
 		pageInit.pageInit(obj);
-		// TODO 判断一下是不是已经加载完成了，如果是则没有必要全部重绘，改变显隐状态就可以。
 		pageInit.drawNavList();
 		pageInit.drawMenuList();
 
@@ -21,17 +20,10 @@ var pageInit = {
 			pageInit.securityBtnsShow();
 		}else{
 			$($("#nav-list li")[0]).addClass("current");  // 登陆进入则默认加载第一个导航
-			// TODO 显示左侧菜单
 			$($("#left-menu>div")[0]).show();
 		}
 	},
 	
-	// 显示被隐藏的按钮
-	securityBtnsShow:function(){
-		var btns = localStorage.btns; 
-		// TODO 
-	},
-
 	pageInit:function(obj){
 		var narr = new Array();
 		var arr = obj.msfList; // 保存导航信息
@@ -88,7 +80,7 @@ var pageInit = {
 
 		this.page = narr;
 	},
-
+	
 	/**
 	 * 初始化导航栏，在top.jsp中
 	 */
@@ -116,7 +108,7 @@ var pageInit = {
 		if(arr.length == 0){
 			return;
 		}
-		var path_ = this.path ;    // 这里的路径有问题
+		var path_ = this.path ;    
 		for(var i = 0 ; i < arr.length ; i ++){
 			html_ += '<div id="f-menu-' + arr[i].data.id + '" class="vernav2 iconmenu nav menu-left" style="display: none">';
 				html_ += '<ul class="nav-bar-ul">';
@@ -158,6 +150,12 @@ var pageInit = {
 		}
 		$("#left-menu").append(html_);
 	},
+	
+	// 显示被隐藏的按钮|不在此处处理
+//	securityBtnsShow:function(){
+//		var btns = localStorage.btns; 
+//		 
+//	},
 
 	/**
 	 * 导航栏切换

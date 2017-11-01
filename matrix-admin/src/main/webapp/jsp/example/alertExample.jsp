@@ -67,10 +67,10 @@
 				<h3>请选择你的用例 本页面包含JavaScript调用方式</h3>
 			</div>
 			<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
-				<a id="alertboxbutton" href="" class="anchorbutton">基本 Alert</a> &nbsp; 
-				<a id="confirmbutton" href="" class="anchorbutton">确认对话框 confirm</a> &nbsp; 
-				<a id="promptbutton" href="" class="anchorbutton">输入对话框 prompt</a> &nbsp; 
-				<a id="alerthtmlbutton" href="" class="anchorbutton">alert 支持html标签</a>
+				<a id="alertboxbutton" href="" class="anchorbutton security-btn" key="btn-2c4941853b1849969c336522909ad99b" >基本 Alert</a> &nbsp; 
+				<a id="confirmbutton" href="" class="anchorbutton security-btn" key="btn-5b4d350a836a4bcba7a1716bd3643bab" >确认对话框 confirm</a> &nbsp; 
+				<a id="promptbutton" href="" class="anchorbutton security-btn" key="btn-8067f6befea34eebbb9ea8c8d8ca7f58" >输入对话框 prompt</a> &nbsp; 
+				<a id="alerthtmlbutton" href="" class="anchorbutton security-btn" key="btn-b1044c816ea14c6e9b8ddd3b1087b530" >alert 支持html标签</a>
 			</div>
 		</div>
 	</div>
