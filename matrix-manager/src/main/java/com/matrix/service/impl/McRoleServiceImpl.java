@@ -144,7 +144,11 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 				c.setMcRoleId(role.getId());
 				c.setRoleName(role.getRoleName());
 				c.setRoleDesc(role.getRoleDesc());        
-				String ids = JSONObject.parseObject( launch.loadDictCache(DCacheEnum.McRole).get(role.getId().toString()) ).getString("ids");  
+				String mcRole = launch.loadDictCache(DCacheEnum.McRole).get(role.getId().toString());
+				String ids = "";
+				if(StringUtils.isNotBlank(mcRole)){
+					ids = JSONObject.parseObject( mcRole ).getString("ids");  
+				}
 				c.setIds(ids); 
 				launch.loadDictCache(DCacheEnum.McRole).del(role.getId().toString());  
 				launch.loadDictCache(DCacheEnum.McRole).set(role.getId().toString() , JSONObject.toJSONString(c)); 
