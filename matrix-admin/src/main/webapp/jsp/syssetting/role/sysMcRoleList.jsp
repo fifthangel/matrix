@@ -70,8 +70,8 @@
 					<table id="dyntable2" cellpadding="0" cellspacing="0" border="0" class="stdtable">
 						<thead>
 							<tr>
-								<th class="head1">权限名称</th> 
-								<th class="head1">权限描述</th> 
+								<th class="head1">角色名称</th> 
+								<th class="head1">角色描述</th> 
 								<th class="head1">创建时间</th>
 								<th class="head1 " width="100px">操作</th>
 							</tr>
