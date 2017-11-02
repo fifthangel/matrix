@@ -50,9 +50,9 @@
 						+ '<td class="center">' + list[i].idNumber + '</td>'
 						+ '<td class="center">' + list[i].email + '</td>'
 						+ '<td width="150px" align="center">'
-						+ '<a onclick="deleteOne(this)" eleId=' + list[i].id + '" title="删除"  style="cursor: pointer;">删除</a> | '
-						+ '<a href="${basePath}example/edit_info_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;">修改</a> | '
-						+ '<a onclick="openDialogPage(this)" eleId=' + list[i].id + '" style="cursor: pointer;">弹窗分页</a>'
+						+ '<a onclick="deleteOne(this)" eleId=' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-aac5d5e4f45d41ea97bd2670d9fb64f5">删除</a>   '
+						+ '<a href="${basePath}example/edit_info_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;" class="security-btn" key="btn-fc096d69a8434ec6ada2d3a33dd5fd0a">修改</a>   '
+						+ '<a onclick="openDialogPage(this)" eleId=' + list[i].id + '" style="cursor: pointer;" class="security-btn" key="btn-86091b2565e54d05b4776066fbf5600a">弹窗分页</a>'
 						+ '</td></tr>'
 			}
 		} else {
@@ -204,10 +204,10 @@
 						</select>
 					</span> 
 					
-					<a onclick="searchReset()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-d0c8534ac13b47f7b2d0cb1fb9fd6774"  style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="searchUser()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="searchUser()" class="btn btn_orange btn_search radius50 security-btn" key="btn-46867f49acea4feab584e75291f90b78"  style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>

@@ -178,7 +178,7 @@
                                     <tfoot>
                                     <tr>
                                         <th colspan="4" style="padding-bottom: 0px; margin-right: 50px;   text-align: right">
-                                            <a href="javascript:void(0)" class="btn btn_orange btn_search radius50" onclick="searchInfo()">
+                                            <a href="javascript:void(0)" class="btn btn_orange btn_search radius50 security-btn" key="btn-55ee0a123a05484d8cc22235b709c2ff" onclick="searchInfo()">
                                                 <span>搜索日志信息</span>
                                             </a>
                                         </th>

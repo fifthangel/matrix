@@ -71,7 +71,7 @@
 		</form>
 	</div>
 	<br /> 
-	<a onclick="addInfo()" class="btn btn_orange btn_search radius50" style="cursor: pointer; margin-left: 220px"> 
+	<a onclick="addInfo()" class="btn btn_orange btn_search radius50  security-btn" key="btn-9bb559430eeb4b9290e0999776ace4b1" style="cursor: pointer; margin-left: 220px"> 
 		<span> 添&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp加 </span>
 	</a>
 </div>

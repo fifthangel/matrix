@@ -51,8 +51,8 @@
 						+ '<td class="center">' + list[i].idNumber + '</td>'
 						+ '<td class="center">' + list[i].email + '</td>'
 						+ '<td width="150px" align="center">'
-						+ '<a onclick="deleteOne(this)" eleId=' + list[i].id + '" title="删除"  style="cursor: pointer;">删除</a> | '
-						+ '<a href="${basePath}example/edit_info_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;">修改</a> '
+						+ '<a onclick="deleteOne(this)" eleId=' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-44d72c6a34f947c89ab0f7c8d94d7766">删除</a> '
+						+ '<a href="${basePath}example/edit_info_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;" class="security-btn" key="btn-8af25e9d48b54978893354701e73fc12">修改</a> '
 						+ '</td></tr>'
 			}
 		} else {
@@ -123,10 +123,10 @@
 						</select>
 					</span> 
 					
-					<a onclick="searchReset()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-a8e2930b381b45509f96fc2965b04386" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="searchUser()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="searchUser()" class="btn btn_orange btn_search radius50 security-btn" key="btn-0f380a0fef2544d19c7c62e1c273937d" style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>
