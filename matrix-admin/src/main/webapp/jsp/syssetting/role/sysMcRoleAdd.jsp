@@ -14,7 +14,7 @@
 
         <div class="centercontent">
 			<div class="pageheader notab">
-	            <h1 class="pagetitle">创建用户</h1>
+	            <h1 class="pagetitle">创建角色</h1>
                     <!-- <span class="pagedesc">
                         添加一条记录系统用户表
                     </span> -->

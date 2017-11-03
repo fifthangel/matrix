@@ -17,7 +17,7 @@ var pageInit = {
 		if(localStorage.nav_id != undefined){
 			$("#" + localStorage.nav_id).addClass("current");
 			pageInit.leftCheck(); 
-			pageInit.securityBtnsShow();
+			// pageInit.securityBtnsShow();
 		}else{
 			$($("#nav-list li")[0]).addClass("current");  // 登陆进入则默认加载第一个导航
 			$($("#left-menu>div")[0]).show();
