@@ -2,6 +2,7 @@
     var surfunc = {
     	
 		roleElement:null,
+		currentNode : null ,  // 当前节点
         /**
          * 允许移动到目标节点前面 即可以将同层最后一个节点放到同层的第一个。
          * @param treeId
@@ -64,7 +65,7 @@
          * @param treeNode
          */
         addHoverDom:function(treeId, treeNode) {
-        	if((treeNode.level == 0 && treeNode.children.length != 0) || treeNode.level == 5){
+        	if(treeNode.level == 5){     // (treeNode.level == 0 && treeNode.children.length != 0) || 
         		return false
         	}
             var newCount = 1;
@@ -278,7 +279,8 @@
         },
         
         /**
-         * 编辑商户节点 
+         * 编辑系统节点，创建一个新的系统的起始节点，比如：媒体站系统|结算系统|优惠券系统。 
+         * 第一个默认系统节点为Leader节点。
          * 
          * @param event
          * @param treeNode
@@ -289,11 +291,12 @@
             var url_ = ''; 
             if(treeNode.name == "新建结点"){
             	url_ = 'add_tree_node.do';
-            	var html_ = '<input type="text" name="name" class="smallinput " placeholder="商户名称" style="width: 250px; margin-bottom: 10px;">';
-            	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;"></textarea><br/>';
+            	var html_ = '<input type="text" name="name" class="smallinput " placeholder="系统名称" style="width: 250px; margin-bottom: 10px;">';
+            	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput " placeholder="请输入这个新创建的系统相关信息描述" style="margin-bottom: 10px;"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
+            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -306,8 +309,8 @@
             	html_ += '<button class="stdbtn btn_orange " onclick="surfunc.addData(\'' + url_ +'\')"> 提 交 </button>'
             }else{
             	url_ = 'edit_tree_node.do';
-            	var html_ = '<input type="text" name="name" class="smallinput " style="width: 250px; margin-bottom: 10px;" value="' + treeNode.name + '" >';
-            	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;">' + treeNode.remark + '</textarea><br/>';
+            	var html_ = '<input type="text" name="name" class="smallinput " placeholder="系统名称" style="width: 250px; margin-bottom: 10px;" value="' + treeNode.name + '" >';
+            	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="请输入这个新创建的系统相关信息描述" style="margin-bottom: 10px;">' + treeNode.remark + '</textarea><br/>';
             	html_ += '<input type="hidden" name="id" value="' + treeNode.id +'" >'; 
             	html_ += '<button class="stdbtn btn_orange " onclick="surfunc.addData(\'' + url_ +'\')"> 提 交 </button>'
             }
@@ -330,6 +333,7 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
+            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -366,6 +370,7 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
+            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -403,6 +408,7 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
+            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -445,6 +451,7 @@
             	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
+            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -512,7 +519,30 @@
             var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
 			if(obj.status == 'success'){
 				jAlert(obj.msg , '系统提示' , function(){
-					surfunc.sysTreeOperation();
+					var zTree = $.fn.zTree.getZTreeObj("sys-tree");
+	            	var parent = zTree.getNodeByTId(surfunc.currentNode.parentTId);
+	            	var e = obj.entity;
+	            	
+	            	zTree.removeNode(surfunc.currentNode);
+	            	surfunc.currentNode = null;
+	            	
+                    var new_ = { // 节点元素重新追加
+                        id : e.id,
+                        pId : parent.id,
+                        flag:1,  // 新增节点标记
+                        name: e.name ,
+                        parentId : e.parentId,
+                        seqnum : e.seqnum,
+                        navType : e.navType,
+                        styleClass : e.styleClass,
+                        styleKey : e.styleKey,
+                        funcUrl : e.funcUrl,
+                        remark : e.remark,
+                        btnArea : e.btnArea,
+                        eleValue : e.eleValue
+                    };
+                    zTree.addNodes(parent ,  new_);
+                    surfunc.parentNode = null;
 				});
 			}else{
 				jAlert(obj.msg , '系统提示');

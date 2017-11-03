@@ -90,6 +90,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("msg", "添加成功!");
 				// 开始创建缓存
 				launch.loadDictCache(DCacheEnum.McSysFunc).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
+				result.put("entity", entity);
 			}else{
 				result.put("status", "error");
 				result.put("msg", "添加失败!");
@@ -123,6 +124,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("msg", "修改成功!");
 				// 开始修改缓存
 				launch.loadDictCache(DCacheEnum.McSysFunc).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
+				result.put("entity", entity);
 			}else{
 				result.put("status", "error");
 				result.put("msg", "修改失败!");
