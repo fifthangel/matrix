@@ -231,7 +231,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		}
 		
 		Integer flag = dao.deleteByIds(list);
-		if(flag == 1){
+		if(flag != 0){
 			result.put("status", "success");
 			result.put("msg", this.getInfo(400010001)); // 删除成功
 			for(String s : arr){

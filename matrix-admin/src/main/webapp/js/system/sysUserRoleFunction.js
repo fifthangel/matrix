@@ -286,6 +286,7 @@
          * @param treeNode
          */
         firstLevelEdit:function(event , treeNode){
+        	surfunc.currentNode = treeNode;
             $($("#tree-node-edit")[0].childNodes).remove();
             var type_ = 'post';
             var url_ = ''; 
@@ -296,7 +297,6 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
-            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -323,6 +323,7 @@
          * @param treeNode
          */
         navEdit:function(event , treeNode){
+        	surfunc.currentNode = treeNode;
         	$($("#tree-node-edit")[0].childNodes).remove();
             var type_ = 'post';
             var url_ = ''; 
@@ -333,7 +334,6 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
-            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -360,6 +360,7 @@
          * @param treeNode
          */
         fMenuEdit:function(event , treeNode){
+        	surfunc.currentNode = treeNode;
 			$($("#tree-node-edit")[0].childNodes).remove();
             var type_ = 'post';
             var url_ = ''; 
@@ -370,7 +371,6 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
-            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -397,6 +397,7 @@
          * @param treeNode
          */
         sMenuEdit:function(event , treeNode){
+        	surfunc.currentNode = treeNode;
         	$($("#tree-node-edit")[0].childNodes).remove();
             var type_ = 'post';
             var url_ = ''; 
@@ -408,7 +409,6 @@
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
-            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
@@ -435,6 +435,7 @@
          * @param treeNode
          */
         subMenuEdit:function(event ,treeNode){
+        	surfunc.currentNode = treeNode;
         	$($("#tree-node-edit")[0].childNodes).remove();
             var type_ = 'post';
             var url_ = ''; 
@@ -451,7 +452,6 @@
             	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
-            	surfunc.currentNode = treeNode;
             	var seqnum_ = 1;
             	if(preNode != null){
             		seqnum_ = preNode.seqnum + 1;
