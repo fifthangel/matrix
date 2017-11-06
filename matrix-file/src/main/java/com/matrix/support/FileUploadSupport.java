@@ -21,6 +21,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseClass;
+import com.matrix.util.FileUtil;
 
 /**
  * @deprecated 准备废弃的类
@@ -176,7 +177,7 @@ public class FileUploadSupport extends BaseClass{
 	public JSONObject uploadLocalFile(File file){
 		JSONObject result = new JSONObject();
 		result.put("status", "error");
-		JSONObject o = JSONObject.parseObject(this.remoteUpload("upload" , file.getName() , FileSupport.getInstance().getFileBytes(file)));
+		JSONObject o = JSONObject.parseObject(this.remoteUpload("upload" , file.getName() , FileUtil.getInstance().getFileBytes(file)));
 		if(o.getInteger("resultCode") == 1){
 			result.put("status", "success");
 			result.put("url", o.getString("resultObject")); 

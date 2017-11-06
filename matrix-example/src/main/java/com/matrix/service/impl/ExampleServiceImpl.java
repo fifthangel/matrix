@@ -1,10 +1,17 @@
 package com.matrix.service.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +81,50 @@ public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> impl
 		}else{
 			return null;  
 		}
+	}
+
+	/**
+	 * @description: http client 请求测试。HttpClientSupportTest.java将会调用此接口。api_http_client_test接口将会从
+	 * 		请求的request对象中取出二进制文本中的字符串信息
+	 *
+	 * @param request
+	 * @author Yangcl
+	 * @date 2017年11月6日 下午5:09:38 
+	 * @version 1.0.0
+	 */
+	@Override
+	public JSONObject apiHttpClientTest(HttpServletRequest request) {
+		JSONObject o = new JSONObject();
+		o.put("status", "success");
+		o.put("msg", "成功！");
+		
+		List<FileItem> list = this.getFileFromRequest(request); 
+		FileItem e = list.get(0);
+		byte[] bs = e.get(); 
+		
+		String string = "";
+		try {
+			string = new String(bs,"UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+			ex.printStackTrace();
+		}
+		System.out.println("string = " + string);  // string = {"platform":"平台标识","key":"平台身份识别码"}
+		return o;  
+	}
+	
+	private List<FileItem> getFileFromRequest(HttpServletRequest request) {
+		List<FileItem> items = null;   // 得到所有的文件
+		String contentType = request.getContentType();
+		if (StringUtils.contains(contentType , "multipart/form-data")) {  // 如果文件是以二进制方式上传的
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			try {
+				items = upload.parseRequest(request);
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			} 
+		}
+		return items;
 	}
 }
 

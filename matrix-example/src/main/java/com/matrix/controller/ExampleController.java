@@ -1,9 +1,13 @@
 package com.matrix.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -275,6 +279,21 @@ public class ExampleController extends BaseController{
 		super.userBehavior(session, logger, "page_developer_specification_js", "开发者规约-javascript界面page-developer-specification-js.jsp");
 		return "jsp/readme/page-developer-specification-js";
 	}
+	
+	/**
+	 * @description: http client 请求测试。HttpClientSupportTest.java将会调用此接口。api_http_client_test接口将会从
+	 * 		请求的request对象中取出二进制文本中的字符串信息
+	 *
+	 * @param request
+	 * @author Yangcl
+	 * @date 2017年11月6日 下午5:09:38 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "api_http_client_test", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject apiHttpClientTest(HttpServletRequest request){
+		return exampleService.apiHttpClientTest(request);
+	} 
 }
 
 
