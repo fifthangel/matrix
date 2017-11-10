@@ -117,7 +117,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			result.put("original" , fileName);
 			result.put("type" , postfix_);
 			result.put("save", this.getConfig("matrix-file.upload_path_" + postfix) + "/"  + hexFolder + "/" + newName);  // 数据库的保存路径
-			result.put("url" , this.getConfig("matrix-file.visit_url") + result.getString("save"));  // 文件的可访问路径 
+			result.put("url" , this.getConfig("matrix-file.visit_url_" + this.getConfig("matrix-core.model")) + result.getString("save"));  // 文件的可访问路径 
 			result.put("size", Long.toString(size));   
 			if(postfix.equals("image")){
 				result.put("type" , postfix);  // 图片全部归并为一个类型

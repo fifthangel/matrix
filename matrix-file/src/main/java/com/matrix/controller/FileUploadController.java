@@ -1,8 +1,13 @@
 package com.matrix.controller;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +38,7 @@ public class FileUploadController  extends BaseController{
 	
 	/**
 	 * @descriptions 支持其他web系统上传文件到公司指定文件服务器||TODO 还缺少一个方法，将服务器图片发布到CDN  ！！！！！！！！！！！！！！！！
+	 * 		这个接口不公开给第三方调用。
 	 * @返回结构示例：
 			 {
 			    "status": "success",				状态：success or error
@@ -58,14 +64,30 @@ public class FileUploadController  extends BaseController{
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject apiFileRemoteUpload(HttpServletRequest request , HttpServletResponse response , String key , String value){
-//		JSONObject validate = super.apiAuthorityValidata(key, value, logger, "api_file_remote_upload", "支持其他web系统上传文件到公司指定文件服务器");
-//		if(validate.getString("status").equals("error")){           TODO 暂时不用
-//			return validate;
-//		}
-		response.setHeader("Access-Control-Allow-Origin", "*"); // 解决跨域访问限制
+		String [] allowDomain = this.getConfig("matrix-file.access_control_allow_origin_" + this.getConfig("matrix-core.model")).split(","); 
+		Set<String> allowedOrigins = new HashSet<String>(Arrays.asList(allowDomain));
+		String originHeader = request.getHeader("Origin");
+		if (StringUtils.isNotBlank(originHeader) && allowedOrigins.contains(originHeader)){
+			response.setHeader("Access-Control-Allow-Origin", originHeader); // 解决跨域访问限制
+			response.setContentType("application/json;charset=UTF-8");
+			response.setHeader("Access-Control-Allow-Methods", "POST");  // , GET, OPTIONS, DELETE
+			response.setHeader("Access-Control-Max-Age", "3600");  // 头指定了preflight请求的结果能够被缓存3600s
+			// 标明服务器支持的所有头信息字段
+			response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
+			// Access-Control-Allow-Credentials true 则允许浏览器读取response的内容。当用在对preflight预检测请求的响应中时，它指定了实际的请求是否可以使用credentials。
+			//请注意：简单 GET 请求不会被预检；如果对此类请求的响应中不包含该字段，这个响应将被忽略掉，并且浏览器也不会将相应内容返回给网页。
+			response.setHeader("Access-Control-Allow-Credentials", "true"); 
+			response.setHeader("XDomainRequestAllowed","1");
+
+			return service.apiFileRemoteUpload(request);
+		}else {
+			JSONObject o = new JSONObject();
+			o.put("status", "error");
+			o.put("msg", this.getInfo(500010007));  // 您所请求的接口不对第三方开放
+			return o;
+		}
 		
 		
-		return service.apiFileRemoteUpload(request);
 	}
 }
 
