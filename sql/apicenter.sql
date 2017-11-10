@@ -21,11 +21,11 @@ USE `apicenter`;
 DROP TABLE IF EXISTS `ac_request_info`;
 
 CREATE TABLE `ac_request_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '请求开放接口的组织机构信息表',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '请求开放接口的组织机构信息表|字典表-缓存化',
   `organization` varchar(50) DEFAULT '' COMMENT '组织机构名称',
   `key` varchar(52) DEFAULT '' COMMENT '组织机构标识',
   `value` varchar(52) DEFAULT '' COMMENT '组织结构秘钥',
-  `source` int(1) DEFAULT '1' COMMENT '请求源  0:自己公司 1:第三方',
+  `source` varchar(8) DEFAULT 'private' COMMENT '请求源  private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

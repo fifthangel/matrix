@@ -18,7 +18,7 @@ public enum DCacheEnum {
 	
 	UserInfoNp ,        // 用户登陆信息  暂时没有使用 name + password 为key
 	
-	ApiKey , // api模块的请求公钥信息标识。
+	ApiRequestKey , // api模块的请求公钥信息标识。
 	
 	AccessToken            // 客户端令牌
 	

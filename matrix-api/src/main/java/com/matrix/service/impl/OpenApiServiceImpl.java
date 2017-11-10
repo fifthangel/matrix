@@ -23,10 +23,10 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
 	/**
-	 * @description: 开放接口入口描述 
+	 * @description: 开放接口入口|接口类型 private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口
 	 *
 	 * @param key 请求秘钥
-	 * @param value 请求秘钥加密后的消息体    平台分配给第三方的秘钥+接口名称+时间(精确到小时，格式为：yyyy-MM-dd-HH) 做md5后的结果
+	 * @param value 请求秘钥加密后的消息体    平台分配给第三方的秘钥+接口名称+请求发起时间(精确到小时，格式为：yyyy-MM-dd HH:mm:ss) 做md5后的结果
 	 * @param json 请求消息体
 	 * @author Yangcl
 	 * @date 2017年11月10日 上午11:49:21 
@@ -35,18 +35,9 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 	public JSONObject apiOpenService(HttpServletRequest request, HttpServletResponse response , String key , String value , String json) {
 		
 		Head dto = JSONObject.parseObject(JSONObject.parseObject(json).getString("head"), Head.class); 
-		JSONObject result = this.apiKeyValidata(key, value, dto);
+		JSONObject result = this.apiRequestValidata(key, value, dto);
 		if (result.getString("status").equals("success")){  
-			response.setHeader("Access-Control-Allow-Origin", "*"); // 解决跨域访问限制
-			response.setContentType("application/json;charset=UTF-8");
-			response.setHeader("Access-Control-Allow-Methods", "POST");  // , GET, OPTIONS, DELETE
-			response.setHeader("Access-Control-Max-Age", "3600");  // 头指定了preflight请求的结果能够被缓存3600s
-			// 标明服务器支持的所有头信息字段
-			response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
-			// Access-Control-Allow-Credentials true 则允许浏览器读取response的内容。当用在对preflight预检测请求的响应中时，它指定了实际的请求是否可以使用credentials。
-			//请注意：简单 GET 请求不会被预检；如果对此类请求的响应中不包含该字段，这个响应将被忽略掉，并且浏览器也不会将相应内容返回给网页。
-			response.setHeader("Access-Control-Allow-Credentials", "true"); 
-			response.setHeader("XDomainRequestAllowed","1");
+			response.setHeader("Access-Control-Allow-Origin", "*"); // 移除跨域访问限制 
 			
 			// TODO 准备调用接口服务
 			
@@ -66,7 +57,7 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 	 * @date 2017年11月10日 下午3:59:15 
 	 * @version 1.0.0
 	 */
-	private JSONObject apiKeyValidata(String key ,  String value , Head dto) {
+	private JSONObject apiRequestValidata(String key ,  String value , Head dto) {
 		JSONObject result = new JSONObject();
 		if(StringUtils.isBlank(dto.getTarget())) {  
 			result.put("status", "error");
@@ -75,10 +66,7 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			return result;
 		}
 		
-		
-		
-		
-		String val = launch.loadDictCache(DCacheEnum.ApiKey).get(key);
+		String val = launch.loadDictCache(DCacheEnum.ApiRequestKey).get(key);  // ac_request_info表的缓存
 		if(StringUtils.isBlank(val)) {
 			result.put("status", "error");
 			result.put("code", "10001");
@@ -92,6 +80,11 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			result.put("msg", this.getInfo(600010002));  // 系统秘钥数据为空，请联系开发人员，为您带来不便请谅解!
 			return result;
 		}
+		// TODO 取出source
+		
+		
+		
+		
 		
 		return result;
 	}
