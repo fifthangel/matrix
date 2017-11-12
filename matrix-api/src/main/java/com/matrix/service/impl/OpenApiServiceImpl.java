@@ -81,9 +81,16 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			return result;
 		}
 		// TODO 取出source
-		
-		
-		
+		String md5 = SignUtil.md5Sign( cache.getString("value") + dto.getTarget()	+ dto.getRequestTime() ); 
+		if(value.equals(md5)) {
+			result.put("status", "success");
+			result.put("code", "10004");
+			result.put("msg", this.getInfo(600010004));  // 秘钥验证成功
+		}else{
+			result.put("status", "error");
+			result.put("code", "10005");
+			result.put("msg", this.getInfo(600010005));  // 秘钥验证失败
+		}
 		
 		
 		return result;

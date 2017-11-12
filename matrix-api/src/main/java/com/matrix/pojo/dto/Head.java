@@ -7,7 +7,14 @@ public class Head {
 	private String version; // 客户端版本
 	private String requestTime; // 请求发起时间
 	private String accessToken; // 
+	private String channel;  // 通路；比如乘客端|司机端|超级车 等等
 	
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
 	public String getTarget() {
 		return target;
 	}
