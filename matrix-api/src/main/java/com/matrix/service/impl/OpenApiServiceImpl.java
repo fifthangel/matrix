@@ -35,10 +35,8 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 	public JSONObject apiOpenService(HttpServletRequest request, HttpServletResponse response , String key , String value , String json) {
 		
 		Head dto = JSONObject.parseObject(JSONObject.parseObject(json).getString("head"), Head.class); 
-		JSONObject result = this.apiRequestValidata(key, value, dto);
+		JSONObject result = this.checkAndInit(response, key, value, dto);
 		if (result.getString("status").equals("success")){  
-			response.setHeader("Access-Control-Allow-Origin", "*"); // 移除跨域访问限制 
-			
 			// TODO 准备调用接口服务  IBaseApi
 			
 			return null;
@@ -57,7 +55,7 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 	 * @date 2017年11月10日 下午3:59:15 
 	 * @version 1.0.0
 	 */
-	private JSONObject apiRequestValidata(String key ,  String value , Head dto) {
+	private JSONObject checkAndInit(HttpServletResponse response , String key ,  String value , Head dto) {
 		JSONObject result = new JSONObject();
 		if(StringUtils.isBlank(dto.getTarget())) {  
 			result.put("status", "error");
@@ -91,6 +89,14 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			result.put("code", "10005");
 			result.put("msg", this.getInfo(600010005));  // 秘钥验证失败
 		}
+		
+		// TODO 等待页面结构完善
+		response.setHeader("Access-Control-Allow-Origin", "*"); // 移除跨域访问限制 
+		
+		
+		
+		
+		
 		
 		
 		return result;
