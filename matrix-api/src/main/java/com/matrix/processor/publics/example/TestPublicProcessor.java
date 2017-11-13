@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseClass;
-import com.matrix.base.IBaseApi;
+import com.matrix.base.IBaseProcessor;
 
 
 /**
@@ -16,7 +16,7 @@ import com.matrix.base.IBaseApi;
  * @date 2017年11月13日 下午12:41:42 
  * @version 1.0.0
  */
-public class TestPublicProcessor extends BaseClass implements IBaseApi {
+public class TestPublicProcessor extends BaseClass implements IBaseProcessor {
 
 	@Override
 	public JSONObject processor(HttpServletRequest request, HttpServletResponse response, JSONObject data) {

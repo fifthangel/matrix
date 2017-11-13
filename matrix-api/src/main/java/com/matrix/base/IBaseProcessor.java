@@ -14,7 +14,7 @@ import com.alibaba.fastjson.JSONObject;
  * @date 2017年11月13日 上午11:32:29 
  * @version 1.0.0
  */
-public interface IBaseApi {
+public interface IBaseProcessor {
 	
 	/**
 	 * @description: 每个业务对应的实现类均在此处进行详细逻辑处理 
