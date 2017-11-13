@@ -39,9 +39,9 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 		if (result.getString("status").equals("success")){  
 			response.setHeader("Access-Control-Allow-Origin", "*"); // 移除跨域访问限制 
 			
-			// TODO 准备调用接口服务
+			// TODO 准备调用接口服务  IBaseApi
 			
-			return result;
+			return null;
 		}else { 
 			return result;
 		} 
