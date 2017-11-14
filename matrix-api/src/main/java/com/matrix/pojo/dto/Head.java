@@ -6,7 +6,7 @@ public class Head {
 	private String client; // 请求客户端类型。0:IOS   1:Android   2:微信   3:服务器
 	private String version; // 客户端版本
 	private String requestTime; // 请求发起时间
-	private String accessToken; // 
+	private String accessToken; // 对应手机端的用户缓存信息的key，且client类型为0:IOS   1:Android   2:微信，atype为private
 	private String channel;  // 通路；比如乘客端|司机端|超级车 等等
 	
 	public String getAtype() {

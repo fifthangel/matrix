@@ -52,7 +52,7 @@ public class LoadCacheMcRole extends BaseClass implements IBaseCache{
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
-		System.out.println(this.getClass().getName() + "********* 初始化完成!"); 
+		System.out.println(this.getClass().getName() + " - 缓存初始化完成!"); 
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class LoadCacheMcRole extends BaseClass implements IBaseCache{
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}
-		System.out.println(this.getClass().getName() + "********* 缓存删除完成!"); 
+		System.out.println(this.getClass().getName() + " - 缓存删除完成!"); 
 	}
 }
 

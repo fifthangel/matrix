@@ -155,7 +155,7 @@ public class LoadCacheUserRole extends BaseClass implements IBaseCache {
 				this.reloadUserFunction(u.getId()); 
 			}
 		}
-		System.out.println(this.getClass().getName() + "********* 初始化完成!"); 
+		System.out.println(this.getClass().getName() + " - 缓存初始化完成!");
 	}
 	
 	/**
@@ -210,7 +210,7 @@ public class LoadCacheUserRole extends BaseClass implements IBaseCache {
 				launch.loadDictCache(DCacheEnum.McUserRole).del(u.getId().toString());  
 			}
 		} 
-		System.out.println(this.getClass().getName() + "********* 缓存删除完成!");
+		System.out.println(this.getClass().getName() + " - 缓存删除完成!");
 	}
 
 }

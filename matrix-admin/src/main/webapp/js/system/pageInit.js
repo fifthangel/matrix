@@ -17,7 +17,7 @@ var pageInit = {
 		if(localStorage.nav_id != undefined){
 			$("#" + localStorage.nav_id).addClass("current");
 			pageInit.leftCheck(); 
-			// pageInit.securityBtnsShow();
+			// pageInit.security();
 		}else{
 			$($("#nav-list li")[0]).addClass("current");  // 登陆进入则默认加载第一个导航
 			$($("#left-menu>div")[0]).show();
@@ -151,11 +151,17 @@ var pageInit = {
 		$("#left-menu").append(html_);
 	},
 	
-	// 显示被隐藏的按钮|不在此处处理
-//	securityBtnsShow:function(){
-//		var btns = localStorage.btns; 
-//		 
-//	},
+	// 显示被隐藏的按钮| pageInit.security();
+	security:function(){
+		if(localStorage.btns.length != 0){
+			var barr = localStorage.btns.split(",");
+			for(var i = 0 ; i < barr.length ; i ++){
+				var key = barr[i].split("@")[1];
+				$(".security-btn[key='" + key + "']").removeClass("security-btn"); 
+			}
+			$(".security-btn").remove();
+		}
+	},
 
 	/**
 	 * 导航栏切换

@@ -20,6 +20,7 @@ public enum DCacheEnum {
 	
 	ApiRequestKey , // api模块的请求公钥信息标识。
 	
-	AccessToken            // 客户端令牌
+	AccessToken   ,         // 客户端令牌 对应手机端的用户缓存信息的key，且client类型为0:IOS   1:Android   2:微信
 	
+	ApiProject          // apicenter.ac_api_project表的字典缓存，用于标识API的分类
 }

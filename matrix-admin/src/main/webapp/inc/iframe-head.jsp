@@ -27,7 +27,7 @@
     
     <script type="text/javascript" src="${js}/system/ajax-form.js"></script>
     <script src="${js}/blockUI/jquery.blockUI.js" type="text/javascript"></script>
-    
+    <script type="text/javascript" src="${js}/system/pageInit.js"></script>
     
     <script type="text/javascript">
 		$(function(){
@@ -40,14 +40,7 @@
 		});  
 
 		window.onload = function(){
-			if(localStorage.btns.length != 0){
-				var barr = localStorage.btns.split(",");
-				for(var i = 0 ; i < barr.length ; i ++){
-					var key = barr[i].split("@")[1];
-					$(".security-btn[key='" + key + "']").removeClass("security-btn"); 
-				}
-				$(".security-btn").remove();
-			}
+			pageInit.security();
 		}
 
     </script>

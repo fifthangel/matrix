@@ -21,6 +21,41 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<resultMap id="AcApiProjectListView" type="com.matrix.pojo.view.AcApiProjectListView"></resultMap>
+	<select id="queryPageList" parameterType="com.matrix.pojo.entity.AcApiProject" resultMap="AcApiProjectListView">
+		select 
+			a.id as id,
+			a.target as target,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.update_user_id as updateUserId,
+			i.user_name as updater 
+		from 
+			apicenter.ac_api_project a left join managercenter.mc_user_info i on i.id = a.update_user_id 
+		<where>
+			a.aflag = 1  
+			<if test="target != null and target != ''  ">
+				and a.target = #{target , jdbcType=VARCHAR}
+			</if> 
+			order by a.id asc
+		</where>
+	</select>
+	
+	<!-- 拿出字典数据放入缓存 -->
+	<select id="findAll"  resultMap="AcApiProjectListView">
+		select 
+			a.id as id,
+			a.target as target,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.update_user_id as updateUserId,
+			i.user_name as updater 
+		from 
+			apicenter.ac_api_project a left join managercenter.mc_user_info i on i.id = a.update_user_id 
+		where
+			a.aflag = 1 order by a.id asc
+	</select>
+	
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from apicenter.ac_api_project where id = #{id,jdbcType=INTEGER}
 	</delete>
