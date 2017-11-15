@@ -153,7 +153,7 @@ var pageInit = {
 	
 	// 显示被隐藏的按钮| pageInit.security();
 	security:function(){
-		if(localStorage.btns.length != 0){
+		if( typeof(localStorage.btns) != "undefined" && localStorage.btns.length != 0){
 			var barr = localStorage.btns.split(",");
 			for(var i = 0 ; i < barr.length ; i ++){
 				var key = barr[i].split("@")[1];

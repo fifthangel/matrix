@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseController;
 import com.matrix.pojo.entity.AcApiProject;
+import com.matrix.pojo.entity.AcIncludeDomain;
 import com.matrix.service.IApiCenterService;
 
 /**
@@ -32,7 +33,7 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	
 	
 	
-	
+	//////////////////////////////////////////////////////////////////////////////【api所属项目】/////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @description: 跳转到api所属项目列表页面
 	 *
@@ -46,7 +47,6 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "page_apicenter_project_list", "api所属项目列表");
 		return service.apiProjectList(); 
 	}
-	
 	/**
 	 * @description: ac_api_project 列表数据信息
 	 *
@@ -62,7 +62,6 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_api_project_list", "ac_api_project 列表数据信息");
 		return service.ajaxApiProjectList(entity, request, session);  
 	}
-	
 	/**
 	 * @description: ac_api_project表添加信息
 	 *
@@ -78,7 +77,6 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_api_project_add", "向ac_api_project表添加信息");
 		return service.ajaxApiProjectAdd(entity, session);  
 	}
-	
 	/**
 	 * @description: ac_api_project表修改信息
 	 *
@@ -95,7 +93,36 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		return service.ajaxApiProjectEdit(entity, session);  
 	}
 	
-	
+	//////////////////////////////////////////////////////////////////////////////【跨域白名单】/////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @description: 前往跨域白名单列表页面
+	 *
+	 * @param session
+	 * @return 
+	 * @author Yangcl
+	 * @date 2017年11月15日 上午11:19:17 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_apicenter_include_domain_list")  
+	public String apiIncludeDomainList(HttpSession session){ 
+		super.userBehavior(session, logger, "page_apicenter_include_domain_list", "前往跨域白名单列表页面");
+		return service.apiIncludeDomainList(); 
+	}
+	/**
+	 * @description: 跨域白名单列表数据请求
+	 *
+	 * @param entity
+	 * @param request
+	 * @author Yangcl
+	 * @date 2017年11月15日 上午11:19:57 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_include_domain_list", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_include_domain_list", "ac_include_domain 跨域白名单列表数据请求");
+		return service.ajaxIncludeDomainList(entity, request, session);  
+	}
 }
 
 

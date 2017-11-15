@@ -19,18 +19,36 @@
 		select
 			*
 		from 
-			ac_include_domain
+			apicenter.ac_include_domain
 		where 
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<!-- 分页数据 -->
+	<select id="queryPage" parameterType="com.matrix.pojo.entity.AcIncludeDomain" resultMap="BaseResultMap">
+		select 
+			* 
+		from 
+			apicenter.ac_include_domain a
+		<where>
+			a.flag = 1  
+			<if test="domain != null and domain != ''  ">
+				and a.domain = #{domain , jdbcType=VARCHAR}
+			</if>
+			<if test="companyName != null and companyName != ''  ">
+				and a.company_name like CONCAT('%' , '${companyName}' , '%' )
+			</if> 
+			order by a.id asc
+		</where>
+	</select>
+	
 	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from ac_include_domain where id = #{id,jdbcType=INTEGER}
+		delete from apicenter.ac_include_domain where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcIncludeDomain">
-		insert into ac_include_domain
+		insert into apicenter.ac_include_domain
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -98,7 +116,7 @@
 	</insert>
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.AcIncludeDomain">
-		update ac_include_domain
+		update apicenter.ac_include_domain
 		<set>
 			<if test="domain != null">
 				domain = #{domain,jdbcType=VARCHAR},

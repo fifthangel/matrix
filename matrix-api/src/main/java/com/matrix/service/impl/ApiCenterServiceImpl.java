@@ -25,6 +25,7 @@ import com.matrix.dao.IAcIncludeDomainDao;
 import com.matrix.dao.IAcRequestInfoDao;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
+import com.matrix.pojo.entity.AcIncludeDomain;
 import com.matrix.pojo.view.AcApiProjectListView;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IApiCenterService;
@@ -166,6 +167,54 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			result.put("status", "error");
 			result.put("msg", this.getInfo(600010064));  // 600010064=服务器异常，数据修改失败! 
 		}
+		return result;
+	}
+
+	/**
+	 * @description: 前往跨域白名单列表页面
+	 *
+	 * @param session
+	 * @return 
+	 * @author Yangcl
+	 * @date 2017年11月15日 上午11:19:17 
+	 * @version 1.0.0
+	 */
+	public String apiIncludeDomainList() {
+		return "jsp/api/domain/api-include-domain-list";
+	}
+
+	/**
+	 * @description: 跨域白名单列表数据请求
+	 *
+	 * @param entity
+	 * @param request
+	 * @author Yangcl
+	 * @date 2017年11月15日 上午11:19:57 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session) {
+		JSONObject result = new JSONObject();
+		String pageNum = request.getParameter("pageNum"); // 当前第几页
+		String pageSize = request.getParameter("pageSize"); // 当前页所显示记录条数
+		int num = 1;
+		int size = 10;
+		if (StringUtils.isNotBlank(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (StringUtils.isNotBlank(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		PageHelper.startPage(num, size);
+		List<AcIncludeDomain> list = acIncludeDomainDao.queryPage(entity); 
+		if (list != null && list.size() > 0) {
+			result.put("status", "success");
+		} else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(100090002));  // 没有查询到可以显示的数据 
+		}
+		PageInfo<AcIncludeDomain> pageList = new PageInfo<AcIncludeDomain>(list);
+		result.put("data", pageList);
+		result.put("entity", entity);
 		return result;
 	}
 	

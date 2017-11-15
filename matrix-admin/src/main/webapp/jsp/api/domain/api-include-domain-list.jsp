@@ -3,11 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ include file="/inc/iframe-head.jsp" %>
 
-<script type="text/javascript" src="${jsp}/api/project/api-project.js"></script>
+<script type="text/javascript" src="${jsp}/api/domain/api-include-domain.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var type_ = 'post';
-		var url_ = '${basePath}apicenter/ajax_api_project_list.do';
+		var url_ = '${basePath}apicenter/ajax_include_domain_list.do';
 		var data_ = null; // 可以为null，后台会进行默认处理
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 		aForm.launch(url_, 'table-form', obj).init().drawForm(project.loadTable);
@@ -19,8 +19,12 @@
 <div class="centercontent tables">
 	<!--这个跳转页面的功能及跳转路径等等-->
 	<div class="pageheader notab">
-		<h1 class="pagetitle">api所属项目-应对可能出现的多项目</h1>
-		<span style="display: none">jsp/api/project/api-project-list.jsp</span>
+		<h1 class="pagetitle">展示开放接口允许的跨域信息-增强安全性</h1>
+		<span class="pagedesc"> 
+			当开放一个接口的时候，如果不勾选跨域信息，则默认拒绝任何跨域请求，JavaScript将无法调用此接口。
+			列表中都是可信任的域名，但请注意！生产线禁止加入localhost:8080和127.0.0.1:8080等ip域名。
+		</span> 
+		<span style="display: none">jsp/api/domain/api-include-domain-list.jsp</span>
 	</div>
 
 	<div id="contentwrapper" class="contentwrapper">
@@ -29,18 +33,22 @@
 		<div id="table-form" class="dataTables_wrapper">
 			<div class="contenttitle2">
 				<p style="margin: 0px">
-					<label>项目名称：</label> 
+					<label>域名：</label> 
 					<span class="field"> 
-						<input id="target" type="text" name="target" class="form-search" />
+						<input id="domain" name="domain" type="text"  class="form-search" />
+					</span> 
+					<label>所属公司：</label> 
+					<span class="field"> 
+						<input id="companyName" name="companyName" type="text" class="form-search" />
 					</span> 
 					
-					<a onclick="project.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c30bd4b3bbd2485bb0de1699de16f468" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="project.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-9558fd9d4d6b4c278845038576fe7a04" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 添 加 </span>
 					</a> 
-					<a onclick="project.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-0fc78c45dc114367a29afc59631a2c8a" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="project.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c1ffc1ad85f04b628553c0702f174016" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="project.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-6b623665eba54cc295ce1783f345e551" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="project.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-36115fcb839c4770aee18a3697f28461" style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>
