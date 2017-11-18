@@ -10,7 +10,7 @@
 		var url_ = '${basePath}apicenter/ajax_include_domain_list.do';
 		var data_ = null; // 可以为null，后台会进行默认处理
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
-		aForm.launch(url_, 'table-form', obj).init().drawForm(project.loadTable);
+		aForm.launch(url_, 'table-form', obj).init().drawForm(domains.loadTable);
 	});
 
 	
@@ -39,16 +39,16 @@
 					</span> 
 					<label>所属公司：</label> 
 					<span class="field"> 
-						<input id="companyName" name="companyName" type="text" class="form-search" />
+						<input id="company-name" name="companyName" type="text" class="form-search" />
 					</span> 
 					
-					<a onclick="project.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-9558fd9d4d6b4c278845038576fe7a04" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="domains.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-9558fd9d4d6b4c278845038576fe7a04" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 添 加 </span>
 					</a> 
-					<a onclick="project.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c1ffc1ad85f04b628553c0702f174016" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="domains.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c1ffc1ad85f04b628553c0702f174016" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="project.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-36115fcb839c4770aee18a3697f28461" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="domains.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-36115fcb839c4770aee18a3697f28461" style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>
@@ -68,9 +68,9 @@
 			<table id="dyntable2" cellpadding="0" cellspacing="0" border="0" class="stdtable">
 				<thead>
 					<tr>
-						<th class="head0">项目名称</th>  
+						<th class="head0">域名</th>  
+						<th class="head0">所属公司</th>
 						<th class="head0">创建时间</th> 
-						<th class="head0">更新时间</th>
 						<th class="head0">更新人</th>
 						<th class="head0 " width="100px">操作</th>
 					</tr>
@@ -88,30 +88,38 @@
 
 
 <!-- 添加弹层 -->
-<div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 150px">
+<div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
-        <a href="#" onclick="project.closeDialog()" class="dialog-close"></a>
+        <a href="#" onclick="domains.closeDialog()" class="dialog-close"></a>
         添加项目
     </p>
 
     <div id="dialog-content-wrapper" class="contentwrapper">
         <div id="dialog-table-form" class="dataTables_wrapper" >
-            <form id="dialog-table" action="javascript:void(0)">   
+            <form id="add-dialog-table" action="javascript:void(0)">   
 	            <table class="dialog-table">
 	                <tbody>
 	                	<tr >
 	                		<td style="text-align: right">
-	                			项目名：
+	                			域名：
 	                		</td>
 	                		<td style="text-align: left">
-	                			<input type="text" id="target-add" name="target" class="dialog-form-input" style="width:200px;"/>
+	                			<input type="text" id="domain-add" name="domain" class="dialog-form-input" style="width:200px;"/>
+	                		</td>
+	                	</tr>
+	                	<tr >
+	                		<td style="text-align: right">
+	                			所属公司：
+	                		</td>
+	                		<td style="text-align: left">
+	                			<input type="text" id="company-name-add" name="companyName" class="dialog-form-input" style="width:200px;"/>
 	                		</td>
 	                	</tr>
 	                </tbody>
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="project.addProject()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="domains.addDomain()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>

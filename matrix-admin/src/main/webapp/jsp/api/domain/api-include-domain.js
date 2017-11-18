@@ -1,18 +1,19 @@
 
-var project = {
+var domains = {
 		loadTable : function(url_){
 			if (url_ == undefined) { // 首次加载表单
-				project.draw(aForm.jsonObj);
+				domains.draw(aForm.jsonObj);
 				return;
 			}
 			// 这种情况是响应上一页或下一页的触发事件
 			var type_ = 'post';
 			var data_ = {
-				target : $("#target").val() 
+				domain : $("#domain").val() ,
+				companyName : $("#company-name").val() 
 			};
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			aForm.launch(url_, 'table-form', obj).init();
-			project.draw(obj);
+			domains.draw(obj);
 		},
 
 		draw : function(obj){
@@ -22,13 +23,13 @@ var project = {
 			if (list.length > 0) {
 				for (var i = 0; i < list.length; i++) {
 					html_ += '<tr id="tr-' + list[i].id + '" class="gradeX">' 
-							+ '<td width="200px" align="center">' + list[i].target + '</td>'
+							+ '<td width="200px" align="center">' + list[i].domain + '</td>'
+							+ '<td align="center">' + list[i].companyName + '</td>'
 							+ '<td align="center">' + list[i].createTime + '</td>'
-							+ '<td align="center">' + list[i].updateTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="project.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-7ec99f2159e14847a0b9f6527ddc9ffb">删除</a> '
-								+ '<a onclick="project.update(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-f45f1f0e5a844d5581d7f2f04aa7d009">修改</a> '
+								+ '<a onclick="domains.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-7ec99f2159e14847a0b9f6527ddc9ffb">删除</a> '
+								+ '<a onclick="domains.update(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-f45f1f0e5a844d5581d7f2f04aa7d009">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {
@@ -44,7 +45,7 @@ var project = {
 		
 		searchReset : function(){
 			$(".form-search").val(""); 
-			project.search();
+			domains.search();
 		},
 		
 		closeDialog : function(){
@@ -72,17 +73,15 @@ var project = {
 		/**
 		 * 添加一条记录
 		 */
-		addProject : function(){
+		addDomain : function(){
 			var type_ = 'post';
-			var url_ = 'ajax_api_project_add.do';
-			var data_ = {
-				target : $("#target-add").val() 
-			};
+			var url_ = 'ajax_api_domain_add.do';
+			var data_ = $("#add-dialog-table").serializeArray() ;
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){
 				jAlert(obj.msg , '系统提示' , function(){
-					project.search();
-					project.closeDialog();
+					domains.search();
+					domains.closeDialog();
 				});
 			}else{
 				jAlert(obj.msg , '系统提示');
@@ -106,7 +105,7 @@ var project = {
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){
-						project.search();
+						domains.search();
 					}else{
 						jAlert(obj.msg , '系统提示');
 					}
@@ -130,7 +129,7 @@ var project = {
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){
-						project.search();
+						domains.search();
 					}else{
 						jAlert(obj.msg , '系统提示');
 					}

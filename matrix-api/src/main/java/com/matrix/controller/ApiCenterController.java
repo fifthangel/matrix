@@ -123,6 +123,21 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_include_domain_list", "ac_include_domain 跨域白名单列表数据请求");
 		return service.ajaxIncludeDomainList(entity, request, session);  
 	}
+	/**
+	 * @description: 添加跨域白名单
+	 *
+	 * @param entity
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月17日 下午11:11:25 
+	 * @version 1.0.0.1
+	 */
+	@RequestMapping(value = "ajax_api_domain_add", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxApiDomainAdd(AcIncludeDomain entity , HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_api_domain_add", "向ac_api_project表添加信息");
+		return service.ajaxApiDomainAdd(entity, session);  
+	}
 }
 
 
