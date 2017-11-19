@@ -91,7 +91,7 @@
 <div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
         <a href="#" onclick="domains.closeDialog()" class="dialog-close"></a>
-        添加项目
+        添加跨域白名单
     </p>
 
     <div id="dialog-content-wrapper" class="contentwrapper">
@@ -130,8 +130,47 @@
 </div>
 
 
+<!-- 修改弹层 -->
+<div id="edit-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
+    <p class="dialog-title">
+        <a href="#" onclick="domains.closeDialog()" class="dialog-close"></a>
+        修改跨域白名单
+    </p>
 
-
+    <div id="dialog-content-wrapper-edit" class="contentwrapper">
+        <div id="dialog-table-form-edit" class="dataTables_wrapper" >
+            <form id="edit-dialog-table" action="javascript:void(0)">   
+	            <table class="dialog-table">
+	                <tbody>
+	                	<tr >
+	                		<td style="text-align: right">
+	                			域名：
+	                		</td>
+	                		<td style="text-align: left">
+	                			<input type="text" id="domain-edit" name="domain" class="dialog-form-input" style="width:200px;"/>
+	                		</td>
+	                	</tr>
+	                	<tr >
+	                		<td style="text-align: right">
+	                			所属公司：
+	                		</td>
+	                		<td style="text-align: left">
+	                			<input type="text" id="company-name-edit" name="companyName" class="dialog-form-input" style="width:200px;"/>
+	                		</td>
+	                	</tr>
+	                </tbody>
+	                <tfoot>
+		                <tr>
+					      <td colspan="2" style="text-align: right;">
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="domains.editDomain()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      </td> 
+					    </tr>
+	                </tfoot>
+	            </table>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

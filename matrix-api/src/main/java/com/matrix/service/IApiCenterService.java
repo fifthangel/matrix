@@ -20,6 +20,7 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	// ac_include_domain 表
 	public String apiIncludeDomainList();
 	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session);
-	public JSONObject ajaxApiDomainAdd(AcIncludeDomain entity, HttpSession session);       
+	public JSONObject ajaxApiDomainAdd(AcIncludeDomain entity, HttpSession session);
+	public JSONObject ajaxApiDomainEdit(AcIncludeDomain entity, HttpSession session);        
 
 }

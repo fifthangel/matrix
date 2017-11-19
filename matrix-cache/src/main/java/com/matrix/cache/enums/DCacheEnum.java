@@ -22,5 +22,43 @@ public enum DCacheEnum {
 	
 	AccessToken   ,         // 客户端令牌 对应手机端的用户缓存信息的key，且client类型为0:IOS   1:Android   2:微信
 	
-	ApiProject          // apicenter.ac_api_project表的字典缓存，用于标识API的分类
+	ApiProject  ,        // apicenter.ac_api_project表的字典缓存，用于标识API的分类
+	
+	ApiDomain        //  ac_include_domain 表字典缓存，白名单标识
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -138,6 +138,21 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_api_domain_add", "向ac_api_project表添加信息");
 		return service.ajaxApiDomainAdd(entity, session);  
 	}
+	/**
+	 * @description: 编辑跨域白名单|删除修改走同一套逻辑
+	 *
+	 * @param entity
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月18日 下午9:56:10 
+	 * @version 1.0.0.1
+	 */
+	@RequestMapping(value = "ajax_api_domain_edit", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxApiDomainEdit(AcIncludeDomain entity , HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_api_domain_edit", "向ac_api_project表添加信息");
+		return service.ajaxApiDomainEdit(entity, session);  
+	}
 }
 
 

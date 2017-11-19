@@ -27,6 +27,7 @@ import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
 import com.matrix.pojo.view.AcApiProjectListView;
+import com.matrix.pojo.view.AcIncludeDomainView;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IApiCenterService;
 
@@ -205,14 +206,14 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			size = Integer.parseInt(pageSize);
 		}
 		PageHelper.startPage(num, size);
-		List<AcIncludeDomain> list = acIncludeDomainDao.queryPage(entity); 
+		List<AcIncludeDomainView> list = acIncludeDomainDao.queryPageList(entity); 
 		if (list != null && list.size() > 0) {
 			result.put("status", "success");
 		} else {
 			result.put("status", "error");
 			result.put("msg", this.getInfo(100090002));  // 没有查询到可以显示的数据 
 		}
-		PageInfo<AcIncludeDomain> pageList = new PageInfo<AcIncludeDomain>(list);
+		PageInfo<AcIncludeDomainView> pageList = new PageInfo<AcIncludeDomainView>(list);
 		result.put("data", pageList);
 		result.put("entity", entity);
 		return result;
@@ -249,19 +250,65 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		if(flag == 1) {
 			result.put("status", "success");
 			result.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
-			/*List<AcApiProjectListView> list = acApiProjectDao.findAll();
+			List<AcIncludeDomainView> list = acIncludeDomainDao.queryPageList(null); 
 			if(list != null && list.size() > 0) {
 				JSONObject cache = new JSONObject();
 				cache.put("status", "success");
 				cache.put("data", list);
-				launch.loadDictCache(DCacheEnum.ApiProject).set("all" , cache.toJSONString());  
+				launch.loadDictCache(DCacheEnum.ApiDomain).set("all" , cache.toJSONString());  
 			}else {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
-			}*/
+			}
 		}else {
 			result.put("status", "error");
 			result.put("msg", this.getInfo(600010062));  // 600010062=服务器异常，数据添加失败!
+		}
+		return result;
+	}
+
+	/**
+	 * @description: 编辑跨域白名单
+	 *
+	 * @param entity
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月18日 下午9:56:10 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject ajaxApiDomainEdit(AcIncludeDomain e, HttpSession session) {
+		JSONObject result = new JSONObject();
+		if(StringUtils.isBlank(e.getDomain())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010066));  // 域名不得为空!
+			return result;
+		}
+		if(StringUtils.isBlank(e.getCompanyName())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010067));  // 所属公司不得为空!
+			return result;
+		}
+		
+		McUserInfoView u = (McUserInfoView) session.getAttribute("userInfo");
+		e.setUpdateTime(new Date());
+		e.setUpdateUserId(u.getId());
+		int flag = acIncludeDomainDao.updateSelective(e);
+		if(flag == 1){
+			result.put("status", "success");
+			result.put("msg", this.getInfo(600010063));  // 600010063=数据修改成功!
+			List<AcIncludeDomainView> list = acIncludeDomainDao.queryPageList(null); 
+			if(list != null && list.size() > 0) {
+				JSONObject cache = new JSONObject();
+				cache.put("status", "success");
+				cache.put("data", list);
+				launch.loadDictCache(DCacheEnum.ApiDomain).set("all" , cache.toJSONString());  
+			}else {
+				result.put("status", "error");
+				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
+			}
+		}else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010064));  // 600010064=服务器异常，数据修改失败! 
 		}
 		return result;
 	}

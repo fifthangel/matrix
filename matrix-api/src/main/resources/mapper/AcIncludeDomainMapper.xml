@@ -24,12 +24,19 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<!-- 分页数据 -->
-	<select id="queryPage" parameterType="com.matrix.pojo.entity.AcIncludeDomain" resultMap="BaseResultMap">
+	<!-- 分页数据 view extends entity-->
+	<resultMap id="AcIncludeDomainView" type="com.matrix.pojo.view.AcIncludeDomainView"></resultMap>
+	<select id="queryPageList" parameterType="com.matrix.pojo.entity.AcIncludeDomain" resultMap="AcIncludeDomainView">
 		select 
-			* 
+			a.id as id,
+			a.domain as domain,
+			a.company_name as companyName,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.update_user_id as updateUserId,
+			i.user_name as updater 
 		from 
-			apicenter.ac_include_domain a
+			apicenter.ac_include_domain a left join managercenter.mc_user_info i on i.id = a.update_user_id 
 		<where>
 			a.flag = 1  
 			<if test="domain != null and domain != ''  ">

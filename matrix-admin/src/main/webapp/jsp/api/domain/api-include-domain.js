@@ -29,7 +29,7 @@ var domains = {
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
 								+ '<a onclick="domains.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-7ec99f2159e14847a0b9f6527ddc9ffb">删除</a> '
-								+ '<a onclick="domains.update(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-f45f1f0e5a844d5581d7f2f04aa7d009">修改</a> '
+								+ '<a onclick="domains.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-f45f1f0e5a844d5581d7f2f04aa7d009">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {
@@ -86,6 +86,34 @@ var domains = {
 			}else{
 				jAlert(obj.msg , '系统提示');
 			}
+		},
+		
+		/**
+		 * 打开编辑弹层
+		 */
+		openEditDialog : function(o){
+			domains.drawEditDialog(o);  
+			var dialogId = 'edit-dialog-div';   // 弹窗ID
+			$.blockUI({
+	            showOverlay:true ,
+	            css:  {
+	                cursor:'auto',
+	                left:($(window).width() - $("#" + dialogId).width())/2 + 'px',
+	                width:$("#" + dialogId).width()+'px',
+	                top:($(window).height()-$("#" + dialogId).height())/2 + 'px',
+	                position:'fixed', //居中
+	                border: '3px solid #FB9337'  // 边界
+	            },
+	            message: $('#' + dialogId),
+	            fadeIn: 500,//淡入时间
+	            fadeOut: 1000  //淡出时间
+	        });
+		},
+		/**
+		 * 绘制编辑弹层
+		 */
+		drawEditDialog:function(o){
+			
 		},
 		
 		/**
