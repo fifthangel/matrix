@@ -312,6 +312,18 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		}
 		return result;
 	}
+
+	/**
+	 * @description: api信息树 
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月19日 下午2:33:26 
+	 * @version 1.0.0
+	 */
+	public String apiInfoList() {
+		return "jsp/api/info/api-info-list";  
+	}
 	
 }
 

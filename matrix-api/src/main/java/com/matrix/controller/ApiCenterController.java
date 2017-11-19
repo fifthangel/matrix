@@ -153,6 +153,21 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_api_domain_edit", "向ac_api_project表添加信息");
 		return service.ajaxApiDomainEdit(entity, session);  
 	}
+	
+	//////////////////////////////////////////////////////////////////////////////【系统api信息】/////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @description: api信息树 
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月19日 下午2:33:26 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_apicenter_api_info_list")  
+	public String apiInfoList(HttpSession session){ 
+		super.userBehavior(session, logger, "page_apicenter_api_info_list", "前往api信息树页面");
+		return service.apiInfoList(); 
+	}
 }
 
 
