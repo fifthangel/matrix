@@ -1,5 +1,7 @@
 
 var domains = {
+		rowId:null, // 一条记录的id
+		
 		loadTable : function(url_){
 			if (url_ == undefined) { // 首次加载表单
 				domains.draw(aForm.jsonObj);
@@ -113,27 +115,35 @@ var domains = {
 		 * 绘制编辑弹层
 		 */
 		drawEditDialog:function(o){
-			
+			$("#domain-edit").val("");
+			$("#company-name-edit").val("");
+			var id = $(o).attr("eleId");
+			domains.rowId = id;
+			var domain_ = $($("#tr-" + id).children("td")[0]).text(); 
+			var company_ = $($("#tr-" + id).children("td")[1]).text(); 
+			$("#domain-edit").val(domain_);
+			$("#company-name-edit").val(company_);
 		},
 		
 		/**
 		 * 更新一条记录
 		 */
-		update:function(o){
-			var id = $(o).attr("eleId"); 
-			var td_ = $("#tr-" + id).children("td")[0];
-			var name = $(td_).text();
-			jPrompt( '请修改项目名称，提交生效! ' , name, '系统提示', function(content) {
-				if(content){
+		editDomain:function(){
+			var domain_ = $("#domain-edit").val(); 
+			var company_ = $("#company-name-edit").val(); 
+			jConfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
+				if(flag){
 					var type_ = 'post';
-					var url_ = 'ajax_api_project_edit.do';
+					var url_ = 'ajax_api_domain_edit.do';
 					var data_ = {
-						id:id,
-						target : content 
+						id:domains.rowId,
+						domain : domain_,
+						companyName : company_
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){
 						domains.search();
+						domains.closeDialog();  
 					}else{
 						jAlert(obj.msg , '系统提示');
 					}
@@ -143,17 +153,18 @@ var domains = {
 		
 		deleteRow:function(o){
 			var id = $(o).attr("eleId"); 
-			var td_ = $("#tr-" + id).children("td")[0];
-			var name = $(td_).text();
+			var domain_ = $($("#tr-" + id).children("td")[0]).text(); 
+			var company_ = $($("#tr-" + id).children("td")[1]).text(); 
 			
-			jConfirm('您确定要删除【' + name + '】吗?', '系统提示', function(flag) {
+			jConfirm('您确定要删除【' + domain_ + '】吗?', '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
-					var url_ = 'ajax_api_project_edit.do';
+					var url_ = 'ajax_api_domain_edit.do';
 					var data_ = {
-						id:id,
-						target:name ,
-						aflag:0 
+						id:id ,
+						domain : domain_ ,
+						companyName : company_ ,
+						flag:0 
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){

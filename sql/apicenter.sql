@@ -56,16 +56,18 @@ DROP TABLE IF EXISTS `ac_api_project`;
 
 CREATE TABLE `ac_api_project` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'api所属项目-应对可能出现的多项目',
-  `target` varchar(25) DEFAULT NULL COMMENT '项目名称',
-  `aflag` int(2) DEFAULT NULL COMMENT '是否有效',
+  `target` varchar(25) DEFAULT '' COMMENT '项目名称',
+  `aflag` int(2) DEFAULT '1' COMMENT '是否有效 0无效 1有效',
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ac_api_project` */
+
+insert  into `ac_api_project`(`id`,`target`,`aflag`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'测试api组-内部',1,'2017-11-14 14:47:19',1,'2017-11-14 15:22:16',1),(2,'open-api',1,'2017-11-14 15:13:24',1,'2017-11-19 13:29:21',1),(3,'动画片',0,'2017-11-14 15:13:55',1,'2017-11-14 17:05:09',1),(4,'asdf',0,'2017-11-14 15:29:19',1,'2017-11-14 17:05:12',1),(5,'999795792',0,'2017-11-14 15:31:24',1,'2017-11-14 16:07:19',1),(6,'app',1,'2017-11-14 16:56:08',1,'2017-11-19 13:44:28',1);
 
 /*Table structure for table `ac_include_domain` */
 
@@ -76,16 +78,18 @@ CREATE TABLE `ac_include_domain` (
   `domain` varchar(100) DEFAULT '' COMMENT '域名',
   `company_name` varchar(100) DEFAULT '' COMMENT '所属公司',
   `project` varchar(25) DEFAULT '' COMMENT '所属项目名称',
-  `flag` int(2) DEFAULT NULL COMMENT '状态位-是否有效 0无效 1有效',
+  `flag` int(2) DEFAULT '1' COMMENT '状态位-是否有效 0无效 1有效',
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   `remark` longtext COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ac_include_domain` */
+
+insert  into `ac_include_domain`(`id`,`domain`,`company_name`,`project`,`flag`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`remark`) values (1,'www.baidu.com','百度','',1,'2017-11-17 23:29:11',1,'2017-11-17 23:29:11',1,NULL),(2,'www.baihe.com','阿斯蒂芬','',0,'2017-11-17 23:30:20',1,'2017-11-19 13:40:19',1,NULL),(3,'www.sina.com','sina','',1,'2017-11-18 21:47:25',1,'2017-11-18 21:47:25',1,NULL);
 
 /*Table structure for table `ac_request_info` */
 
