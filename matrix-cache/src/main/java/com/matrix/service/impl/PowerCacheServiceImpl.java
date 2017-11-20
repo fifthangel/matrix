@@ -40,10 +40,10 @@ public class PowerCacheServiceImpl extends BaseClass implements IPowerCacheServi
 		try {
 			if(type.equals("dict")){
 				DCacheEnum [] arr = DCacheEnum.values();
-				value = launch.loadDictCache(arr[DCacheEnum.valueOf(prefix).ordinal()]).get(key);
+				value = launch.loadDictCache(arr[DCacheEnum.valueOf(prefix).ordinal()] , null).get(key);
 			}else{
 				SCacheEnum [] arr = SCacheEnum.values();
-				value = launch.loadServiceCache(arr[SCacheEnum.valueOf(prefix).ordinal()]).get(key);
+				value = launch.loadServiceCache(arr[SCacheEnum.valueOf(prefix).ordinal()] , null).get(key);
 			}
 		} catch (Exception e) {
 			result.put("status", "error");

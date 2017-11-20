@@ -4,6 +4,8 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.matrix.base.interfaces.ILoadCache;
+import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.map.MDataMap;
 
@@ -18,15 +20,43 @@ import com.matrix.map.MDataMap;
 public class ContextFactory implements ICacheFactory{
 	
 	private String baseKey = "";
+	private String load = "";  // ILoadCache		
 	private ServletContext context = ContextCore.getInstance().getApplication();
 
-	public ContextFactory(String baseKey) {
+	public ContextFactory(String baseKey , String load) { 
 		this.baseKey = baseKey;
+		this.load = "com.matrix.load." + load;
 	}
 	
 	/////////////////////////////////////////////////////////////////// 基础json //////////////////////////////////////////////////////////////////////
 	public String get(String key){
-		return (String) context.getAttribute(baseKey + key);
+		String value = (String) context.getAttribute(baseKey + key);
+		if(StringUtils.isBlank(value)) {
+			synchronized (CacheLaunch.class) {
+				value = (String) context.getAttribute(baseKey + key);
+				if(StringUtils.isBlank(value)) {
+					if(this.load.length() == 16) {
+						return "";
+					}
+					try {
+						Class<?> clazz = Class.forName(load);   
+						if (clazz != null && clazz.getDeclaredMethods() != null){
+							ILoadCache cache = (ILoadCache) clazz.newInstance();
+							return cache.load(key , "");
+						}else {
+							return "";
+						}
+					}catch (Exception e) {
+						e.printStackTrace();
+						return "";
+					}
+				}else {
+					return value;
+				}
+			}
+		}else {
+			return value;
+		}
 	}
 	
 	public String set(String key , String value){

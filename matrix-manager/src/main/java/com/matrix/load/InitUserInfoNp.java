@@ -1,21 +1,19 @@
-package com.matrix.dict;
+package com.matrix.load;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
-import com.matrix.base.interfaces.IBaseCache;
+import com.matrix.base.interfaces.ILoadCache;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcUserInfoDao;
 import com.matrix.pojo.view.McUserInfoView;
-
 /**
- * @description: 加载用户个人信息
- * 
+ * @description: 如果缓存取值为空则此处做处理
  * key: user_name+password（md5加密后的密码）
  * value: 
 	 {
@@ -33,34 +31,57 @@ import com.matrix.pojo.view.McUserInfoView;
 	    "pageCss": "",
 	    "mobile": "13511112221"
 	}
- * 
  * @author Yangcl
  * @home https://github.com/PowerYangcl
- * @date 2017年5月31日 下午2:34:07 
- * @version 1.0.0
+ * @date 2017年11月20日 下午10:09:18 
+ * @version 1.0.0.1
  */
-public class LoadCacheMcUserInfo  extends BaseClass implements IBaseCache{
-
+public class InitUserInfoNp extends BaseClass implements ILoadCache {
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
-	
 	@Inject
 	private IMcUserInfoDao mcUserInfoDao;
 	
-	
 	@Override
-	public void refresh() {
+	public String load(String key, String field) {
+		// 这里偷懒，沿用LoadCacheMcUserInfo.java中的方法。
 		List<McUserInfoView> list = mcUserInfoDao.loadUserInfoList();
 		if(list != null && list.size() != 0){
 			for(McUserInfoView view :list){
-				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
+				if( (view.getUserName()+view.getPassword()).equals(key) ) {
+					String value = JSONObject.toJSONString(view);
+					launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , value);
+					return value;
+				}
 			}
 		}
-		System.out.println(this.getClass().getName() + " - 缓存初始化完成!");
-	}
-
-	@Override
-	public void removeAll() {
-		
+		return "";
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

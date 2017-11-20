@@ -67,11 +67,11 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			return result;
 		}
 		
-		String userInfoNpJson = launch.loadDictCache(DCacheEnum.UserInfoNp).get(userInfo.getUserName() + SignUtil.md5Sign(userInfo.getPassword()));
+		String userInfoNpJson = launch.loadDictCache(DCacheEnum.UserInfoNp , "InitUserInfoNp").get(userInfo.getUserName() + SignUtil.md5Sign(userInfo.getPassword()));
 		McUserInfoView info = JSONObject.parseObject(userInfoNpJson, McUserInfoView.class);
 		if (StringUtils.isNotBlank(userInfoNpJson) && info != null) { 
 			session.setAttribute("userInfo", info);   // 写入session
-		    String pageJson = launch.loadDictCache(DCacheEnum.McUserRole).get(info.getId().toString());
+		    String pageJson = launch.loadDictCache(DCacheEnum.McUserRole , "InitMcUserRole").get(info.getId().toString());
 			
 			result.put("data" , pageJson);  
 			result.put("info", userInfoNpJson); 
@@ -156,7 +156,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 				mcUserInfoExtDao.insertSelective(e);
 				
 				McUserInfoView view = mcUserInfoDao.loadUserInfo(info.getId());
-				launch.loadDictCache(DCacheEnum.UserInfoNp).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
+				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
 				
 				result.put("status", "success");
 				result.put("msg", "添加成功");
@@ -197,12 +197,12 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		
 		try {
 			McUserInfoView view = mcUserInfoDao.loadUserInfo(info.getId());
-			launch.loadDictCache(DCacheEnum.UserInfoNp).del(view.getUserName()+view.getPassword());
+			launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
 			int count = mcUserInfoDao.updateSelective(info);
 			if(count == 1){
 				// TODO 以后会更新mc_user_info_ext表
 				McUserInfoView view_ = mcUserInfoDao.loadUserInfo(info.getId());
-				launch.loadDictCache(DCacheEnum.UserInfoNp).set(view_.getUserName()+view_.getPassword() , JSONObject.toJSONString(view_));
+				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view_.getUserName()+view_.getPassword() , JSONObject.toJSONString(view_));
 				result.put("status", "success");
 				result.put("msg", "修改成功");
 			}else{
@@ -238,8 +238,8 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			int count_ = mcUserRoleDao.deleteByUserId(id);
 			int cout__ = mcUserInfoExtDao.deleteByUserId(id);  // 删除mc_user_info_ext表的用户扩展信息 
 			if(count == 1 && count_ == 1 && cout__ == 1){
-				launch.loadDictCache(DCacheEnum.McUserRole).del(id.toString());
-				launch.loadDictCache(DCacheEnum.UserInfoNp).del(view.getUserName()+view.getPassword());
+				launch.loadDictCache(DCacheEnum.McUserRole , null).del(id.toString());
+				launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
 				result.put("status", "success");
 				result.put("msg", "删除成功");
 			}else{
@@ -263,7 +263,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		mcUserInfoExtDao.updateSelectiveByUserId(e);
 		
 		McUserInfoView view = mcUserInfoDao.loadUserInfo(dto.getId());
-		launch.loadDictCache(DCacheEnum.UserInfoNp).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
+		launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
 		
 		return null;
 	}

@@ -2,12 +2,13 @@ package com.matrix.cache.redis.core;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.matrix.base.interfaces.ILoadCache;
+import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.cache.inf.IRedisCall;
 import com.matrix.map.MDataMap;
 
 /**
- * @descriptions
+ * @descriptions 针对缓存提供基本的增删改查操作 
  *
  * @author Yangcl 
  * @home https://github.com/PowerYangcl
@@ -17,14 +18,41 @@ import com.matrix.map.MDataMap;
 public class RedisFactory implements ICacheFactory{  // IRedisCall , 
 
 	private String baseKey = "";
-
-	public RedisFactory(String sKey) {
+	private String load = "";  // ILoadCache		
+	public RedisFactory(String sKey , String load) {
 		baseKey = sKey;
+		this.load = "com.matrix.load." + load;
 	}
 	
 	/////////////////////////////////////////////////////////////////// 基础json //////////////////////////////////////////////////////////////////////
 	public String get(String key) {
-		return RedisInit.getDefault().get(baseKey + key);
+		String value = RedisInit.getDefault().get(baseKey + key);
+		if(StringUtils.isBlank(value)) {
+			synchronized (CacheLaunch.class) {
+				value = RedisInit.getDefault().get(baseKey + key);
+				if(StringUtils.isBlank(value)) {
+					if(this.load.length() == 16) {
+						return "";
+					}
+					try {
+						Class<?> clazz = Class.forName(load);   
+						if (clazz != null && clazz.getDeclaredMethods() != null){
+							ILoadCache cache = (ILoadCache) clazz.newInstance();
+							return cache.load(key , "");
+						}else {
+							return "";
+						}
+					}catch (Exception e) {
+						e.printStackTrace();
+						return "";
+					}    
+				}else {
+					return value;
+				}
+			}
+		}else {
+			return value;
+		}
 	}
 	
 	public String set(String key, String value) {

@@ -11,5 +11,5 @@ package com.matrix.cache.enums;
  */
 public enum SCacheEnum {
 	Test,
-	ArticleListPage // 文章列表也缓存
+	ArticleListPage // 文章列表页缓存
 }

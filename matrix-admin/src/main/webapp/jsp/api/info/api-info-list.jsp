@@ -81,7 +81,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		// 开始初始化树型结构
-		apiInfo.apiTreeInit(); 
+		apiInfo.launch('${basePath}').apiTreeInit();  
 		// 自定义滚动条 | 执行此代码自定义滚动条则生效
 		$('#api-list').slimscroll({
 			color: '#666',

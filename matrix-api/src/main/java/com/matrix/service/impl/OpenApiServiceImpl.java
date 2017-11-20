@@ -64,7 +64,7 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			return result;
 		}
 		
-		String val = launch.loadDictCache(DCacheEnum.ApiRequestKey).get(key);  // ac_request_info表的缓存
+		String val = launch.loadDictCache(DCacheEnum.ApiRequestKey , "InitApiRequestKey").get(key);  // ac_request_info表的缓存
 		if(StringUtils.isBlank(val)) {
 			result.put("status", "error");
 			result.put("code", "10001");

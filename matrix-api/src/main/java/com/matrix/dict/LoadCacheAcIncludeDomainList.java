@@ -61,14 +61,14 @@ public class LoadCacheAcIncludeDomainList extends BaseClass implements IBaseCach
 			JSONObject cache = new JSONObject();
 			cache.put("status", "success");
 			cache.put("data", list);
-			launch.loadDictCache(DCacheEnum.ApiDomain).set("all" , cache.toJSONString());  
+			launch.loadDictCache(DCacheEnum.ApiDomain , null).set("all" , cache.toJSONString());  
 			System.out.println(this.getClass().getName() + " - 缓存初始化完成!"); 
 		}
 	}
 
 	@Override
 	public void removeAll() {
-		launch.loadDictCache(DCacheEnum.ApiDomain).del("all");
+		launch.loadDictCache(DCacheEnum.ApiDomain , null).del("all");
 		System.out.println(this.getClass().getName() + " - 缓存删除完成!"); 
 	}
 
