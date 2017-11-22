@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog Ultimate v11.11 (64 bit)
 MySQL - 5.7.15 : Database - mediacenter
 *********************************************************************
 */
