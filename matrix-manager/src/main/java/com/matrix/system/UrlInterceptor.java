@@ -60,7 +60,7 @@ public class UrlInterceptor extends HandlerInterceptorAdapter{
         	}
         	if(StringUtils.startsWith(url, "page_")){ 
         		// 此时开始判断这个url 是否为该用户权限内的，如果不是，则返回false
-        		McUserRoleCache cache = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McUserRole).get(info.getId().toString()), McUserRoleCache.class);
+        		McUserRoleCache cache = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McUserRole , "InitMcUserRole").get(info.getId().toString()), McUserRoleCache.class);
         		List<McSysFunction> list = cache.getMsfList();
         		for(McSysFunction sf : list){
         			if(sf.getNavType() == 3){ 

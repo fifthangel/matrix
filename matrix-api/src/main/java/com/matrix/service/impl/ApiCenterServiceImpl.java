@@ -117,7 +117,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 				JSONObject cache = new JSONObject();
 				cache.put("status", "success");
 				cache.put("data", list);
-				launch.loadDictCache(DCacheEnum.ApiProject).set("all" , cache.toJSONString());  
+				launch.loadDictCache(DCacheEnum.ApiProject , null).set("all" , cache.toJSONString());  
 			}else {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
@@ -159,7 +159,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 				JSONObject cache = new JSONObject();
 				cache.put("status", "success");
 				cache.put("data", list);
-				launch.loadDictCache(DCacheEnum.ApiProject).set("all" , cache.toJSONString());   
+				launch.loadDictCache(DCacheEnum.ApiProject , null).set("all" , cache.toJSONString());   
 			}else {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
@@ -255,7 +255,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 				JSONObject cache = new JSONObject();
 				cache.put("status", "success");
 				cache.put("data", list);
-				launch.loadDictCache(DCacheEnum.ApiDomain).set("all" , cache.toJSONString());  
+				launch.loadDictCache(DCacheEnum.ApiDomain , null).set("all" , cache.toJSONString());  
 			}else {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
@@ -301,7 +301,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 				JSONObject cache = new JSONObject();
 				cache.put("status", "success");
 				cache.put("data", list);
-				launch.loadDictCache(DCacheEnum.ApiDomain).set("all" , cache.toJSONString());  
+				launch.loadDictCache(DCacheEnum.ApiDomain , null).set("all" , cache.toJSONString());  
 			}else {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(600010065));  // 600010065=服务器异常，数据缓存修改失败!
@@ -323,6 +323,20 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 	 */
 	public String apiInfoList() {
 		return "jsp/api/info/api-info-list";  
+	}
+
+	/**
+	 * @description: 获取api树结构列表信息
+	 *
+	 * @param entity
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月20日 下午3:40:07 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session) {
+		
+		return null;
 	}
 	
 }

@@ -89,7 +89,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("status", "success");
 				result.put("msg", "添加成功!");
 				// 开始创建缓存
-				launch.loadDictCache(DCacheEnum.McSysFunc).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
+				launch.loadDictCache(DCacheEnum.McSysFunc , null).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
 				result.put("entity", entity);
 			}else{
 				result.put("status", "error");
@@ -123,7 +123,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("status", "success");
 				result.put("msg", "修改成功!");
 				// 开始修改缓存
-				launch.loadDictCache(DCacheEnum.McSysFunc).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
+				launch.loadDictCache(DCacheEnum.McSysFunc , null).set(entity.getId().toString(), JSONObject.toJSONString(entity)); 
 				result.put("entity", entity);
 			}else{
 				result.put("status", "error");
@@ -158,7 +158,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			e.setUpdateUserId(userInfo.getId());
 			dao.updateSelective(e);
 			// 开始修改缓存
-			launch.loadDictCache(DCacheEnum.McSysFunc).set(e.getId().toString(), JSONObject.toJSONString(e)); 
+			launch.loadDictCache(DCacheEnum.McSysFunc , null).set(e.getId().toString(), JSONObject.toJSONString(e)); 
 		}
 		return null;
 	}
@@ -190,7 +190,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				List<McRole> roleList = roleDao.findList(role);
 				if(roleList.size() != 0){
 					for(McRole m : roleList){
-						String json = launch.loadDictCache(DCacheEnum.McRole).get(m.getId().toString());
+						String json = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(m.getId().toString());
 						if(StringUtils.isBlank(json)){
 							continue;
 						}
@@ -235,7 +235,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			result.put("status", "success");
 			result.put("msg", this.getInfo(400010001)); // 删除成功
 			for(String s : arr){
-				launch.loadDictCache(DCacheEnum.McSysFunc).del(s);  
+				launch.loadDictCache(DCacheEnum.McSysFunc , null).del(s);  
 			}
 		}else{
 			result.put("status", "error");
@@ -292,7 +292,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("status", "success");
 				d.setMcRoleId(role.getId()); 
 				
-				launch.loadDictCache(DCacheEnum.McRole).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));  
+				launch.loadDictCache(DCacheEnum.McRole , null).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));  
 				List<McRoleCache> list = new ArrayList<McRoleCache>();
 				list.add(d);
 				result.put("cache", list); 
@@ -336,11 +336,11 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				
 				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
 				if(StringUtils.isBlank(d.getRoleName()) && StringUtils.isBlank(d.getRoleDesc())){
-					McRoleCache o = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McRole).get(d.getMcRoleId().toString()), McRoleCache.class);
+					McRoleCache o = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(d.getMcRoleId().toString()), McRoleCache.class);
 					d.setRoleName(o.getRoleName());
 					d.setRoleDesc(o.getRoleDesc()); 
 				}
-				launch.loadDictCache(DCacheEnum.McRole).del(d.getMcRoleId().toString());  
+				launch.loadDictCache(DCacheEnum.McRole , null).del(d.getMcRoleId().toString());  
 				String[] arr = d.getIds().split(",");
 				for(int i = 0 ; i < arr.length ; i ++){
 					McRoleFunction rf = new McRoleFunction();
@@ -355,7 +355,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 					roleFunctionDao.insertSelective(rf);
 				}
 				result.put("status", "success");
-				launch.loadDictCache(DCacheEnum.McRole).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));  
+				launch.loadDictCache(DCacheEnum.McRole , null).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));  
 				result.put("cache", d);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -389,7 +389,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			}else{
 				roleDao.deleteById(d.getMcRoleId());
 				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
-				launch.loadDictCache(DCacheEnum.McRole).del(d.getMcRoleId().toString());  
+				launch.loadDictCache(DCacheEnum.McRole , null).del(d.getMcRoleId().toString());  
 				result.put("status", "success");
 			}
 		} catch (Exception e) {
@@ -513,14 +513,14 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	 * @version 1.0.0.1
 	 */
 	private void reloadUserFunction(Integer userId){
-		launch.loadDictCache(DCacheEnum.McUserRole).del(userId.toString()); 
+		launch.loadDictCache(DCacheEnum.McUserRole , null).del(userId.toString()); 
 		McUserRoleCache cache = new McUserRoleCache();
 		cache.setMcUserId(userId);
 		List<McUserRole> list = userRoleDao.selectByMcUserId(userId);
 		if(list != null && list.size() != 0){
 			Set<Integer> set = new TreeSet<Integer>();  
 			for(McUserRole r : list){
-				String roleJson = launch.loadDictCache(DCacheEnum.McRole).get(r.getMcRoleId().toString());
+				String roleJson = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(r.getMcRoleId().toString());
 				if(StringUtils.isNotBlank(roleJson)){
 					McRoleCache role = JSONObject.parseObject(roleJson, McRoleCache.class);
 					if(role == null){
@@ -536,7 +536,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			}
 			if(set != null && set.size() != 0){
 				for(Integer id : set){
-					String rfJson = launch.loadDictCache(DCacheEnum.McSysFunc).get(id.toString());
+					String rfJson = launch.loadDictCache(DCacheEnum.McSysFunc , "InitMcSysFunc").get(id.toString());
 					if(StringUtils.isNotBlank(rfJson)){
 						McSysFunction rf = JSONObject.parseObject(rfJson, McSysFunction.class);
 						if(rf == null){
@@ -546,7 +546,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 					}
 				}
 			}
-			launch.loadDictCache(DCacheEnum.McUserRole).set(userId.toString(), JSONObject.toJSONString(cache)); 
+			launch.loadDictCache(DCacheEnum.McUserRole , null).set(userId.toString(), JSONObject.toJSONString(cache)); 
 		}
 	}
 

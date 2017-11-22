@@ -1,21 +1,19 @@
-package com.matrix.dict;
+package com.matrix.load;
 
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
-import com.matrix.base.interfaces.IBaseCache;
+import com.matrix.base.interfaces.ILoadCache;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcSysFunctionDao;
 import com.matrix.pojo.entity.McSysFunction;
-
 /**
- * @descriptions 加载系统功能名称 
- *
+ * @description: 如果缓存取值为空则此处做处理
  * key: xd-McSysFunc-75
  * value: 
 				{
@@ -37,53 +35,46 @@ import com.matrix.pojo.entity.McSysFunction;
 				    "updateTime": 1492933675000,
 				    "updateUserId": 2
 				}
- * @author Yangcl 
+ * @author Yangcl
  * @home https://github.com/PowerYangcl
- * @date 2017年4月23日 下午9:49:49
- * @version 1.0.1
+ * @date 2017年11月20日 下午9:49:23 
+ * @version 1.0.0.1
  */
-public class LoadCacheSysFunction extends BaseClass implements IBaseCache {
+public class InitMcSysFunc extends BaseClass implements ILoadCache {
 
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
-	
-	private List<McSysFunction> list;
-	
 	@Inject
 	private IMcSysFunctionDao sysFunctionDao; 
 	
-	public void refresh() {
-		try {
+	private List<McSysFunction> list;
+	
+	@Override
+	public String load(String key, String field) {
+		// 这里偷懒，沿用LoadCacheSysFunction.java中的方法。
+		try{
 			McSysFunction e = new McSysFunction();
 			e.setFlag(1); 
 			list = sysFunctionDao.getSysFuncList(e); 
 			if(list != null && list.size() != 0){
 				for(McSysFunction f : list){
-					launch.loadDictCache(DCacheEnum.McSysFunc , null).set(f.getId().toString(), JSONObject.toJSONString(f));
+					if(f.getId().toString().equals(key)) {
+						String value = JSONObject.toJSONString(f); 
+						launch.loadDictCache(DCacheEnum.McSysFunc , null).set(f.getId().toString(), value);
+						return value;
+					}
 				}
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(this.getClass().getName() + " - 缓存初始化完成!");
-	}
-
-	public void removeAll() {
-		try {
-			McSysFunction e = new McSysFunction();
-			e.setFlag(1); 
-			list = sysFunctionDao.getSysFuncList(e); 
-			if(list != null && list.size() != 0){
-				for(McSysFunction f : list){
-					launch.loadDictCache(DCacheEnum.McSysFunc , null).del(f.getId().toString());  
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(this.getClass().getName() + "********* 缓存删除完成!"); 
+		return "";
 	}
 
 }
+
+
+
+
 
 
 

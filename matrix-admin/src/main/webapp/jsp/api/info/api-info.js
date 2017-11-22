@@ -2,6 +2,16 @@
  * api信息树相关功能
  */
 var apiInfo = {
+		path:null,
+		
+		/**
+		 * 实例化对象
+		 */
+		launch:function(path_){
+			apiInfo.path = path_ + 'apicenter/';                     
+			return apiInfo;
+		},
+
         /**
          * 初始化树
          */
@@ -9,7 +19,7 @@ var apiInfo = {
         	$("#api-tree li").remove();
         	$($("#tree-node-edit")[0].childNodes).remove();
         	var type_ = 'post';
-            var url_ = 'tree_list.do';
+            var url_ = 'ajax_api_info_list.do';
             var data_ = null;   
             var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));  
             if(obj.status == 'success'){

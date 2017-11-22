@@ -67,14 +67,14 @@ public class LoadCacheAcApiProjectList extends BaseClass implements IBaseCache{
 			JSONObject cache = new JSONObject();
 			cache.put("status", "success");
 			cache.put("data", list);
-			launch.loadDictCache(DCacheEnum.ApiProject).set("all" , cache.toJSONString());  
+			launch.loadDictCache(DCacheEnum.ApiProject , null).set("all" , cache.toJSONString());  
 			System.out.println(this.getClass().getName() + " - 缓存初始化完成!"); 
 		}
 	}
 
 	@Override
 	public void removeAll() {
-		launch.loadDictCache(DCacheEnum.ApiProject).del("all");
+		launch.loadDictCache(DCacheEnum.ApiProject , null).del("all");
 		System.out.println(this.getClass().getName() + " - 缓存删除完成!"); 
 	}
 

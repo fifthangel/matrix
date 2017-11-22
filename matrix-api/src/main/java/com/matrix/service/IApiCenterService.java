@@ -24,6 +24,7 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	public JSONObject ajaxApiDomainEdit(AcIncludeDomain entity, HttpSession session);
 	
 	// ac_api_info 表
-	public String apiInfoList();        
+	public String apiInfoList();
+	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);         
 
 }

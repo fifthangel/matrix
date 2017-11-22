@@ -98,7 +98,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 				c.setMcRoleId(role.getId());
 				c.setRoleName(role.getRoleName());
 				c.setRoleDesc(role.getRoleDesc());               // 添加时候 缓存信息不完整
-				launch.loadDictCache(DCacheEnum.McRole).set(role.getId().toString() , JSONObject.toJSONString(c));   
+				launch.loadDictCache(DCacheEnum.McRole , null).set(role.getId().toString() , JSONObject.toJSONString(c));   
 			}else{
 				result.put("status", "error");
 				result.put("msg", this.getInfo(400010004));	// 系统角色创建失败
@@ -144,14 +144,14 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 				c.setMcRoleId(role.getId());
 				c.setRoleName(role.getRoleName());
 				c.setRoleDesc(role.getRoleDesc());        
-				String mcRole = launch.loadDictCache(DCacheEnum.McRole).get(role.getId().toString());
+				String mcRole = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(role.getId().toString());
 				String ids = "";
 				if(StringUtils.isNotBlank(mcRole)){
 					ids = JSONObject.parseObject( mcRole ).getString("ids");  
 				}
 				c.setIds(ids); 
-				launch.loadDictCache(DCacheEnum.McRole).del(role.getId().toString());  
-				launch.loadDictCache(DCacheEnum.McRole).set(role.getId().toString() , JSONObject.toJSONString(c)); 
+				launch.loadDictCache(DCacheEnum.McRole , null).del(role.getId().toString());  
+				launch.loadDictCache(DCacheEnum.McRole , null).set(role.getId().toString() , JSONObject.toJSONString(c)); 
 			}else{
 				result.put("status", "error");
 				result.put("msg", this.getInfo(400010004));	// 系统角色创建失败
