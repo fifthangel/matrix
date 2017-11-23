@@ -24,7 +24,7 @@ var apiInfo = {
             var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));  
             if(obj.status == 'success'){
                 var zNodes = obj.list;
-                $.fn.zTree.init($("#api-tree") , setting_nav , zNodes);
+                $.fn.zTree.init($("#api-tree") , setting_ , zNodes);
                 $("#callbackTrigger").bind("change", {}, setting_.setTrigger);
             }
         }, 
@@ -72,8 +72,8 @@ var setting_ = {
             onExpand: false,           // 捕获节点被展开的事件回调函数 |默认值：null
             onClick: false,
             beforeRemove: false,       // 捕获删除之前的数据 
-            beforeCheck: surfunc.beforeCheck,    // 捕获 勾选 或 取消勾选 之前的事件回调函数
-            onCheck : surfunc.onCheck
+            beforeCheck: false,       //surfunc.beforeCheck,    // 捕获 勾选 或 取消勾选 之前的事件回调函数
+            onCheck :false,       // surfunc.onCheck
         },
         setTrigger:function(){
             var zTree = $.fn.zTree.getZTreeObj("api-tree");

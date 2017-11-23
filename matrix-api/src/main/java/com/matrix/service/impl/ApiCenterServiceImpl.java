@@ -1,5 +1,6 @@
 package com.matrix.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,6 +30,7 @@ import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
 import com.matrix.pojo.view.AcApiProjectListView;
 import com.matrix.pojo.view.AcIncludeDomainView;
+import com.matrix.pojo.view.ApiTreeView;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IApiCenterService;
 
@@ -342,9 +345,40 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			result.put("msg", this.getInfo(600010068));  // 600010068=API树形结构加载失败!api所属项目未能正常初始化，请重试.
 			return result;
 		}
+		JSONObject pobj = JSONObject.parseObject(project);
+		if(!pobj.getString("status").equals("success")) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010069));  // 600010069=API树形结构加载失败!api所属项目缓存异常.
+			return result;
+		}
 		// TODO 添加一个树形结构返回视图类
+		JSONArray arr = pobj.getJSONArray("data");
+		if(arr.size() == 0) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010070));  // 600010070=API树形结构加载失败!api所属项目未定义.
+			return result;
+		}
+		List<ApiTreeView> tlist = new ArrayList<ApiTreeView>();
+		ApiTreeView root = new ApiTreeView();
+		root.setId(0);
+		root.setName("root"); 
+		root.setSeqnum(1);
+		root.setParentId(-1); 
+		tlist.add(root);
+		for(int i = 0 ; i < arr.size() ; i ++) {
+			JSONObject p = arr.getJSONObject(i);
+			ApiTreeView a = new ApiTreeView();
+			a.setId(p.getInteger("id"));
+			a.setName(p.getString("target"));
+			a.setSeqnum(i+1);
+			a.setParentId(0);
+			tlist.add(a);
+		}
 		
-		return null;
+		
+		result.put("status", "success");
+		result.put("list", tlist);
+		return result;
 	}
 	
 }

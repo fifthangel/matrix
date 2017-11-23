@@ -10,11 +10,18 @@ public class AcApiInfo {
     private String processor;
     private Integer domain;
     private Integer projectId;
+    private Integer seqnum;
     private Date createTime;
     private Integer createUserId;
     private Date updateTime;
     private Integer updateUserId;
     
+	public Integer getSeqnum() {
+		return seqnum;
+	}
+	public void setSeqnum(Integer seqnum) {
+		this.seqnum = seqnum;
+	}
 	public Integer getId() {
 		return id;
 	}

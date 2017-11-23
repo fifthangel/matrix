@@ -10,6 +10,7 @@
 		<result column="processor" property="processor" jdbcType="VARCHAR" />
 		<result column="domain" property="domain" jdbcType="INTEGER" />
 		<result column="project_id" property="projectId" jdbcType="INTEGER" />
+		<result column="seqnum" property="seqnum" jdbcType="INTEGER" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -54,6 +55,9 @@
 			<if test="projectId != null">
 				project_id,
 			</if>
+			<if test="seqnum != null">
+				seqnum,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -88,6 +92,9 @@
 			</if>
 			<if test="projectId != null">
 				#{projectId,jdbcType=INTEGER},
+			</if>
+			<if test="seqnum != null">
+				#{seqnum , jdbcType=INTEGER},
 			</if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
@@ -124,6 +131,9 @@
 			</if>
 			<if test="projectId != null">
 				project_id = #{projectId,jdbcType=INTEGER},
+			</if>
+			<if test="seqnum != null">
+				seqnum = #{projectId,jdbcType=INTEGER},
 			</if>
 			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},
