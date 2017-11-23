@@ -329,12 +329,20 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 	 * @description: 获取api树结构列表信息
 	 *
 	 * @param entity
-	 * @param session
+	 * @param session															
 	 * @author Yangcl
 	 * @date 2017年11月20日 下午3:40:07 
 	 * @version 1.0.0.1
 	 */
 	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session) {
+		JSONObject result = new JSONObject();
+		String project = launch.loadDictCache(DCacheEnum.ApiProject , "InitApiProject").get("all");
+		if(StringUtils.isBlank(project)) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010068));  // 600010068=API树形结构加载失败!api所属项目未能正常初始化，请重试.
+			return result;
+		}
+		// TODO 添加一个树形结构返回视图类
 		
 		return null;
 	}

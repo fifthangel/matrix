@@ -24,6 +24,9 @@ public class ContextFactory implements ICacheFactory{
 	private ServletContext context = ContextCore.getInstance().getApplication();
 
 	public ContextFactory(String baseKey , String load) { 
+		if(StringUtils.isBlank(load)) {
+			load = "";
+		}
 		this.baseKey = baseKey;
 		this.load = "com.matrix.load." + load;
 	}

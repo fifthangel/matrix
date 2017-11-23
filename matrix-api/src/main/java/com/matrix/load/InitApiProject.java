@@ -1,4 +1,4 @@
-package com.matrix.dict;
+package com.matrix.load;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseCache;
+import com.matrix.base.interfaces.ILoadCache;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
@@ -14,7 +15,7 @@ import com.matrix.dao.IAcApiProjectDao;
 import com.matrix.pojo.view.AcApiProjectListView;
 
 /**
- * @description: 加载 apicenter.ac_api_project表的字典缓存，用于标识API的分类
+ * @description: 加载 apicenter.ac_api_project表的字典缓存
  * key: xd-ApiProject-all
  * value:
 				 {
@@ -49,10 +50,10 @@ import com.matrix.pojo.view.AcApiProjectListView;
  * 
  * @author Yangcl
  * @home https://github.com/PowerYangcl
- * @date 2017年11月14日 下午5:26:17 
+ * @date 2017年11月23日 下午14:42:28 
  * @version 1.0.0
  */
-public class LoadCacheAcApiProjectList extends BaseClass implements IBaseCache{
+public class InitApiProject extends BaseClass implements ILoadCache{
 	
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
@@ -61,22 +62,40 @@ public class LoadCacheAcApiProjectList extends BaseClass implements IBaseCache{
 	
 	
 	@Override
-	public void refresh() {
+	public String load(String key, String field) {
 		List<AcApiProjectListView> list = acApiProjectDao.findAll();
 		if(list != null && list.size() > 0) {
 			JSONObject cache = new JSONObject();
 			cache.put("status", "success");
 			cache.put("data", list);
-			launch.loadDictCache(DCacheEnum.ApiProject , null).set("all" , cache.toJSONString());  
-			System.out.println(this.getClass().getName() + " - 缓存初始化完成!"); 
+			String value = cache.toJSONString();
+			launch.loadDictCache(DCacheEnum.ApiProject , null).set("all" , value);  
+			return value ;
 		}
-	}
-
-	@Override
-	public void removeAll() {
-		launch.loadDictCache(DCacheEnum.ApiProject , null).del("all");
-		System.out.println(this.getClass().getName() + " - 缓存删除完成!"); 
+		
+		return "";
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

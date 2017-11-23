@@ -20,6 +20,9 @@ public class RedisFactory implements ICacheFactory{  // IRedisCall ,
 	private String baseKey = "";
 	private String load = "";  // ILoadCache		
 	public RedisFactory(String sKey , String load) {
+		if(StringUtils.isBlank(load)) {
+			load = "";
+		}
 		baseKey = sKey;
 		this.load = "com.matrix.load." + load;
 	}
