@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `ac_api_domain`;
 
 CREATE TABLE `ac_api_domain` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ac_api_info 与 ac_include_domain 的关联表',
-  `ac_request_info_id` int(11) DEFAULT NULL,
+  `ac_api_info_id` int(11) DEFAULT NULL,
   `ac_include_domain_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -35,12 +35,15 @@ DROP TABLE IF EXISTS `ac_api_info`;
 
 CREATE TABLE `ac_api_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'api信息表',
-  `target` varchar(50) DEFAULT '' COMMENT 'api名称',
+  `name` varchar(50) DEFAULT '' COMMENT 'api名称',
   `atype` varchar(10) DEFAULT 'private' COMMENT '接口类型 private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口',
   `module` varchar(20) DEFAULT '' COMMENT 'maven sub module name  比如：matrix-file',
   `processor` varchar(300) DEFAULT '' COMMENT '业务处理接口的类 com.matrix.processor.publics.example.TestPublicProcessor',
   `domain` int(2) DEFAULT '0' COMMENT '接口是否拥有跨域行为 0 不允许  1 允许跨域访问|ac_api_domain表作为关联',
-  `project_id` int(11) DEFAULT NULL COMMENT '所属内部项目id,用于树形结构展示|ac_api_project表id',
+  `parent_id` int(11) DEFAULT NULL COMMENT '所属内部项目id,用于树形结构展示|ac_api_project表id',
+  `seqnum` int(11) DEFAULT NULL COMMENT '顺序码 同一层次显示顺序',
+  `discard` int(2) DEFAULT '1' COMMENT '这个api是否废弃|0:废弃 1:使用中',
+  `remark` longtext COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,

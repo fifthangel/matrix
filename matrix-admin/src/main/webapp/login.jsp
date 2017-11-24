@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>power-matrix</title>
+    <title>matrix</title>
 
     <link rel="stylesheet" href="css/style.default.css" type="text/css" /> 
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
@@ -29,8 +29,8 @@
     	<div class="loginboxinner">
         	
             <div class="logo">
-            	<h1 class="logo"><span>惠家有</span></h1>
-				<span class="slogan">后台管理系统</span>
+            	<h1 class="logo"><span>Power Matrix</span></h1>
+				<span style="color:white;font-size: 25px;font-family:SimSun;margin-top:10px">后台管理系统</span>
             </div>
             
             <br clear="all" /><br />

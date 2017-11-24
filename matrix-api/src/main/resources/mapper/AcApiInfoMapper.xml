@@ -4,13 +4,15 @@
 	
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.AcApiInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="target" property="target" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="atype" property="atype" jdbcType="VARCHAR" />
 		<result column="module" property="module" jdbcType="VARCHAR" />
 		<result column="processor" property="processor" jdbcType="VARCHAR" />
 		<result column="domain" property="domain" jdbcType="INTEGER" />
-		<result column="project_id" property="projectId" jdbcType="INTEGER" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
 		<result column="seqnum" property="seqnum" jdbcType="INTEGER" />
+		<result column="discard" property="discard" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="LONGVARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -27,6 +29,28 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<resultMap id="ApiTreeView" type="com.matrix.pojo.view.ApiTreeView"></resultMap>
+	<select id="findApiInfoList" resultMap="ApiTreeView" parameterType="com.matrix.pojo.entity.AcApiInfo">
+		select
+			a.id as id,
+			a.name as name,
+			a.atype as atype,
+			a.module as module,
+			a.processor as processor,
+			a.domain as domain,
+			a.seqnum as seqnum,
+			a.parent_id as parentId,
+			a.discard as discard,
+			a.remark as remark
+		from 
+			apicenter.ac_api_info a
+		where 
+			1 =1 
+			<if test="discard != null">
+				and a.discard = #{discard , jdbcType=INTEGER} 
+			</if>
+	</select>
+	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from apicenter.ac_api_info where id = #{id,jdbcType=INTEGER}
 	</delete>
@@ -37,8 +61,8 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="target != null">
-				target,
+			<if test="name != null">
+				name,
 			</if>
 			<if test="atype != null">
 				atype,
@@ -52,11 +76,17 @@
 			<if test="domain != null">
 				domain,
 			</if>
-			<if test="projectId != null">
-				project_id,
+			<if test="parentId != null">
+				parent_id,
 			</if>
 			<if test="seqnum != null">
 				seqnum,
+			</if>
+			<if test="discard != null">
+				discard,
+			</if>
+			<if test="remark != null">
+				remark,
 			</if>
 			<if test="createTime != null">
 				create_time,
@@ -75,8 +105,8 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="target != null">
-				#{target,jdbcType=VARCHAR},
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
 			</if>
 			<if test="atype != null">
 				#{atype,jdbcType=VARCHAR},
@@ -90,11 +120,17 @@
 			<if test="domain != null">
 				#{domain,jdbcType=INTEGER},
 			</if>
-			<if test="projectId != null">
-				#{projectId,jdbcType=INTEGER},
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
 			</if>
 			<if test="seqnum != null">
 				#{seqnum , jdbcType=INTEGER},
+			</if>
+			<if test="discard != null">
+				#{discard , jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark , jdbcType=VARCHAR}, 
 			</if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
@@ -114,8 +150,8 @@
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.AcApiInfo">
 		update apicenter.ac_api_info
 		<set>
-			<if test="target != null">
-				target = #{target,jdbcType=VARCHAR},
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
 			</if>
 			<if test="atype != null">
 				atype = #{atype,jdbcType=VARCHAR},
@@ -129,11 +165,17 @@
 			<if test="domain != null">
 				domain = #{domain,jdbcType=INTEGER},
 			</if>
-			<if test="projectId != null">
-				project_id = #{projectId,jdbcType=INTEGER},
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
 			</if>
 			<if test="seqnum != null">
-				seqnum = #{projectId,jdbcType=INTEGER},
+				seqnum = #{seqnum , jdbcType=INTEGER}, 
+			</if>
+			<if test="discard != null">
+				discard = #{discard , jdbcType=INTEGER}, 
+			</if>
+			<if test="remark != null">
+				remark = #{remark , jdbcType=VARCHAR}, 
 			</if>
 			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},

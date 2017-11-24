@@ -2703,7 +2703,13 @@ blockquote.bq2 {
 .security-btn{
 	display:none;
 }
+ 
+:-ms-input-placeholder{
+    color: #FB9337;opacity:1; 
+}
 
-
+::-webkit-input-placeholder{
+    color: #FB9337;opacity:1;
+}
 
 

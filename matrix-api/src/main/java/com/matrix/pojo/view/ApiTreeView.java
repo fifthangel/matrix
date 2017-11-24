@@ -7,11 +7,24 @@ public class ApiTreeView {
     private String module;			// maven sub module name  比如：matrix-file
     private String processor;		// 业务处理接口的类 com.matrix.processor.publics.example.TestPublicProcessor
     private Integer domain;		// 接口是否拥有跨域行为 0 不允许  1 允许跨域访问|ac_api_domain表作为关联
-    private Integer projectId;    // 所属内部项目id,用于树形结构展示|ac_api_project表id
     private Integer seqnum;		 // 顺序码 同一层次显示顺序
-    private Integer parentId;
+    private Integer parentId;	// 所属内部项目id,用于树形结构展示|ac_api_project表id
+    private Integer discard;		// 这个api是否废弃|0:废弃 1:使用中
+    private String remark;
     private Boolean open = true;
     
+	public Integer getDiscard() {
+		return discard;
+	}
+	public void setDiscard(Integer discard) {
+		this.discard = discard;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public String getName() {
 		return name;
 	}
@@ -53,12 +66,6 @@ public class ApiTreeView {
 	}
 	public void setDomain(Integer domain) {
 		this.domain = domain;
-	}
-	public Integer getProjectId() {
-		return projectId;
-	}
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
 	}
 	public Integer getSeqnum() {
 		return seqnum;

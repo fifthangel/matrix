@@ -4,18 +4,32 @@ import java.util.Date;
 
 public class AcApiInfo {
     private Integer id;
-    private String target;
+    private String name;
     private String atype;
     private String module;
     private String processor;
     private Integer domain;
-    private Integer projectId;
+    private Integer parentId;
     private Integer seqnum;
+    private Integer discard;
+    private String remark;
     private Date createTime;
     private Integer createUserId;
     private Date updateTime;
     private Integer updateUserId;
     
+	public Integer getDiscard() {
+		return discard;
+	}
+	public void setDiscard(Integer discard) {
+		this.discard = discard;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public Integer getSeqnum() {
 		return seqnum;
 	}
@@ -27,12 +41,6 @@ public class AcApiInfo {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	public String getTarget() {
-		return target;
-	}
-	public void setTarget(String target) {
-		this.target = target;
 	}
 	public String getAtype() {
 		return atype;
@@ -58,11 +66,17 @@ public class AcApiInfo {
 	public void setDomain(Integer domain) {
 		this.domain = domain;
 	}
-	public Integer getProjectId() {
-		return projectId;
+	public String getName() {
+		return name;
 	}
-	public void setProjectId(Integer projectId) {
-		this.projectId = projectId;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getParentId() {
+		return parentId;
+	}
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 	public Date getCreateTime() {
 		return createTime;

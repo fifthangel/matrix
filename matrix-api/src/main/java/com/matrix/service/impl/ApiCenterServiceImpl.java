@@ -374,7 +374,10 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			a.setParentId(0);
 			tlist.add(a);
 		}
-		
+		List<ApiTreeView> apiInfoList = acApiInfoDao.findApiInfoList(e);
+		if(apiInfoList != null && apiInfoList.size() != 0) {
+			tlist.addAll(apiInfoList);
+		}
 		
 		result.put("status", "success");
 		result.put("list", tlist);
