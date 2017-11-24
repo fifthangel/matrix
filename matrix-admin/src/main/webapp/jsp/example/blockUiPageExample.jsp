@@ -162,7 +162,7 @@
 </script>
 
 <!-- 自定义列表弹出框 -> 带自定义滚动条 -->
- <div id="ul-dialog-div" class="dialog-page-div" style="display: none;width: 900px;height: 600px">
+<div id="ul-dialog-div" class="dialog-page-div" style="display: none;width: 900px;height: 600px">
 	<p class="dialog-title">
 		<a href="javascript:void(0)" onclick="closeDialog()" class="dialog-close"></a>
 		<span>

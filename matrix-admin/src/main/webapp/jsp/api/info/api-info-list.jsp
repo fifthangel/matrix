@@ -74,11 +74,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
 </div>
-
-
 <script type="text/javascript">
 	$(document).ready(function(){
 		// 开始初始化树型结构
@@ -95,8 +91,70 @@
 
 
 
+<!-- 域名列表弹窗 -->
+<div id="ul-dialog-div" class="dialog-page-div" style="display: none;width: 500px;height: 300px">
+	<p class="dialog-title">
+		<a href="javascript:void(0)" onclick="apiInfo.closeDialog()" class="dialog-close"></a>
+		<span>
+			可用域名列表
+		</span>
+	</p>
+	<div id="dialog-content-wrapper" class="contentwrapper">
+		<div class="last">
+			<div class="widgetbox" style="height: inherit">
+				<div  class="title">
+					<h3 id="platform-title">
+						每个api可对多个域名开放
+					</h3>
+				</div>
+				<div class="widgetcontent">
+					<div id="interface-list" class="mousescroll">
+						<!-- 等待填充要展示的内容，如果超出div的高度则会展示出自定义的滚动条 -->
+						<ul id="api-list" class="entrylist">	<!-- entrylist 是一个系统css类 -->
 
-
+							<li>
+								<div class="entry_wrap">
+									<div class="">
+										<h4>
+											<span>百度</span>
+										</h4> 
+										<span>
+											<input type="checkbox"  value="" style="vertical-align:middle;"/>
+											<span style="vertical-align:middle;">http://localhost:8080/matrix-admin/jsp/home.jsp</span>
+										</span>
+									</div>
+								</div>
+							</li>
+							
+							<li>
+								<div class="entry_wrap">
+									<div class="">
+										<h4>
+											<span>Product.Insert</span>
+										</h4> 
+										<span>
+											<input type="checkbox"  value="" style="vertical-align:middle;"/>
+											<span style="vertical-align:middle;">http://localhost:8080/matrix-admin/jsp/home.jsp</span>
+										</span> 
+									</div>
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form class="stdform">
+			<p>
+				<span id="dialog-operate" style="position: relative;">
+					<!-- 等待填充 弹窗操作按钮 如添加和修改等等 -->
+					<button id="submit-btn"   type="button" style="width: 100px;margin-left: 350px;" class="submit radius2">提交</button>
+				</span>
+			</p>
+		</form>
+	</div>
+</div>
 
 
 

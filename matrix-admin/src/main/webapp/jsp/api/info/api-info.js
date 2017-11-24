@@ -226,7 +226,35 @@ var apiInfo = {
         
         // 打开跨域列表弹窗
         openDomainDialog:function(){
-        	
+        	var dialogId = "#ul-dialog-div";
+    		// 自定义滚动条 | 执行此代码自定义滚动条则生效
+    		$('#interface-list').slimscroll({
+    			color: '#666',
+    			size: '10px',
+    			width: 'auto',
+    			height: '180px' // '208px'
+    		});
+    		
+    		$.blockUI({
+    			showOverlay:true ,
+    			css:{
+    				cursor:'auto',
+    				left:($(window).width() - $(dialogId).width())/2 + 'px',
+    				width:$(dialogId).width()+'px',
+    				height:350,
+    				top:($(window).height()-$(dialogId).height())/2 + 'px',
+    				position:'fixed', //居中
+    				textAlign:'left',
+    				border: '3px solid #FB9337'   // 边界,
+    			},
+    			message: $(dialogId),
+    			fadeIn: 500,//淡入时间
+    			fadeOut: 1000  //淡出时间
+    		});
+        },
+        
+        closeDialog:function(){
+            $.unblockUI();
         }
 }
  
