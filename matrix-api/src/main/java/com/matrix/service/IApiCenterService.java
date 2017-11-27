@@ -19,12 +19,13 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	
 	// ac_include_domain 表
 	public String apiIncludeDomainList();
-	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session);
+	public JSONObject ajaxIncludeDomainPageList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session);
+	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session);         
 	public JSONObject ajaxApiDomainAdd(AcIncludeDomain entity, HttpSession session);
 	public JSONObject ajaxApiDomainEdit(AcIncludeDomain entity, HttpSession session);
 	
 	// ac_api_info 表
 	public String apiInfoList();
-	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);         
+	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);
 
 }

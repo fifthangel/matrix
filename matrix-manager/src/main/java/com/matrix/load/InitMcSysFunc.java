@@ -59,7 +59,7 @@ public class InitMcSysFunc extends BaseClass implements ILoadCache {
 				for(McSysFunction f : list){
 					if(f.getId().toString().equals(key)) {
 						String value = JSONObject.toJSONString(f); 
-						launch.loadDictCache(DCacheEnum.McSysFunc , null).set(f.getId().toString(), value);
+						launch.loadDictCache(DCacheEnum.McSysFunc , null).set(key , value);
 						return value;
 					}
 				}

@@ -44,7 +44,7 @@ public class InitMcRole extends BaseClass implements ILoadCache {
 				for(McRoleCache d : list){
 					if(d.getMcRoleId().toString().equals(key)) {
 						String value = JSONObject.toJSONString(d);
-						launch.loadDictCache(DCacheEnum.McRole , null).set(d.getMcRoleId().toString() , value);
+						launch.loadDictCache(DCacheEnum.McRole , null).set(key , value);
 						return value;
 					}
 				}

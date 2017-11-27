@@ -268,7 +268,7 @@ var apiInfo = {
             var data_ = null;   
             var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));  
             if(obj.status == 'success'){
-                // TODO 
+                // TODO 动态追加
             }else{
             	
             }

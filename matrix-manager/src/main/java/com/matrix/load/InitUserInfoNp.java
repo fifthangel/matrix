@@ -49,7 +49,7 @@ public class InitUserInfoNp extends BaseClass implements ILoadCache {
 			for(McUserInfoView view :list){
 				if( (view.getUserName()+view.getPassword()).equals(key) ) {
 					String value = JSONObject.toJSONString(view);
-					launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , value);
+					launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(key , value);
 					return value;
 				}
 			}

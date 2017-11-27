@@ -120,8 +120,24 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	 */
 	@RequestMapping(value = "ajax_include_domain_page_list", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity , HttpServletRequest request, HttpSession session){ 
+	public JSONObject ajaxIncludeDomainPageList(AcIncludeDomain entity , HttpServletRequest request, HttpSession session){ 
 		super.userBehavior(session, logger, "ajax_include_domain_page_list", "ac_include_domain 跨域白名单列表数据请求");
+		return service.ajaxIncludeDomainPageList(entity, request, session);  
+	}
+	/**
+	 * @description: 全量跨域白名单列表数据，不分页
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月27日 下午11:22:33 
+	 * @version 1.0.0.1
+	 */
+	@RequestMapping(value = "ajax_include_domain_list", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_include_domain_list", "ac_include_domain 全量跨域白名单列表数据，不分页");
 		return service.ajaxIncludeDomainList(entity, request, session);  
 	}
 	/**

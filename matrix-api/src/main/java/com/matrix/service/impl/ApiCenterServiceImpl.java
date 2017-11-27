@@ -196,7 +196,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 	 * @date 2017年11月15日 上午11:19:57 
 	 * @version 1.0.0
 	 */
-	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session) {
+	public JSONObject ajaxIncludeDomainPageList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session) {
 		JSONObject result = new JSONObject();
 		String pageNum = request.getParameter("pageNum"); // 当前第几页
 		String pageSize = request.getParameter("pageSize"); // 当前页所显示记录条数
@@ -219,6 +219,28 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		PageInfo<AcIncludeDomainView> pageList = new PageInfo<AcIncludeDomainView>(list);
 		result.put("data", pageList);
 		result.put("entity", entity);
+		return result;
+	}
+	
+	/**
+	 * @description: 全量跨域白名单列表数据，不分页
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月27日 下午11:22:33 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity, HttpServletRequest request, HttpSession session) {
+		JSONObject result = new JSONObject();
+		String value = launch.loadDictCache(DCacheEnum.ApiDomain , "InitApiDomain").get("all");  
+		if (StringUtils.isNoneBlank(value)) {
+			return JSONObject.parseObject(value);
+		} else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(100090002));  // 没有查询到可以显示的数据 
+		}
 		return result;
 	}
 
