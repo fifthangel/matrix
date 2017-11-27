@@ -191,18 +191,25 @@ var apiInfo = {
             var url_ = ''; 
             if(treeNode.name == "新建结点"){
             	url_ = apiInfo.path + 'ajax_api_info_add.do'; 
-            	var html_ = '系统接口名称：<input type="text" id="name" name="name" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;"><br/>';
-            	
-				html_ += '<div style="margin-bottom: 10px;">系统接口类型：&nbsp&nbsp<input type="radio" name="atype" value="private" checked> 公司内部使用 &nbsp&nbsp';
-				html_ += '<input type="radio" name="atype"  value="public"> 开放给第三方</div>';
+            	var html_ = '<div>';
+	            	html_ += '系统接口名称：';
+	            	html_ += '<input type="text" id="name" name="name" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;">'; 
+            	html_ += '</div>';
+	            
+				html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">系统接口类型：</span>&nbsp&nbsp';  
+					html_ += '<input type="radio" name="atype" value="private" checked style="vertical-align:middle;"> <span style="vertical-align:middle;">公司内部使用</span> &nbsp&nbsp';
+					html_ += '<input type="radio" name="atype"  value="public" style="vertical-align:middle;"> <span style="vertical-align:middle;">开放给第三方</span>';
+				html_ += '</div>';
 				
-				html_ += '业务处理实现：<input type="text" id="processor" name="processor" class="smallinput " placeholder="比如：publics.example.TestPublicProcessor" style="width: 300px; margin-bottom: 10px;"><br/>';
+				html_ += '<div>业务处理实现：<input type="text" id="processor" name="processor" class="smallinput " placeholder="比如：publics.example.TestPublicProcessor" style="width: 300px; margin-bottom: 10px;"></div>';
 				
-				html_ += '接口所属工程：<input type="text" id="module" name="module" class="smallinput " placeholder="比如：matrix-file" style="width: 300px; margin-bottom: 10px;" value="matrix-api"><br/>';
+				html_ += '<div>接口所属工程：<input type="text" id="module" name="module" class="smallinput " placeholder="比如：matrix-file" style="width: 300px; margin-bottom: 10px;" value="matrix-api"></div>';
 				
-				html_ += '<div style="margin-bottom: 10px;">接口跨域限制：&nbsp&nbsp<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()"> 不允许 &nbsp&nbsp';
-				html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()"> 允许';
-				html_ += '<input type="hidden" name="domainList"  value=""></div>';
+				html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">接口跨域限制：</span>&nbsp&nbsp';
+					html_ += '<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()" style="vertical-align:middle;"> <span style="vertical-align:middle;">不允许</span> &nbsp&nbsp';
+					html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()" style="vertical-align:middle;"> <span style="vertical-align:middle;">允许</span>';
+					html_ += '<input type="hidden" name="domainList"  value="">';
+				html_ += '</div>';
 
             	html_ += '<textarea cols="80" rows="5" maxlength="260"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
@@ -251,6 +258,20 @@ var apiInfo = {
     			fadeIn: 500,//淡入时间
     			fadeOut: 1000  //淡出时间
     		});
+        },
+        
+        // 请求后台，绘制弹窗数据
+        drawDomainDialog:function(){
+        	$("#api-include-domain-list li").remove();
+        	var type_ = 'post';
+            var url_ = apiInfo.path + 'ajax_include_domain_list.do'; 						// TODO 
+            var data_ = null;   
+            var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));  
+            if(obj.status == 'success'){
+                // TODO 
+            }else{
+            	
+            }
         },
         
         closeDialog:function(){

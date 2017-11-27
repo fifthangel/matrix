@@ -110,7 +110,7 @@
 				<div class="widgetcontent">
 					<div id="interface-list" class="mousescroll">
 						<!-- 等待填充要展示的内容，如果超出div的高度则会展示出自定义的滚动条 -->
-						<ul id="api-list" class="entrylist">	<!-- entrylist 是一个系统css类 -->
+						<ul id="api-include-domain-list" class="entrylist">	<!-- entrylist 是一个系统css类 -->
 
 							<li>
 								<div class="entry_wrap">

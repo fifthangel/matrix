@@ -118,10 +118,10 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	 * @date 2017年11月15日 上午11:19:57 
 	 * @version 1.0.0
 	 */
-	@RequestMapping(value = "ajax_include_domain_list", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "ajax_include_domain_page_list", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject ajaxIncludeDomainList(AcIncludeDomain entity , HttpServletRequest request, HttpSession session){ 
-		super.userBehavior(session, logger, "ajax_include_domain_list", "ac_include_domain 跨域白名单列表数据请求");
+		super.userBehavior(session, logger, "ajax_include_domain_page_list", "ac_include_domain 跨域白名单列表数据请求");
 		return service.ajaxIncludeDomainList(entity, request, session);  
 	}
 	/**

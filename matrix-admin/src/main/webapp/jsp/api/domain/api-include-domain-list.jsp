@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(function() {
 		var type_ = 'post';
-		var url_ = '${basePath}apicenter/ajax_include_domain_list.do';
+		var url_ = '${basePath}apicenter/ajax_include_domain_page_list.do';
 		var data_ = null; // 可以为null，后台会进行默认处理
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 		aForm.launch(url_, 'table-form', obj).init().drawForm(domains.loadTable);
