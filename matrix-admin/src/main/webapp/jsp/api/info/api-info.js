@@ -213,6 +213,7 @@ var apiInfo = {
 					html_ += '<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()" style="vertical-align:middle;"> <span style="vertical-align:middle;">不允许</span> &nbsp&nbsp';
 					html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()" style="vertical-align:middle;"> <span style="vertical-align:middle;">允许</span>';
 					html_ += '<input type="hidden" id="domain-list" name="domainList"  value="">';
+					html_ += '<input type="hidden" id="domain-content-list" name="domainContentList"  value="">';
 				html_ += '</div>';
 
             	html_ += '<textarea cols="80" rows="5" maxlength="260"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
@@ -233,6 +234,7 @@ var apiInfo = {
         // 清空 domainList 隐藏域中的值
         cleanDomainInfo:function(){
         	$("#domain-list").val("");
+        	$("#domain-content-list").val("");
         },
         
         // 打开跨域列表弹窗
@@ -295,10 +297,13 @@ var apiInfo = {
         // 保存勾选的跨域信息到隐藏域中
         saveOpenDomain:function(){
         	var arr = new Array();
+        	var dcl = new Array();
         	$("input[name='domainId']:checked").each(function(){ 
         		arr.push($(this).val());
+        		dcl.push($(this).attr("domain-data")); 
     		});  
         	$("#domain-list").val(arr.join());
+        	$("#domain-content-list").val(dcl.join()); 
         	apiInfo.closeDialog();
         },
         

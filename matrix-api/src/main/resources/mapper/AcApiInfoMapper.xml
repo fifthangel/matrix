@@ -57,7 +57,7 @@
 		delete from apicenter.ac_api_info where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcApiInfo">
+	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcApiInfo" useGeneratedKeys="true" keyProperty="id">
 		insert into apicenter.ac_api_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

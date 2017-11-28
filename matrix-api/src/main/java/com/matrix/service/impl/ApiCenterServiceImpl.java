@@ -418,9 +418,56 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 	 * @version 1.0.0
 	 */
 	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d, HttpSession session) {
+		JSONObject result = new JSONObject();
+		if(StringUtils.isAnyBlank(d.getName() , d.getTarget() , d.getProcessor() , d.getModule() , d.getRemark())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010071));  // 600010071=API关键信息不得为空!请全部填写.
+			return result;
+		}
+		if(d.getDomain() == 1 && StringUtils.isBlank(d.getDomainList())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010072));  // 600010072=请勾选API可用跨域列表
+			return result;
+		}
+		
+		AcApiInfo e = new AcApiInfo();
+		e.setName(d.getName());
+		e.setTarget(d.getTarget());
+		e.setAtype(d.getAtype());
+		e.setModule(d.getModule());
+		e.setProcessor(d.getProcessor());
+		e.setDomain(d.getDomain());
+		e.setParentId(d.getParentId());
+		e.setSeqnum(d.getSeqnum());
+		e.setDiscard(1);
+		e.setRemark(d.getRemark());
+		
+		McUserInfoView u = (McUserInfoView) session.getAttribute("userInfo");
+		e.setCreateTime(new Date());
+		e.setCreateUserId(u.getId());
+		e.setUpdateTime(new Date());
+		e.setUpdateUserId(u.getId());
+		int flag = acApiInfoDao.insertSelective(e);
+		if(flag == 1) {
+			result.put("status", "success");
+			result.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
+			
+			if(d.getDomain() == 1) {							// TODO				
+				String domainContentList = d.getDomainContentList();
+				Integer id = e.getId();
+				String [] arr = d.getDomainList().split(",");
+			}
+			
+			
+			
+			
+		}else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010062));  // 600010062=服务器异常，数据添加失败!
+		}
 		
 		
-		return null;
+		return result;
 	}
 	
 }

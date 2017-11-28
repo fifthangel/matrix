@@ -13,6 +13,14 @@ public class AcApiInfoDto {
     private Integer discard;
     private String remark;
     private String domainList;
+    private String domainContentList;
+    
+	public String getDomainContentList() {
+		return domainContentList;
+	}
+	public void setDomainContentList(String domainContentList) {
+		this.domainContentList = domainContentList;
+	}
 	public Integer getId() {
 		return id;
 	}
