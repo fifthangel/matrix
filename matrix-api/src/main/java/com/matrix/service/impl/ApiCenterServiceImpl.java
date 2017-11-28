@@ -25,6 +25,7 @@ import com.matrix.dao.IAcApiInfoDao;
 import com.matrix.dao.IAcApiProjectDao;
 import com.matrix.dao.IAcIncludeDomainDao;
 import com.matrix.dao.IAcRequestInfoDao;
+import com.matrix.pojo.dto.AcApiInfoDto;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
@@ -392,6 +393,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			ApiTreeView a = new ApiTreeView();
 			a.setId(p.getInteger("id"));
 			a.setName(p.getString("target"));
+			a.setAtype(p.getString("atype")); 
 			a.setSeqnum(i+1);
 			a.setParentId(0);
 			tlist.add(a);
@@ -404,6 +406,21 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		result.put("status", "success");
 		result.put("list", tlist);
 		return result;
+	}
+
+	/**
+	 * @description: 添加api信息
+	 *
+	 * @param e
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月28日 下午3:19:55 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d, HttpSession session) {
+		
+		
+		return null;
 	}
 	
 }

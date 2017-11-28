@@ -5,6 +5,7 @@ import java.util.Date;
 public class AcApiProjectListView {
 	private Integer id;
     private String target;
+    private String atype;  // 接口类型 private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口
     private Integer aflag;
     private Date createTime;
     private Integer createUserId;
@@ -13,6 +14,12 @@ public class AcApiProjectListView {
     private String creator;
     private String updater;
     
+	public String getAtype() {
+		return atype;
+	}
+	public void setAtype(String atype) {
+		this.atype = atype;
+	}
 	public Integer getId() {
 		return id;
 	}

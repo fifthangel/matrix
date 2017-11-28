@@ -21,8 +21,15 @@ var project = {
 			var list = obj.data.list;
 			if (list.length > 0) {
 				for (var i = 0; i < list.length; i++) {
+					var type_ = '';
+					if(list[i].atype == "private"){
+						type_ = '内部调用';
+					}else{
+						type_ = '对外开放';
+					}
 					html_ += '<tr id="tr-' + list[i].id + '" class="gradeX">' 
 							+ '<td width="200px" align="center">' + list[i].target + '</td>'
+							+ '<td width="200px" align="center">' + type_ + '</td>'
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updateTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
@@ -76,7 +83,8 @@ var project = {
 			var type_ = 'post';
 			var url_ = 'ajax_api_project_add.do';
 			var data_ = {
-				target : $("#target-add").val() 
+				target : $("#target-add").val(),
+				atype : $("#atype-add").val()
 			};
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){

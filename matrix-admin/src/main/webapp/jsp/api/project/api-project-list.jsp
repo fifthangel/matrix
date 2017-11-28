@@ -60,7 +60,8 @@
 			<table id="dyntable2" cellpadding="0" cellspacing="0" border="0" class="stdtable">
 				<thead>
 					<tr>
-						<th class="head0">项目名称</th>  
+						<th class="head0">项目名称</th>
+						<th class="head0">开放方式</th>  
 						<th class="head0">创建时间</th> 
 						<th class="head0">更新时间</th>
 						<th class="head0">更新人</th>
@@ -80,7 +81,7 @@
 
 
 <!-- 添加弹层 -->
-<div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 150px">
+<div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
         <a href="#" onclick="project.closeDialog()" class="dialog-close"></a>
         添加项目
@@ -91,12 +92,24 @@
             <form id="dialog-table" action="javascript:void(0)">   
 	            <table class="dialog-table">
 	                <tbody>
-	                	<tr >
+	                	<tr>
 	                		<td style="text-align: right">
-	                			项目名：
+	                			项目名称：
 	                		</td>
 	                		<td style="text-align: left">
 	                			<input type="text" id="target-add" name="target" class="dialog-form-input" style="width:200px;"/>
+	                		</td>
+	                	</tr>
+	                	<tr></tr>
+	                	<tr style="line-height:10px;">
+	                		<td style="text-align: right">
+	                			开放类型：
+	                		</td>
+	                		<td style="text-align: left">
+	                			<select id="atype-add" name="atype" class="dialog-form-input"  style="width:212px;margin:0px">
+	                				<option value="private" selected>公司内部使用接口</option>
+	                				<option value="public" >开放给第三方的接口</option>
+	                			</select>
 	                		</td>
 	                	</tr>
 	                </tbody>

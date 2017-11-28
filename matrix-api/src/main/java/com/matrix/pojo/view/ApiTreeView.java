@@ -2,7 +2,8 @@ package com.matrix.pojo.view;
 
 public class ApiTreeView {
 	private Integer id;
-    private String name; 		// api名称
+	private String name;  // 接口中文描述   树展示使用
+    private String target; // 系统接口名称 比如：TEST-PUBLIC-PROCESSOR，访问标识
     private String atype;			// 接口类型 private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口
     private String module;			// maven sub module name  比如：matrix-file
     private String processor;		// 业务处理接口的类 com.matrix.processor.publics.example.TestPublicProcessor
@@ -13,6 +14,12 @@ public class ApiTreeView {
     private String remark;
     private Boolean open = true;
     
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
 	public Integer getDiscard() {
 		return discard;
 	}

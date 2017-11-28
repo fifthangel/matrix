@@ -4,13 +4,13 @@
 var apiInfo = {
 		path:null,
 		currentNode:null,
-		
+		zTree:null ,  
 		
 		/**
 		 * 实例化对象
 		 */
 		launch:function(path_){
-			apiInfo.path = path_ + 'apicenter/';                     
+			apiInfo.path = path_ + 'apicenter/';              
 			return apiInfo;
 		},
 
@@ -27,6 +27,7 @@ var apiInfo = {
             if(obj.status == 'success'){
                 var zNodes = obj.list;
                 $.fn.zTree.init($("#api-tree") , setting_ , zNodes);
+                apiInfo.zTree = $.fn.zTree.getZTreeObj("api-tree");
                 $("#callbackTrigger").bind("change", {}, setting_.setTrigger);
             }
         }, 
@@ -77,7 +78,7 @@ var apiInfo = {
             var btn = $("#addBtn_"+treeNode.tId);
             if (btn) {
                 btn.bind("click", function(){
-                    var zTree = $.fn.zTree.getZTreeObj("api-tree");
+                    var zTree = apiInfo.zTree;
                     var new_ = { // 新建一个节点元素
                         id:(100 + newCount),
                         pId:treeNode.id,
@@ -183,7 +184,7 @@ var apiInfo = {
             }
         },
         
-        // 添加API具体信息
+        // 添加或修改API具体信息
         apiInfo : function(event , treeNode){
         	apiInfo.currentNode = treeNode;
             $($("#tree-node-edit")[0].childNodes).remove();
@@ -192,14 +193,17 @@ var apiInfo = {
             if(treeNode.name == "新建结点"){
             	url_ = apiInfo.path + 'ajax_api_info_add.do'; 
             	var html_ = '<div>';
-	            	html_ += '系统接口名称：';
-	            	html_ += '<input type="text" id="name" name="name" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;">'; 
+	            	html_ += '接口中文描述：';
+	            	html_ += '<input type="text" id="name" name="name" class="smallinput " placeholder="比如：订单信息接口" style="width: 300px; margin-bottom: 10px;">'; 
             	html_ += '</div>';
-	            
-				html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">系统接口类型：</span>&nbsp&nbsp';  
-					html_ += '<input type="radio" name="atype" value="private" checked style="vertical-align:middle;"> <span style="vertical-align:middle;">公司内部使用</span> &nbsp&nbsp';
-					html_ += '<input type="radio" name="atype"  value="public" style="vertical-align:middle;"> <span style="vertical-align:middle;">开放给第三方</span>';
-				html_ += '</div>';
+            	
+            	html_ += '<div>';
+	            	html_ += '系统接口名称：';
+	            	html_ += '<input type="text" id="target" name="target" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;">'; 
+	        	html_ += '</div>';
+	           
+	        	var parent = apiInfo.zTree.getNodeByTId(treeNode.parentTId);
+	        	html_ += '<input type="hidden" name="atype" value="' + parent.atype +'" >';    // 系统接口类型 private:公司内部使用 public:开放给第三方
 				
 				html_ += '<div>业务处理实现：<input type="text" id="processor" name="processor" class="smallinput " placeholder="比如：publics.example.TestPublicProcessor" style="width: 300px; margin-bottom: 10px;"></div>';
 				
@@ -208,18 +212,18 @@ var apiInfo = {
 				html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">接口跨域限制：</span>&nbsp&nbsp';
 					html_ += '<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()" style="vertical-align:middle;"> <span style="vertical-align:middle;">不允许</span> &nbsp&nbsp';
 					html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()" style="vertical-align:middle;"> <span style="vertical-align:middle;">允许</span>';
-					html_ += '<input type="hidden" name="domainList"  value="">';
+					html_ += '<input type="hidden" id="domain-list" name="domainList"  value="">';
 				html_ += '</div>';
 
             	html_ += '<textarea cols="80" rows="5" maxlength="260"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
             	var seqnum_ = 1;
-            	if(preNode != null){
+            	if(preNode != null){        // && typeof(preNode.seqnum) != "undefined"
             		seqnum_ = preNode.seqnum + 1;
             	} 
             	html_ += '<input type="hidden" name="seqnum" value="' + seqnum_ +'" >'; 
-            	html_ += '<button class="stdbtn btn_orange " onclick="apiInfo.addApiInfo(\'' + url_ +'\')"> 提 交 </button>'
+            	html_ += '<button class="stdbtn btn_orange " onclick="apiInfo.addOrUpdate(\'' + url_ +'\')"> 提 交 </button>'
             }else{
             	url_ = apiInfo.path + 'ajax_api_info_edit.do';
             }
@@ -228,7 +232,7 @@ var apiInfo = {
         
         // 清空 domainList 隐藏域中的值
         cleanDomainInfo:function(){
-        	
+        	$("#domain-list").val("");
         },
         
         // 打开跨域列表弹窗
@@ -241,6 +245,7 @@ var apiInfo = {
     			width: 'auto',
     			height: '180px' // '208px'
     		});
+    		apiInfo.drawDomainDialog();
     		
     		$.blockUI({
     			showOverlay:true ,
@@ -264,14 +269,67 @@ var apiInfo = {
         drawDomainDialog:function(){
         	$("#api-include-domain-list li").remove();
         	var type_ = 'post';
-            var url_ = apiInfo.path + 'ajax_include_domain_list.do'; 						// TODO 
+            var url_ = apiInfo.path + 'ajax_include_domain_list.do'; 		 
             var data_ = null;   
             var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));  
+            var html_ = '';
             if(obj.status == 'success'){
-                // TODO 动态追加
+                var arr = obj.data;
+                for(var i = 0 ; i < arr.length ; i ++){
+                	html_ += '<li><div class="entry_wrap"><div class=""><h4><span>' + arr[i].companyName + '</span></h4>';
+                	html_ += '<span><input type="checkbox" name="domainId"  value="' + arr[i].id + '" domain-data="' + arr[i].domain + '" style="vertical-align:middle;"/>&nbsp&nbsp';
+                	html_ += '<span style="vertical-align:middle;">' + arr[i].domain + '</span></span></div></div></li>'; 
+                }
             }else{
-            	
+            	html_ += '<li><div class="entry_wrap"><div class=""><h4><span>跨域白名单尚未配置</span></h4>';
+            	html_ += '<span>';
+            	html_ += '<span style="vertical-align:middle;">' + obj.msg + '</span></span></div></div></li>'; 
             }
+            $("#api-include-domain-list").append(html_);
+            var arr = $("#domain-list").val().split(",");
+            for(var k = 0 ; k < arr.length ; k ++){
+            	$("input[value='" + arr[k] + "']").attr("checked","checked");
+            }
+        },
+        
+        // 保存勾选的跨域信息到隐藏域中
+        saveOpenDomain:function(){
+        	var arr = new Array();
+        	$("input[name='domainId']:checked").each(function(){ 
+        		arr.push($(this).val());
+    		});  
+        	$("#domain-list").val(arr.join());
+        	apiInfo.closeDialog();
+        },
+        
+        // 添加或更新一条记录
+        addOrUpdate:function(url_){
+            var data_ = $("#tree-node-edit").serializeArray();
+            var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
+			if(obj.status == 'success'){
+				jAlert(obj.msg , '系统提示' , function(){
+					var zTree = apiInfo.zTree;
+	            	var parent = zTree.getNodeByTId(apiInfo.currentNode.parentTId);
+	            	var e = obj.entity;
+	            	
+	            	zTree.removeNode(apiInfo.currentNode);
+	            	apiInfo.currentNode = null;
+	            	
+                    var new_ = { // 节点元素重新追加
+                        id : e.id,
+                        pId : parent.id,
+                        flag:1,  // 新增节点标记
+                        name: e.name ,
+                        parentId : e.parentId,
+                        seqnum : e.seqnum, 
+                        eleValue : e.eleValue
+                    };
+                    zTree.addNodes(parent ,  new_);
+                    apiInfo.parentNode = null;
+				});
+			}else{
+				jAlert(obj.msg , '系统提示');
+			}
         },
         
         closeDialog:function(){
@@ -319,11 +377,11 @@ var setting_ = {
             onExpand: false,           // 捕获节点被展开的事件回调函数 |默认值：null
             onClick: apiInfo.ztOnClick,   
             beforeRemove: false,       // 捕获删除之前的数据 
-            beforeCheck: false,       //surfunc.beforeCheck,    // 捕获 勾选 或 取消勾选 之前的事件回调函数
-            onCheck :false,       // surfunc.onCheck
+            beforeCheck: false,       //apiInfo.beforeCheck,    // 捕获 勾选 或 取消勾选 之前的事件回调函数
+            onCheck :false,       // apiInfo.onCheck
         },
         setTrigger:function(){
-            var zTree = $.fn.zTree.getZTreeObj("api-tree");
+            var zTree = apiInfo.zTree;
             zTree.setting.edit.drag.autoExpandTrigger = $("#callbackTrigger").attr("checked");
         }
     };

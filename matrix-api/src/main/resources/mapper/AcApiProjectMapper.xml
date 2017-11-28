@@ -5,6 +5,7 @@
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.AcApiProject">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="target" property="target" jdbcType="VARCHAR" />
+		<result column="atype" property="atype" jdbcType="VARCHAR" />
 		<result column="aflag" property="aflag" jdbcType="INTEGER" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
@@ -26,6 +27,7 @@
 		select 
 			a.id as id,
 			a.target as target,
+			a.atype as atype,
 			a.create_time as createTime,
 			a.update_time as updateTime,
 			a.update_user_id as updateUserId,
@@ -46,6 +48,7 @@
 		select 
 			a.id as id,
 			a.target as target,
+			a.atype as atype,
 			a.create_time as createTime,
 			a.update_time as updateTime,
 			a.update_user_id as updateUserId,
@@ -68,6 +71,9 @@
 			</if>
 			<if test="target != null">
 				target,
+			</if>
+			<if test="atype != null">
+				atype,
 			</if>
 			<if test="aflag != null">
 				aflag,
@@ -92,6 +98,9 @@
 			<if test="target != null">
 				#{target,jdbcType=VARCHAR},
 			</if>
+			<if test="atype != null">
+				#{atype,jdbcType=VARCHAR},
+			</if>
 			<if test="aflag != null">
 				#{aflag,jdbcType=INTEGER},
 			</if>
@@ -114,6 +123,9 @@
 		<set>
 			<if test="target != null">
 				target = #{target,jdbcType=VARCHAR},
+			</if>
+			<if test="atype != null">
+				atype = #{atype,jdbcType=VARCHAR},
 			</if>
 			<if test="aflag != null">
 				aflag = #{aflag,jdbcType=INTEGER},

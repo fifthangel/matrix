@@ -5,12 +5,20 @@ import java.util.Date;
 public class AcApiProject {
     private Integer id;
     private String target;
+    private String atype;  // 接口类型 private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口
     private Integer aflag;
     private Date createTime;
     private Integer createUserId;
     private Date updateTime;
     private Integer updateUserId;
     
+    
+	public String getAtype() {
+		return atype;
+	}
+	public void setAtype(String atype) {
+		this.atype = atype;
+	}
 	public Integer getId() {
 		return id;
 	}

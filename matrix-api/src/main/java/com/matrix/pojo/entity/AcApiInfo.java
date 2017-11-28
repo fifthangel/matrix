@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class AcApiInfo {
     private Integer id;
-    private String name;
+    private String name;  // 接口中文描述   树展示使用
+    private String target; // 系统接口名称 比如：TEST-PUBLIC-PROCESSOR，访问标识
     private String atype;
     private String module;
     private String processor;
@@ -18,6 +19,12 @@ public class AcApiInfo {
     private Date updateTime;
     private Integer updateUserId;
     
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
 	public Integer getDiscard() {
 		return discard;
 	}

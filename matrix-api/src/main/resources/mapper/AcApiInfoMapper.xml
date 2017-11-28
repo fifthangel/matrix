@@ -5,6 +5,7 @@
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.AcApiInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="target" property="target" jdbcType="VARCHAR" />
 		<result column="atype" property="atype" jdbcType="VARCHAR" />
 		<result column="module" property="module" jdbcType="VARCHAR" />
 		<result column="processor" property="processor" jdbcType="VARCHAR" />
@@ -34,6 +35,7 @@
 		select
 			a.id as id,
 			a.name as name,
+			a.target as target,
 			a.atype as atype,
 			a.module as module,
 			a.processor as processor,
@@ -63,6 +65,9 @@
 			</if>
 			<if test="name != null">
 				name,
+			</if>
+			<if test="target != null">
+				target,
 			</if>
 			<if test="atype != null">
 				atype,
@@ -108,6 +113,9 @@
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
+			<if test="target != null">
+				#{target , jdbcType=VARCHAR},
+			</if>
 			<if test="atype != null">
 				#{atype,jdbcType=VARCHAR},
 			</if>
@@ -152,6 +160,9 @@
 		<set>
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				target = #{target , jdbcType=VARCHAR},
 			</if>
 			<if test="atype != null">
 				atype = #{atype,jdbcType=VARCHAR},

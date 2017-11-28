@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.interfaces.IBaseService;
+import com.matrix.pojo.dto.AcApiInfoDto;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
@@ -27,5 +28,6 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	// ac_api_info 表
 	public String apiInfoList();
 	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);
+	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d, HttpSession session); 
 
 }

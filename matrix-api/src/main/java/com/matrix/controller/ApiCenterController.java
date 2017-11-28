@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseController;
+import com.matrix.pojo.dto.AcApiInfoDto;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
@@ -200,6 +201,22 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	public JSONObject ajaxApiInfoList(AcApiInfo e , HttpSession session){ 
 		super.userBehavior(session, logger, "ajax_api_info_list", "获取api树结构列表信息");
 		return service.ajaxApiInfoList(e, session);  
+	}
+	
+	/**
+	 * @description: 添加api信息
+	 *
+	 * @param e
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月28日 下午3:19:55 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_api_info_add", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d , HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_api_info_add", "添加api信息");
+		return service.ajaxApiInfoAdd(d, session);  
 	}
 }
 
