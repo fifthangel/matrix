@@ -315,19 +315,24 @@ var apiInfo = {
 				jAlert(obj.msg , '系统提示' , function(){
 					var zTree = apiInfo.zTree;
 	            	var parent = zTree.getNodeByTId(apiInfo.currentNode.parentTId);
-	            	var e = obj.entity;
+	            	var e = obj;
 	            	
 	            	zTree.removeNode(apiInfo.currentNode);
 	            	apiInfo.currentNode = null;
 	            	
                     var new_ = { // 节点元素重新追加
                         id : e.id,
-                        pId : parent.id,
-                        flag:1,  // 新增节点标记
+                        pId : e.parentId,
                         name: e.name ,
-                        parentId : e.parentId,
+                        target:e.target,
+                        atype:e.atype,   
+                        module:e.module,
+                        processor:e.processor,
+                        domain:e.domain,
                         seqnum : e.seqnum, 
-                        eleValue : e.eleValue
+                        parentId : e.parentId,
+                        discard:e.discard,
+                        remark:e.remark 
                     };
                     zTree.addNodes(parent ,  new_);
                     apiInfo.parentNode = null;

@@ -5,15 +5,12 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
-import com.matrix.base.interfaces.IBaseCache;
 import com.matrix.base.interfaces.ILoadCache;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IAcApiProjectDao;
 import com.matrix.dao.IAcIncludeDomainDao;
-import com.matrix.pojo.view.AcApiProjectListView;
 import com.matrix.pojo.view.AcIncludeDomainView;
 
 /**

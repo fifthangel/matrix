@@ -4,7 +4,7 @@
 	
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.AcApiDomain">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="ac_request_info_id" property="acRequestInfoId" jdbcType="INTEGER" />
+		<result column="ac_api_info_id" property="acApiInfoId" jdbcType="INTEGER" />
 		<result column="ac_include_domain_id" property="acIncludeDomainId" jdbcType="INTEGER" />
 	</resultMap>
 	
@@ -18,7 +18,22 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<resultMap id="AcApiDomainView" type="com.matrix.pojo.view.AcApiDomainView"></resultMap>
+	<select id="selectByApiInfoId" resultMap="AcApiDomainView" parameterType="java.lang.Integer">
+		select
+			ad.ac_include_domain_id as id,
+			i.domain as domain,
+			i.company_name as companyName 
+		from 
+			apicenter.ac_api_domain ad left join apicenter.ac_include_domain i on ad.ac_include_domain_id = i.id
+		where 
+			ad.ac_api_info_id = #{apiInfoId}
+		and 
+			i.flag = 1
+	</select>
+	
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from apicenter.ac_api_domain where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
@@ -29,8 +44,8 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="acRequestInfoId != null">
-				ac_request_info_id,
+			<if test="acApiInfoId != null">
+				ac_api_info_id,
 			</if>
 			<if test="acIncludeDomainId != null">
 				ac_include_domain_id,
@@ -40,8 +55,8 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="acRequestInfoId != null">
-				#{acRequestInfoId,jdbcType=INTEGER},
+			<if test="acApiInfoId != null">
+				#{acApiInfoId,jdbcType=INTEGER},
 			</if>
 			<if test="acIncludeDomainId != null">
 				#{acIncludeDomainId,jdbcType=INTEGER},
@@ -53,8 +68,8 @@
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.AcApiDomain">
 		update apicenter.ac_api_domain
 		<set>
-			<if test="acRequestInfoId != null">
-				ac_request_info_id = #{acRequestInfoId,jdbcType=INTEGER},
+			<if test="acApiInfoId != null">
+				ac_api_info_id = #{acApiInfoId,jdbcType=INTEGER},
 			</if>
 			<if test="acIncludeDomainId != null">
 				ac_include_domain_id = #{acIncludeDomainId,jdbcType=INTEGER},

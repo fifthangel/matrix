@@ -53,6 +53,40 @@
 			</if>
 	</select>
 	
+	<!-- 多条件查询 -->
+	<select id="selectByEntity" resultMap="BaseResultMap" parameterType="com.matrix.pojo.entity.AcApiInfo">
+		select
+			*
+		from 
+			apicenter.ac_api_info
+		where 
+			1 = 1
+			<if test="id != null">
+				and id = #{id,jdbcType=INTEGER} 
+			</if>
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR} 
+			</if>
+			<if test="target != null">
+				and target = #{target , jdbcType=VARCHAR} 
+			</if>
+			<if test="atype != null">
+				and atype = #{atype,jdbcType=VARCHAR} 
+			</if>
+			<if test="module != null">
+				and module = #{module,jdbcType=VARCHAR} 
+			</if>
+			<if test="processor != null">
+				and processor = #{processor,jdbcType=VARCHAR} 
+			</if>
+			<if test="domain != null">
+				and domain = #{domain,jdbcType=INTEGER} 
+			</if> 
+			<if test="discard != null">
+				and discard = #{discard , jdbcType=INTEGER} 
+			</if>
+	</select>
+	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from apicenter.ac_api_info where id = #{id,jdbcType=INTEGER}
 	</delete>

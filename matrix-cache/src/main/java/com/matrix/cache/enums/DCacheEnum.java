@@ -24,7 +24,9 @@ public enum DCacheEnum {
 	
 	ApiProject  ,        // apicenter.ac_api_project表的字典缓存，用于标识API的分类
 	
-	ApiDomain        //  ac_include_domain 表字典缓存，白名单标识
+	ApiDomain  ,       //  ac_include_domain 表字典缓存，白名单标识
+	
+	ApiInfo               // ac_api_info 与ac_include_domain 的复合缓存。
 }
 
 

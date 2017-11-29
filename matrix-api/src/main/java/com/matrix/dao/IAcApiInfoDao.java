@@ -9,5 +9,7 @@ import com.matrix.pojo.view.ApiTreeView;
 public interface IAcApiInfoDao extends IBaseDao<AcApiInfo , Integer>{
 
 	public List<ApiTreeView> findApiInfoList(AcApiInfo e); 
-    
+	public List<AcApiInfo> selectByEntity(AcApiInfo entity);
+	
+	
 }

@@ -1,6 +1,7 @@
 package com.matrix.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.matrix.dao.IAcApiProjectDao;
 import com.matrix.dao.IAcIncludeDomainDao;
 import com.matrix.dao.IAcRequestInfoDao;
 import com.matrix.pojo.dto.AcApiInfoDto;
+import com.matrix.pojo.entity.AcApiDomain;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
@@ -374,7 +376,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			result.put("msg", this.getInfo(600010069));  // 600010069=API树形结构加载失败!api所属项目缓存异常.
 			return result;
 		}
-		// TODO 添加一个树形结构返回视图类
+		
 		JSONArray arr = pobj.getJSONArray("data");
 		if(arr.size() == 0) {
 			result.put("status", "error");
@@ -429,6 +431,17 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			result.put("msg", this.getInfo(600010072));  // 600010072=请勾选API可用跨域列表
 			return result;
 		}
+		if(!StringUtils.startsWith(d.getProcessor(), d.getAtype())) { 
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010074 , d.getAtype()));  // 600010074=【业务处理实现】路径输入错误!应该以{0}起始
+			return result;
+		}
+		String isRecord = launch.loadDictCache(DCacheEnum.ApiInfo , "InitApiInfo").get(d.getTarget());
+		if(StringUtils.isNotBlank(isRecord)) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010075 , d.getTarget() ));  // 600010075=系统接口名称：{0} 已经在数据库中存在,请修改.
+			return result;
+		}
 		
 		AcApiInfo e = new AcApiInfo();
 		e.setName(d.getName());
@@ -449,24 +462,36 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		e.setUpdateUserId(u.getId());
 		int flag = acApiInfoDao.insertSelective(e);
 		if(flag == 1) {
-			result.put("status", "success");
-			result.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
-			
-			if(d.getDomain() == 1) {							// TODO				
-				String domainContentList = d.getDomainContentList();
-				Integer id = e.getId();
-				String [] arr = d.getDomainList().split(",");
+			try {
+				if(d.getDomain() == 1) {							 
+					String [] arr = d.getDomainList().split(",");
+					for(int i = 0 ; i < arr.length ; i ++) {
+						AcApiDomain ad = new AcApiDomain();
+						ad.setAcApiInfoId(e.getId());
+						ad.setAcIncludeDomainId(Integer.valueOf(arr[i]));
+						acApiDomainDao.insertSelective(ad);
+					}
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				result.put("status", "error");
+				result.put("msg", this.getInfo(600010063));  // 600010073=API信息与跨域域名关联异常,数据库更新失败!请及时查看服务器log日志
+				return result;
 			}
 			
+			// 开始初始化API缓存
+			JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
+			cache.put("list", d.getDomainContentList().split(",")); 
+			cache.put("domainIds", d.getDomainList().split(",")); 
+			launch.loadDictCache(DCacheEnum.ApiInfo , null).set(d.getTarget() , cache.toJSONString()); 
 			
-			
-			
+			cache.put("status", "success");
+			cache.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
+			return cache;  // 标识成功并返回全部缓存信息
 		}else {
 			result.put("status", "error");
 			result.put("msg", this.getInfo(600010062));  // 600010062=服务器异常，数据添加失败!
 		}
-		
-		
 		return result;
 	}
 	
