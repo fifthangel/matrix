@@ -188,47 +188,67 @@ var apiInfo = {
         apiInfo : function(event , treeNode){
         	apiInfo.currentNode = treeNode;
             $($("#tree-node-edit")[0].childNodes).remove();
+            var flag = true;     // 新建结点 默认为真
             var type_ = 'post';
             var url_ = ''; 
             if(treeNode.name == "新建结点"){
             	url_ = apiInfo.path + 'ajax_api_info_add.do'; 
-            	var html_ = '<div>';
-	            	html_ += '接口中文描述：';
-	            	html_ += '<input type="text" id="name" name="name" class="smallinput " placeholder="比如：订单信息接口" style="width: 300px; margin-bottom: 10px;">'; 
-            	html_ += '</div>';
-            	
-            	html_ += '<div>';
-	            	html_ += '系统接口名称：';
-	            	html_ += '<input type="text" id="target" name="target" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;">'; 
-	        	html_ += '</div>';
-	           
-	        	var parent = apiInfo.zTree.getNodeByTId(treeNode.parentTId);
-	        	html_ += '<input type="hidden" name="atype" value="' + parent.atype +'" >';    // 系统接口类型 private:公司内部使用 public:开放给第三方
-				
-				html_ += '<div>业务处理实现：<input type="text" id="processor" name="processor" class="smallinput " placeholder="比如：publics.example.TestPublicProcessor" style="width: 300px; margin-bottom: 10px;"></div>';
-				
-				html_ += '<div>接口所属工程：<input type="text" id="module" name="module" class="smallinput " placeholder="比如：matrix-file" style="width: 300px; margin-bottom: 10px;" value="matrix-api"></div>';
-				
-				html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">接口跨域限制：</span>&nbsp&nbsp';
-					html_ += '<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()" style="vertical-align:middle;"> <span style="vertical-align:middle;">不允许</span> &nbsp&nbsp';
-					html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()" style="vertical-align:middle;"> <span style="vertical-align:middle;">允许</span>';
-					html_ += '<input type="hidden" id="domain-list" name="domainList"  value="">';
-					html_ += '<input type="hidden" id="domain-content-list" name="domainContentList"  value="">';
-				html_ += '</div>';
-
-            	html_ += '<textarea cols="80" rows="5" maxlength="260"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
-            	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
+            }else{
+            	flag = false;
+            	url_ = apiInfo.path + 'ajax_api_info_edit.do';
+            }
+            var parent = apiInfo.zTree.getNodeByTId(treeNode.parentTId);
+            
+            var html_ = '<div>';
+            html_ += '接口中文描述：';
+            	html_ += '<input type="text" id="name" name="name" class="smallinput " placeholder="比如：订单信息接口" style="width: 300px; margin-bottom: 10px;">'; 
+            html_ += '</div>';
+            html_ += '<div>';
+            html_ += '系统接口名称：';
+            	html_ += '<input type="text" id="target" name="target" class="smallinput " placeholder="比如：TEST-PUBLIC-PROCESSOR" style="width: 300px; margin-bottom: 10px;">'; 
+            html_ += '</div>';
+            html_ += '<input type="hidden" name="atype" value="' + parent.atype +'" >';    // 系统接口类型 private:公司内部使用 public:开放给第三方
+            
+            html_ += '<div>业务处理实现：<input type="text" id="processor" name="processor" class="smallinput " placeholder="比如：publics.example.TestPublicProcessor" style="width: 300px; margin-bottom: 10px;"></div>';
+            html_ += '<div>接口所属工程：<input type="text" id="module" name="module" class="smallinput " placeholder="比如：matrix-file" style="width: 300px; margin-bottom: 10px;" value="matrix-api"></div>';
+            
+            html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">接口跨域限制：</span>&nbsp&nbsp';
+	            html_ += '<input type="radio" name="domain" value="0" checked onclick="apiInfo.cleanDomainInfo()" style="vertical-align:middle;"> <span style="vertical-align:middle;">不允许</span> &nbsp&nbsp';
+	            html_ += '<input type="radio" name="domain"  value="1" onclick="apiInfo.openDomainDialog()" style="vertical-align:middle;"> <span style="vertical-align:middle;">允许</span>';
+	            html_ += '<input type="hidden" id="domain-list" name="domainList"  value="">';
+	            html_ += '<input type="hidden" id="domain-content-list" name="domainContentList"  value="">';
+            html_ += '</div>';
+            
+            if(!flag){
+            	html_ += '<div style="margin-bottom: 10px;"><span style="vertical-align:middle;">系统接口熔断：</span>&nbsp&nbsp';
+		            html_ += '<input type="radio" name="discard" value="1" checked onclick="apiInfo.openDiscardWarning(this)" style="vertical-align:middle;"> <span style="vertical-align:middle;">恢复启用</span> &nbsp&nbsp';
+		            html_ += '<input type="radio" name="discard"  value="0" onclick="apiInfo.openDiscardWarning(this)" style="vertical-align:middle;"> <span style="vertical-align:middle;">立刻熔断</span>';
+	            html_ += '</div>';
+            }
+            
+            html_ += '<textarea cols="80" rows="5" maxlength="260"  id="remark" name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
+            html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
+            if(flag){
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
             	var seqnum_ = 1;
             	if(preNode != null){        // && typeof(preNode.seqnum) != "undefined"
             		seqnum_ = preNode.seqnum + 1;
             	} 
             	html_ += '<input type="hidden" name="seqnum" value="' + seqnum_ +'" >'; 
-            	html_ += '<button class="stdbtn btn_orange " onclick="apiInfo.addOrUpdate(\'' + url_ +'\')"> 提 交 </button>'
-            }else{
-            	url_ = apiInfo.path + 'ajax_api_info_edit.do';
             }
+            html_ += '<button class="stdbtn btn_orange " onclick="apiInfo.addOrUpdate(\'' + url_ +'\')"> 提 交 </button>'
             $("#tree-node-edit").append(html_);
+            
+            if(treeNode.name != "新建结点"){
+            	var data_ = {target:treeNode.target};
+            	var api_ = JSON.parse(ajaxs.sendAjax('post' , apiInfo.path + 'ajax_api_info_find.do' , data_));  
+            	if(api_.status == 'success'){
+            		apiInfo.drawApiEdit(api_);  
+            	}else{
+            		jAlert(api_.msg , '系统提示'); 
+            	}
+            }
+            
         },
         
         // 清空 domainList 隐藏域中的值
@@ -340,6 +360,32 @@ var apiInfo = {
 			}else{
 				jAlert(obj.msg , '系统提示');
 			}
+        },
+        
+        openDiscardWarning:function(o){
+        	var val_ = $(o).val();
+        	if($(o).val() == 0){
+        		jAlert('选择此项并点击提交按钮后, 系统接口将会立刻熔断! 所有对此接口的访问都会失效!' , '高风险操作!');
+        	}else{
+        		jAlert('选择此项并点击提交按钮后, 系统接口将会恢复使用! 如果接口曾因为风险被关闭,请仔细确认并核对后开启!' , '系统提示!');
+        	}
+        },
+        
+        // 绘制API编辑信息
+        drawApiEdit:function(o){
+        	$("#name").val(o.name );
+        	$("#target").val(o.target );
+        	$("#processor").val(o.processor );
+        	$("#module").val(o.module );
+        	if(o.domainIds.length != 0){
+        		$("#domain-list").val(o.domainIds.join(",") );
+        	}
+        	if(o.list.length != 0){
+        		$("#domain-content-list").val(o.list.join(",")); 
+        	}
+        	$("input[name='domain'][value='" + o.domain + "']").attr("checked","checked");
+        	$("input[name='discard'][value='" + o.discard + "']").attr("checked","checked");
+        	$("#remark").val(o.remark ); 
         },
         
         closeDialog:function(){

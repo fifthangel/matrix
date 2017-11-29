@@ -49,6 +49,8 @@ public class InitApiInfo  extends BaseClass implements ILoadCache{
 		AcApiInfo e = apiInfoList.get(0);
 		// 开始初始化API缓存
 		JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
+		cache.put("list", new ArrayList<String>()); 
+		cache.put("domainIds", new ArrayList<String>()); 
 		if(e.getDomain() == 1) {		// 针对可跨域情况
 			List<AcApiDomainView> adList = acApiDomainDao.selectByApiInfoId(e.getId());
 			if(adList != null && adList.size() != 0) {

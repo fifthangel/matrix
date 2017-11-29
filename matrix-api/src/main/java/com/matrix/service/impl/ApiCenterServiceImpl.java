@@ -494,6 +494,34 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		}
 		return result;
 	}
+
+	/**
+	 * @description: 依据target 查找一个api信息
+	 *
+	 * @param dto
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月29日 下午4:26:33 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxApiInfoFind(AcApiInfoDto d) {
+		JSONObject result = new JSONObject();
+		if(StringUtils.isBlank(d.getTarget())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010076));  // 600010076=系统接口标识"target"参数不得为空!
+			return result;
+		}
+		String record = launch.loadDictCache(DCacheEnum.ApiInfo , "InitApiInfo").get(d.getTarget());
+		if(StringUtils.isBlank(record)) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010077 , d.getTarget()));  // 600010077=目标接口: {0} 不存在!
+			return result;
+		}
+		JSONObject cache =JSONObject.parseObject(record);
+		cache.put("status", "success");
+		cache.put("msg", this.getInfo(600010006));  // 600010006=数据查询成功! 
+		return cache;  
+	}
 	
 }
 

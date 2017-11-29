@@ -218,6 +218,22 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_api_info_add", "添加api信息");
 		return service.ajaxApiInfoAdd(d, session);  
 	}
+	
+	/**
+	 * @description: 依据target 查找一个api信息
+	 *
+	 * @param dto
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月29日 下午4:26:33 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_api_info_find", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxApiInfoFind(AcApiInfoDto dto , HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_api_info_find", "依据target 查找一个api信息");
+		return service.ajaxApiInfoFind(dto);  
+	}
 }
 
 
