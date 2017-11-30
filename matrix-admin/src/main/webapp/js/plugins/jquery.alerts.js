@@ -52,9 +52,13 @@ jQuery(function($) {
 		},
 		
 		confirm: function(message, title, callback) {
-			if( title == null ) title = 'Confirm';
+			if( title == null ) {
+				title = 'Confirm';
+			}
 			$.alerts._show(title, message, null, 'confirm', function(result) {
-				if( callback ) callback(result);
+				if( callback ) {
+					return callback(result);
+				}
 			});
 		},
 			
@@ -80,7 +84,9 @@ jQuery(function($) {
 				'</div>' +
 			  '</div>');
 			
-			if( $.alerts.dialogClass ) $("#popup_container").addClass($.alerts.dialogClass);
+			if( $.alerts.dialogClass ) {
+				$("#popup_container").addClass($.alerts.dialogClass);
+			}
 			
 			// IE6 Fix
 			var pos = ($.support.msie && parseInt($.support.version) <= 6 ) ? 'absolute' : 'fixed'; 
@@ -120,7 +126,9 @@ jQuery(function($) {
 					$("#popup_message").after('<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /> <input type="button" value="' + $.alerts.cancelButton + '" id="popup_cancel" /></div>');
 					$("#popup_ok").click( function() {
 						$.alerts._hide();
-						if( callback ) callback(true);
+						if( callback ){
+							callback(true);
+						}
 					});
 					$("#popup_cancel").click( function() {
 						$.alerts._hide();
@@ -234,5 +242,4 @@ jQuery(function($) {
 		$.alerts.prompt(message, value, title, callback);
 	};
 	
-}
-);
+});

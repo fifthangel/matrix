@@ -25,8 +25,8 @@ var domains = {
 			if (list.length > 0) {
 				for (var i = 0; i < list.length; i++) {
 					html_ += '<tr id="tr-' + list[i].id + '" class="gradeX">' 
-							+ '<td width="200px" align="center">' + list[i].domain + '</td>'
-							+ '<td align="center">' + list[i].companyName + '</td>'
+							+ '<td width="400px" align="center">' + list[i].domain + '</td>'
+							+ '<td width="300px" align="center">' + list[i].companyName + '</td>'
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'

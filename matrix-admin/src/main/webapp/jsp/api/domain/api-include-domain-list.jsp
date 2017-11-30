@@ -68,8 +68,8 @@
 			<table id="dyntable2" cellpadding="0" cellspacing="0" border="0" class="stdtable">
 				<thead>
 					<tr>
-						<th class="head0">域名</th>  
-						<th class="head0">所属公司</th>
+						<th class="head0" width="400px" >域名</th>  
+						<th class="head0" width="300px">所属公司</th>
 						<th class="head0">创建时间</th> 
 						<th class="head0">更新人</th>
 						<th class="head0 " width="100px">操作</th>

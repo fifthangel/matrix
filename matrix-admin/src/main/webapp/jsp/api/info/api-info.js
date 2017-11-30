@@ -99,18 +99,8 @@ var apiInfo = {
         
         // 捕获节点被删除之前的事件 
         beforeRemove: function(treeId , treeNode){ 
-        	
-        	jConfirm('您确定要删除这个节点吗?', '系统提示', function(flag) {
-				if(flag){
-					alert(flag);  
-				}
-			});
-        	
-        	var type_ = false;
-        	if(confirm("您确定要删除这个节点吗?")){
-        		type_ = true;
-        	}
-        	return type_;	
+        	// setTimeout("jConfirm('您确定要删除这个节点吗?', '系统提示', function(flag) {return flag;}); ",5000);
+        	return true;
         },
         
         // 用于捕获删除节点之后的事件回调函数。
@@ -119,7 +109,6 @@ var apiInfo = {
         }, 
 
         beforeDrag:function(treeId, treeNodes) {
-            // TODO
             return true;
         },
         
@@ -128,12 +117,10 @@ var apiInfo = {
         },
         
         beforeDragOpen:function(treeId, treeNode){
-
             return true;
         },
         
         onDrag:function(event, treeId, treeNodes){
-
             return true;
         },
         
@@ -145,13 +132,10 @@ var apiInfo = {
         	if(treeNodes[0].name == "新建结点"){
         		return false;
         	}
-        	
-        	
             return true;
         },
         
         onExpand:function(event, treeId, treeNode){
-
             return true;
         },
         
@@ -173,7 +157,6 @@ var apiInfo = {
          */
         isSellerNodeBeCheck : function(treeId , node , isSellerNode){ 
         	var flag = false;
-        	
         	return flag;
         },
         
@@ -192,7 +175,7 @@ var apiInfo = {
         },
         
         // 添加或修改API具体信息
-        apiInfo : function(event , treeNode){
+        apiInfo : function(event , treeNode) {  
         	apiInfo.currentNode = treeNode;
             $($("#tree-node-edit")[0].childNodes).remove();
             var flag = true;     // 新建结点 默认为真
@@ -236,7 +219,7 @@ var apiInfo = {
             
             html_ += '<textarea cols="80" rows="5" maxlength="260"  id="remark" name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
             html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
-            if(flag){
+            if(flag) {
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
             	var seqnum_ = 1;
             	if(preNode != null){        // && typeof(preNode.seqnum) != "undefined"
@@ -247,7 +230,7 @@ var apiInfo = {
             html_ += '<button class="stdbtn btn_orange " onclick="apiInfo.addOrUpdate(\'' + url_ +'\')"> 提 交 </button>'
             $("#tree-node-edit").append(html_);
             
-            if(treeNode.name != "新建结点"){
+            if(treeNode.name != "新建结点") {
             	var data_ = {target:treeNode.target};
             	var api_ = JSON.parse(ajaxs.sendAjax('post' , apiInfo.path + 'ajax_api_info_find.do' , data_));  
             	if(api_.status == 'success'){
@@ -256,7 +239,6 @@ var apiInfo = {
             		jAlert(api_.msg , '系统提示'); 
             	}
             }
-            
         },
         
         // 清空 domainList 隐藏域中的值
