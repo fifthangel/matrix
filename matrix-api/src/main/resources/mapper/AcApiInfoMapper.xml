@@ -21,13 +21,13 @@
 	</resultMap>
 	
 
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 			*
 		from 
 			apicenter.ac_api_info
 		where 
-			id = #{id,jdbcType=INTEGER}
+			id = #{id} 
 	</select>
 	
 	<resultMap id="ApiTreeView" type="com.matrix.pojo.view.ApiTreeView"></resultMap>

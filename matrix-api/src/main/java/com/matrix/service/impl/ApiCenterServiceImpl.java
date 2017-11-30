@@ -522,6 +522,87 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		cache.put("msg", this.getInfo(600010006));  // 600010006=数据查询成功! 
 		return cache;  
 	}
+
+	/**
+	 * @description: 修改api信息 
+	 *
+	 * @param d
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年11月30日 下午3:26:55 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxApiInfoEdit(AcApiInfoDto d, HttpSession session) {
+		JSONObject result = new JSONObject();
+		if(!StringUtils.startsWith(d.getProcessor(), d.getAtype())) { 
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010074 , d.getAtype()));  // 600010074=【业务处理实现】路径输入错误!应该以{0}起始
+			return result;
+		}
+		if(d.getDomain() == 1 && StringUtils.isBlank(d.getDomainList())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010072));  // 600010072=请勾选API可用跨域列表
+			return result;
+		}
+		AcApiInfo api = acApiInfoDao.find(d.getId());
+		if(api == null) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010078 , d.getTarget()));  // 600010078=目标接口: {0} 不存在!数据库无此记录,修改失败!
+			return result;
+		}
+		if(!api.getTarget().equals(d.getTarget())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010079 , d.getTarget()));  // 600010079=目标接口: {0} 与数据库记录不符, 请勿修改【系统接口名称】
+			return result;
+		}
+		
+		AcApiInfo e = new AcApiInfo();
+		e.setId(d.getId());  
+		e.setProcessor(d.getProcessor());
+		e.setModule(d.getModule());
+		e.setDomain(d.getDomain());
+		e.setSeqnum(d.getSeqnum());
+		e.setDiscard(d.getDiscard());
+		e.setRemark(d.getRemark());
+		McUserInfoView u = (McUserInfoView) session.getAttribute("userInfo");
+		e.setUpdateTime(new Date());
+		e.setUpdateUserId(u.getId());
+		int flag = acApiInfoDao.updateSelective(e);
+		if(flag == 1) {
+			try {
+				if(d.getDomain() == 1) {		
+					// 删除旧关联关系
+					acApiDomainDao.deleteByApiInfoId(e.getId());
+					String [] arr = d.getDomainList().split(",");
+					for(int i = 0 ; i < arr.length ; i ++) {
+						AcApiDomain ad = new AcApiDomain();
+						ad.setAcApiInfoId(e.getId());
+						ad.setAcIncludeDomainId(Integer.valueOf(arr[i]));
+						acApiDomainDao.insertSelective(ad);
+					}
+					
+					// 开始初始化API缓存
+					api = acApiInfoDao.find(e.getId());
+					JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(api)); 
+					cache.put("list", d.getDomainContentList().split(",")); 
+					cache.put("domainIds", d.getDomainList().split(",")); 
+					launch.loadDictCache(DCacheEnum.ApiInfo , null).set(api.getTarget() , cache.toJSONString()); 
+					cache.put("status", "success");
+					cache.put("msg", this.getInfo(600010080));  // 600010080=API接口信息修改成功!
+					return cache;  // 标识成功并返回全部缓存信息
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				result.put("status", "error");
+				result.put("msg", this.getInfo(600010063));  // 600010073=API信息与跨域域名关联异常,数据库更新失败!请及时查看服务器log日志
+				return result;
+			}
+		}else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010064));  // 600010064=服务器异常，数据修改失败! 
+		}
+		return result;
+	}
 	
 }
 

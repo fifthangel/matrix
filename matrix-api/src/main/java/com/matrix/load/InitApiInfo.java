@@ -30,7 +30,33 @@ public class InitApiInfo  extends BaseClass implements ILoadCache{
 	
 	/**
 	 * @description: 多表联查，加载缓存
-	 *
+	 * key: xd-ApiInfo-ORDER-INFO
+	 * value:
+					 {
+					    "id": 80160001,
+					    "name": "订单信息",
+					    "target": "ORDER-INFO",
+					    "discard": 0,
+					    "createUserId": 1,
+					    "updateUserId": 1,
+					    "seqnum": 1,
+					    "module": "matrix-api",
+					    "remark": "ORDER-INFO",
+					    "updateTime": 1512032208000,
+					    "list": [
+					        "http://api.baidu.com",
+					        "http://sub.model.firos.com.cn"
+					    ],
+					    "processor": "private.order.OrderInfomation",
+					    "parentId": 1,
+					    "domainIds": [
+					        "4",
+					        "5"
+					    ],
+					    "createTime": 1511922954000,
+					    "atype": "private",
+					    "domain": 1
+					}
 	 * @param key  AcApiInfo.target
 	 * @param field null
 	 * @return 

@@ -29,6 +29,7 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	public String apiInfoList();
 	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);
 	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d, HttpSession session);
-	public JSONObject ajaxApiInfoFind(AcApiInfoDto dto);  
+	public JSONObject ajaxApiInfoFind(AcApiInfoDto dto);
+	public JSONObject ajaxApiInfoEdit(AcApiInfoDto d, HttpSession session);   
 
 }

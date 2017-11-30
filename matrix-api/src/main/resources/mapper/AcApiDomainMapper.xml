@@ -38,6 +38,10 @@
 	</delete>
 	
 	
+	<delete id="deleteByApiInfoId" parameterType="java.lang.Integer">
+		delete from apicenter.ac_api_domain where ac_api_info_id = #{apiInfoId} 
+	</delete>
+	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcApiDomain">
 		insert into apicenter.ac_api_domain
 		<trim prefix="(" suffix=")" suffixOverrides=",">

@@ -8,6 +8,8 @@ import com.matrix.pojo.view.AcApiDomainView;
 
 public interface IAcApiDomainDao extends IBaseDao<AcApiDomain, Integer>{
 
-	public List<AcApiDomainView> selectByApiInfoId(Integer apiInfoId);  
+	public List<AcApiDomainView> selectByApiInfoId(Integer apiInfoId);
+
+	public void deleteByApiInfoId(Integer apiInfoId);   
     
 }

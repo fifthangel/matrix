@@ -224,6 +224,7 @@ var apiInfo = {
 		            html_ += '<input type="radio" name="discard" value="1" checked onclick="apiInfo.openDiscardWarning(this)" style="vertical-align:middle;"> <span style="vertical-align:middle;">恢复启用</span> &nbsp&nbsp';
 		            html_ += '<input type="radio" name="discard"  value="0" onclick="apiInfo.openDiscardWarning(this)" style="vertical-align:middle;"> <span style="vertical-align:middle;">立刻熔断</span>';
 	            html_ += '</div>';
+	            html_ += '<input type="hidden" name="id" value="' + treeNode.id +'" >';
             }
             
             html_ += '<textarea cols="80" rows="5" maxlength="260"  id="remark" name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;width:386px"></textarea><br/>';
@@ -374,7 +375,9 @@ var apiInfo = {
         // 绘制API编辑信息
         drawApiEdit:function(o){
         	$("#name").val(o.name );
+        	$("#name").attr("readonly","readonly");
         	$("#target").val(o.target );
+        	$("#target").attr("readonly","readonly");
         	$("#processor").val(o.processor );
         	$("#module").val(o.module );
         	if(o.domainIds.length != 0){
