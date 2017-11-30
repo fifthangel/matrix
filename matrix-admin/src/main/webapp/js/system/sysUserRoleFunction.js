@@ -830,7 +830,7 @@
                 next: surfunc.dropNext,  // 设置是否允许移动到同层节点的最后一个节点的后面 从而使被移动的节点成为最后一个节点 
                 inner: surfunc.dropInner  // 拖拽到目标节点时 设置是否允许成为目标节点的子节点。
             },
-            enable: true,  // 设置 zTree 是否处于编辑状态默认false|初始化后需要改变编辑状态请使用 zTreeObj.setEditable() 方法
+            enable: true,  // 设置 zTree 是否处于编辑状态默认false|初始化后需要改变编辑状态请使用 zTreeObj.setEditable() 方法|false不显示删除按钮，showRemoveBtn事件无效
             showRemoveBtn: surfunc.showRemoveBtn, // 树形控件显示删除按钮
             showRenameBtn: false  // 树形控件显示编辑按钮
         },
@@ -876,7 +876,7 @@
                 next: false,  // 设置是否允许移动到同层节点的最后一个节点的后面 从而使被移动的节点成为最后一个节点 
                 inner: false // 拖拽到目标节点时 设置是否允许成为目标节点的子节点。
             },
-            enable: false,  // 设置 zTree 是否处于编辑状态默认false|初始化后需要改变编辑状态请使用 zTreeObj.setEditable() 方法
+            enable: false,  // 设置 zTree 是否处于编辑状态默认false|初始化后需要改变编辑状态请使用 zTreeObj.setEditable() 方法|false不显示删除按钮，showRemoveBtn事件无效
             showRemoveBtn: false, // 树形控件显示删除按钮
             showRenameBtn: false  // 树形控件显示编辑按钮
         },

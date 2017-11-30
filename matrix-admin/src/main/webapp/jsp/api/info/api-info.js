@@ -57,7 +57,7 @@ var apiInfo = {
 
         // 如果是root节点 禁止显示删除按钮
         showRemoveBtn:function(treeId, treeNode){
-            if(treeNode.level == 0){
+            if(treeNode.level < 2){
                 return false;
             }else{
                 return true;
@@ -99,6 +99,13 @@ var apiInfo = {
         
         // 捕获节点被删除之前的事件 
         beforeRemove: function(treeId , treeNode){ 
+        	
+        	jConfirm('您确定要删除这个节点吗?', '系统提示', function(flag) {
+				if(flag){
+					alert(flag);  
+				}
+			});
+        	
         	var type_ = false;
         	if(confirm("您确定要删除这个节点吗?")){
         		type_ = true;
@@ -415,8 +422,8 @@ var setting_ = {
                 next: false,  // 设置是否允许移动到同层节点的最后一个节点的后面 从而使被移动的节点成为最后一个节点 
                 inner: false // 拖拽到目标节点时 设置是否允许成为目标节点的子节点。
             },
-            enable: false,  // 设置 zTree 是否处于编辑状态默认false|初始化后需要改变编辑状态请使用 zTreeObj.setEditable() 方法
-            showRemoveBtn: false, // 树形控件显示删除按钮
+            enable: true,  // 设置 zTree 是否处于编辑状态默认false|false不显示删除按钮，showRemoveBtn事件无效
+            showRemoveBtn: apiInfo.showRemoveBtn, // 树形控件显示删除按钮
             showRenameBtn: false  // 树形控件显示编辑按钮
         },
         data: {
@@ -435,9 +442,10 @@ var setting_ = {
             onDrop: false,                     // 捕获节点拖拽操作结束的事件回调函数 |默认值：null
             onExpand: false,           // 捕获节点被展开的事件回调函数 |默认值：null
             onClick: apiInfo.ztOnClick,   
-            beforeRemove: false,       // 捕获删除之前的数据 
             beforeCheck: false,       //apiInfo.beforeCheck,    // 捕获 勾选 或 取消勾选 之前的事件回调函数
             onCheck :false,       // apiInfo.onCheck
+            beforeRemove: apiInfo.beforeRemove,       // 捕获删除之前的数据 
+            onRemove:apiInfo.onRemove            // 用于捕获删除节点之后的事件回调函数。   
         },
         setTrigger:function(){
             var zTree = apiInfo.zTree;
