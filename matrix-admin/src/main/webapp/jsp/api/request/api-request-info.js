@@ -47,7 +47,6 @@ var requestInfo = {
 		
 		search : function(){
 			aForm.formPaging(0);
-			pageInit.security();
 		},
 		
 		searchReset : function(){

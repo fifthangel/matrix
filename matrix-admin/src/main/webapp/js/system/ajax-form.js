@@ -146,7 +146,6 @@ var aForm = {
     formPaging : function(pn){
         var parse = aForm.parseUrl(this.url);
         var url = parse.protocol + '://' + parse.host + ':' + parse.port + parse.path;
-//        var s = parseInt($("#select-page-size").val()); 
         var s = parseInt($("#" +  this.formId + " > .dialog-show-count > label > select").val());
         if(isNaN(s)){
             s = 10;
@@ -154,6 +153,7 @@ var aForm = {
         var actions = url + '?pageNum=' + pn +'&pageSize=' + s;
         if(this.callName != null && (typeof this.callName=="function")){
             this.callName(actions);
+            pageInit.security();
         }
     },
 
@@ -347,6 +347,7 @@ var dForm = {
         var actions = url + '?pageNum=' + pn +'&pageSize=' + s;
         if(this.callName != null && (typeof this.callName=="function")){
             this.callName(actions);
+            pageInit.security();
         }
     },
 

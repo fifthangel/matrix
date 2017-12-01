@@ -42,7 +42,6 @@ var domains = {
 		
 		search : function(){
 			aForm.formPaging(0);
-			pageInit.security();
 		},
 		
 		searchReset : function(){
