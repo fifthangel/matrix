@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseController;
 import com.matrix.pojo.dto.AcApiInfoDto;
+import com.matrix.pojo.dto.AcRequestInfoDto;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
+import com.matrix.pojo.entity.AcRequestInfo;
 import com.matrix.service.IApiCenterService;
 
 /**
@@ -249,6 +251,74 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	public JSONObject ajaxApiInfoEdit(AcApiInfoDto d , HttpSession session){ 
 		super.userBehavior(session, logger, "ajax_api_info_edit", "修改api信息");
 		return service.ajaxApiInfoEdit(d, session);  
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////////////////【请求者信息维护】/////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @description: 请求者信息维护页面
+	 *
+	 * @param session
+	 * @return 
+	 * @author Yangcl
+	 * @date 2017年12月1日 上午10:42:52 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_apicenter_request_info")  
+	public String requestInfoList(HttpSession session){ 
+		super.userBehavior(session, logger, "page_apicenter_request_info", "请求者信息维护页面");
+		return service.requestInfoList(); 
+	}
+	
+	/**
+	 * @description: 接口请求者列表分页数据
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 上午11:32:43 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_request_info_list", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxRequestInfoList(AcRequestInfo entity , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_request_info_list", "ac_request_info 接口请求者列表分页数据");
+		return service.ajaxRequestInfoList(entity, request, session);  
+	}
+	
+	/**
+	 * @description: ac_request_info添加数据
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 下午1:42:20 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_request_info_add", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxRequestInfoAdd(AcRequestInfo entity , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_request_info_add", "ac_request_info 接口请求者 添加数据");
+		return service.ajaxRequestInfoAdd(entity, request, session);  
+	}
+	
+	/**
+	 * @description: 编辑信息(organization & atype)|启用/禁用(flag)|为第三方调用者分配系统开放接口(open-api)
+	 *
+	 * @param dto
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 下午2:21:07 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_request_info_edit", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto dto , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_request_info_edit", "ac_request_info 接口请求者 编辑数据");
+		return service.ajaxRequestInfoEdit(dto, request, session);  
 	}
 }
 

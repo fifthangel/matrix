@@ -310,6 +310,9 @@ public class DateUtil {
 		return Integer.toHexString(Integer.valueOf(formatDate("yyMMdd")));
 	}
 	
+	public static String getDateLongHex(String format) {
+		return Long.toHexString(Integer.valueOf(formatDate(format)));
+	}
 }
 
 

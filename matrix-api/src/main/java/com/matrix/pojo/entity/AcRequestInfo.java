@@ -8,11 +8,18 @@ public class AcRequestInfo {
     private String key;
     private String value;
     private String atype;
+    private Integer flag;
     private Date createTime;
     private Integer createUserId;
     private Date updateTime;
     private Integer updateUserId;
     
+	public Integer getFlag() {
+		return flag;
+	}
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
 	public Integer getId() {
 		return id;
 	}

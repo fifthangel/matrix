@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.interfaces.IBaseService;
 import com.matrix.pojo.dto.AcApiInfoDto;
+import com.matrix.pojo.dto.AcRequestInfoDto;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
+import com.matrix.pojo.entity.AcRequestInfo;
 
 public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 
@@ -30,6 +32,12 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	public JSONObject ajaxApiInfoList(AcApiInfo e, HttpSession session);
 	public JSONObject ajaxApiInfoAdd(AcApiInfoDto d, HttpSession session);
 	public JSONObject ajaxApiInfoFind(AcApiInfoDto dto);
-	public JSONObject ajaxApiInfoEdit(AcApiInfoDto d, HttpSession session);   
-
+	public JSONObject ajaxApiInfoEdit(AcApiInfoDto d, HttpSession session);
+	
+	// ac_request_info 表 
+	public String requestInfoList();
+	public JSONObject ajaxRequestInfoList(AcRequestInfo entity, HttpServletRequest request, HttpSession session);
+	public JSONObject ajaxRequestInfoAdd(AcRequestInfo entity, HttpServletRequest request, HttpSession session);
+	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto dto, HttpServletRequest request, HttpSession session);      
+ 
 }

@@ -1,7 +1,6 @@
 package com.matrix.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -26,16 +25,24 @@ import com.matrix.dao.IAcApiInfoDao;
 import com.matrix.dao.IAcApiProjectDao;
 import com.matrix.dao.IAcIncludeDomainDao;
 import com.matrix.dao.IAcRequestInfoDao;
+import com.matrix.dao.IAcRequestOpenApiDao;
 import com.matrix.pojo.dto.AcApiInfoDto;
+import com.matrix.pojo.dto.AcRequestInfoDto;
 import com.matrix.pojo.entity.AcApiDomain;
 import com.matrix.pojo.entity.AcApiInfo;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.pojo.entity.AcIncludeDomain;
+import com.matrix.pojo.entity.AcRequestInfo;
+import com.matrix.pojo.entity.AcRequestOpenApi;
 import com.matrix.pojo.view.AcApiProjectListView;
 import com.matrix.pojo.view.AcIncludeDomainView;
+import com.matrix.pojo.view.AcRequestInfoView;
+import com.matrix.pojo.view.AcRequestOpenApiView;
 import com.matrix.pojo.view.ApiTreeView;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IApiCenterService;
+import com.matrix.util.DateUtil;
+import com.matrix.util.UuidUtil;
 
 @Service("apiCenterService")
 public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> implements IApiCenterService {
@@ -52,7 +59,8 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 	private IAcIncludeDomainDao acIncludeDomainDao;
 	@Resource
 	private IAcRequestInfoDao acRequestInfoDao;   
-	
+	@Resource
+	private IAcRequestOpenApiDao acRequestOpenApiDao;
 	
 	/**
 	 * @description: api所属项目列表
@@ -601,6 +609,173 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			result.put("status", "error");
 			result.put("msg", this.getInfo(600010064));  // 600010064=服务器异常，数据修改失败! 
 		}
+		return result;
+	}
+
+	/**
+	 * @description: 请求者信息维护页面
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 上午10:42:52 
+	 * @version 1.0.0
+	 */
+	public String requestInfoList() {
+		return "jsp/api/request/api-request-info-list";
+	}
+
+	/**
+	 * @description: 接口请求者列表分页数据
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 上午11:32:43 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxRequestInfoList(AcRequestInfo entity, HttpServletRequest request, HttpSession session) {
+		JSONObject result = new JSONObject();
+		String pageNum = request.getParameter("pageNum"); // 当前第几页
+		String pageSize = request.getParameter("pageSize"); // 当前页所显示记录条数
+		int num = 1;
+		int size = 10;
+		if (StringUtils.isNotBlank(pageNum)) {
+			num = Integer.parseInt(pageNum);
+		}
+		if (StringUtils.isNotBlank(pageSize)) {
+			size = Integer.parseInt(pageSize);
+		}
+		PageHelper.startPage(num, size);
+		List<AcRequestInfoView> list = acRequestInfoDao.queryPageList(entity); 
+		if (list != null && list.size() > 0) {
+			result.put("status", "success");
+		} else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(100090002));  // 没有查询到可以显示的数据 
+		}
+		PageInfo<AcRequestInfoView> pageList = new PageInfo<AcRequestInfoView>(list);
+		result.put("data", pageList);
+		result.put("entity", entity);
+		return result;
+	}
+
+	/**
+	 * @description: ac_request_info添加数据
+	 *
+	 * @param entity
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 下午1:42:20 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxRequestInfoAdd(AcRequestInfo e, HttpServletRequest request, HttpSession session) {
+		JSONObject result = new JSONObject();
+		if(StringUtils.isAnyBlank(e.getOrganization() , e.getAtype())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010081));  // 600010081=接口请求者关键信息不得为空! 
+			return result;
+		}
+		McUserInfoView u = (McUserInfoView) session.getAttribute("userInfo");
+		e.setCreateTime(new Date());
+		e.setCreateUserId(u.getId());
+		e.setUpdateTime(new Date());
+		e.setUpdateUserId(u.getId());
+		e.setKey(DateUtil.getDateLongHex("yyyyMMdd").toUpperCase() + DateUtil.getDateLongHex("HHmmss").toUpperCase());  
+		e.setValue(UuidUtil.uid().toUpperCase());  
+		e.setFlag(1); 
+		
+		int flag = acRequestInfoDao.insertSelective(e);
+		if(flag == 1) {
+			// 开始初始化API缓存
+			JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
+			cache.put("list", new ArrayList<String>());  // api target list is null when add a record to database, but keep the cache structure.
+			launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , cache.toJSONString()); 
+			
+			result.put("status", "success");
+			result.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
+			return result; 
+		}else {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010062));  // 600010062=服务器异常，数据添加失败!
+		}
+		return result;
+	}
+
+	/**
+	 * @description:编辑信息(organization & atype)|启用/禁用(flag)|为第三方调用者分配系统开放接口(open-api)
+	 *
+	 * @param dto
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月1日 下午2:21:07 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto d, HttpServletRequest request, HttpSession session) {
+		JSONObject result = new JSONObject();
+		if(d.getId() == null || d.getIsallot() == null) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010083));  // 600010083=主键丢失
+			return result;
+		}
+		if(d.getIsallot() == 1 && StringUtils.isBlank(d.getTargets())) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010082));  // 600010082=接口请求者关联API信息不得为空!
+			return result;
+		}
+		AcRequestInfo e = acRequestInfoDao.find(d.getId());
+		if(d.getIsallot() ==1 && e.getAtype().equals("private")) {
+			result.put("status", "error");
+			result.put("msg", this.getInfo(600010084));  // 600010084=内部接口请求者不可分配开放接口数据(open-api)!
+			return result;
+		}
+		
+		McUserInfoView u = (McUserInfoView) session.getAttribute("userInfo");
+		d.setUpdateTime(new Date());
+		d.setUpdateUserId(u.getId()); 
+		
+		if(d.getIsallot() ==1) { 
+			String [] arr = d.getTargets().split(",");
+			for(int i = 0 ; i < arr.length ; i ++) {
+				AcRequestOpenApi roa = new AcRequestOpenApi();
+				roa.setAcRequestInfoId(d.getId());
+				roa.setAcApiInfoId(Integer.valueOf(arr[i]));
+				roa.setCreateTime(new Date());
+				roa.setCreateUser(u.getId()); 
+				acRequestOpenApiDao.insertSelective(roa); 
+			}
+		}else {  // 编辑信息(organization & atype)|启用/禁用(flag)
+			int flag = acRequestInfoDao.updateSelective(d); 
+			if(flag != 1) {
+				result.put("status", "error");
+				result.put("msg", this.getInfo(600010064));  // 600010064=服务器异常，数据修改失败! 
+				return result;
+			}
+		}
+		
+		e = acRequestInfoDao.find(d.getId());
+		// 开始初始化API缓存
+		JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
+		if(e.getAtype().equals("public")) {
+			List<AcRequestOpenApiView> list = acRequestOpenApiDao.findListById(d.getId());
+			if(list == null || list.size() == 0) {
+				cache.put("list", new ArrayList<String>()); 
+			}else {
+				List<String> list_ = new ArrayList<String>();
+				for(AcRequestOpenApiView v : list) {
+					list_.add(v.getTarget());
+				}
+				cache.put("list", list_); 
+			}
+		}else {
+			cache.put("list", new ArrayList<String>());   
+		}
+		
+		launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , cache.toJSONString()); 
+		result.put("status", "success");
+		result.put("msg", this.getInfo(600010063));  // 600010063=数据修改成功!
 		return result;
 	}
 	

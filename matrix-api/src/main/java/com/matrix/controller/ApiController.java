@@ -23,9 +23,9 @@ import com.matrix.service.IOpenApiService;
  */
 @Controller
 @RequestMapping("api")
-public class OpenApiController  extends BaseController{
+public class ApiController  extends BaseController{
 
-	private static Logger logger=Logger.getLogger(OpenApiController.class);
+	private static Logger logger=Logger.getLogger(ApiController.class);
 	
 	@Autowired
 	private IOpenApiService service;

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.matrix.dao.IAcRequestOpenApiDao">
+	
+	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.AcRequestOpenApi">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="ac_request_info_id" property="acRequestInfoId" jdbcType="INTEGER" />
+		<result column="ac_api_info_id" property="acApiInfoId" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user_id" property="createUserId" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+			*
+		from 
+			apicenter.ac_request_open_api
+		where 
+			id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<resultMap id="AcRequestOpenApiView" type="com.matrix.pojo.view.AcRequestOpenApiView"></resultMap>
+	<select id="findListById" resultMap="AcRequestOpenApiView" parameterType="java.lang.Integer">
+		select
+			i.id as acApiInfoId,
+			i.name as name,
+			i.target as target
+		from 
+			apicenter.ac_request_open_api o left join apicenter.ac_api_info i on o.ac_api_info_id = i.id
+		where 
+			ac_request_info_id = #{acRequestInfoId , jdbcType=INTEGER} 
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from apicenter.ac_request_open_api where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcRequestOpenApi">
+		insert into apicenter.ac_request_open_api
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="acRequestInfoId != null">
+				ac_request_info_id,
+			</if>
+			<if test="acApiInfoId != null">
+				ac_api_info_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="acRequestInfoId != null">
+				#{acRequestInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="acApiInfoId != null">
+				#{acApiInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateSelective" parameterType="com.matrix.pojo.entity.AcRequestOpenApi">
+		update apicenter.ac_request_open_api
+		<set>
+			<if test="acRequestInfoId != null">
+				ac_request_info_id = #{acRequestInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="acApiInfoId != null">
+				ac_api_info_id = #{acApiInfoId,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

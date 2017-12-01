@@ -8,13 +8,14 @@
 		<result column="key" property="key" jdbcType="VARCHAR" />
 		<result column="value" property="value" jdbcType="VARCHAR" />
 		<result column="atype" property="atype" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="INTEGER" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="update_user_id" property="updateUserId" jdbcType="INTEGER" />
 	</resultMap>
 	
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 			*
 		from 
@@ -23,11 +24,41 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<!-- 分页数据 view extends entity-->
+	<resultMap id="AcRequestInfoView" type="com.matrix.pojo.view.AcRequestInfoView"></resultMap>
+	<select id="queryPageList" parameterType="com.matrix.pojo.entity.AcRequestInfo" resultMap="AcRequestInfoView">
+		select 
+			a.id as id,
+			a.organization as organization,
+			a.key as `key`,
+			a.atype as atype,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.update_user_id as updateUserId,
+			a.flag as flag,
+			i.user_name as updater 
+		from 
+			apicenter.ac_request_info a left join managercenter.mc_user_info i on i.id = a.update_user_id 
+		<where>
+			1 = 1  
+			<if test="key != null and key != ''  ">
+				and a.key = #{key , jdbcType=VARCHAR}
+			</if>
+			<if test="organization != null and organization != ''  ">
+				and a.organization like CONCAT('%' , '${organization}' , '%' )
+			</if> 
+			order by a.id asc
+		</where>
+	</select>
+	
+	
+	
+	
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from apicenter.ac_request_info where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcRequestInfo">
+	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.AcRequestInfo"  useGeneratedKeys="true" keyProperty="id">
 		insert into apicenter.ac_request_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -37,13 +68,16 @@
 				organization,
 			</if>
 			<if test="key != null">
-				key,
+				`key`,
 			</if>
 			<if test="value != null">
 				value,
 			</if>
 			<if test="atype != null">
 				atype,
+			</if>
+			<if test="flag != null">
+				flag,
 			</if>
 			<if test="createTime != null">
 				create_time,
@@ -74,6 +108,9 @@
 			<if test="atype != null">
 				#{atype,jdbcType=VARCHAR},
 			</if>
+			<if test="flag != null">
+				#{flag , jdbcType=INTEGER}, 
+			</if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
 			</if>
@@ -96,13 +133,16 @@
 				organization = #{organization,jdbcType=VARCHAR},
 			</if>
 			<if test="key != null">
-				key = #{key,jdbcType=VARCHAR},
+				`key` = #{key,jdbcType=VARCHAR},
 			</if>
 			<if test="value != null">
 				value = #{value,jdbcType=VARCHAR},
 			</if>
 			<if test="atype != null">
 				atype = #{atype,jdbcType=VARCHAR},
+			</if>
+			<if test="flag != null">
+				flag = #{flag , jdbcType=INTEGER}, 
 			</if>
 			<if test="createTime != null">
 				create_time = #{createTime,jdbcType=TIMESTAMP},
