@@ -37,7 +37,7 @@ import com.matrix.pojo.view.AcRequestOpenApiView;
  * @date 2017年11月20日 下午9:34:34 
  * @version 1.0.0.1
  */
-public class InitApiRequestKey extends BaseClass implements ILoadCache {
+public class InitApiRequester extends BaseClass implements ILoadCache {
 	
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	@Inject
@@ -68,7 +68,7 @@ public class InitApiRequestKey extends BaseClass implements ILoadCache {
 			cache.put("list", new ArrayList<String>());   
 		}
 		String value = cache.toJSONString();
-		launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , value); 
+		launch.loadDictCache(DCacheEnum.ApiRequester , null).set(e.getKey() , value); 
 		
 		return value;
 	}

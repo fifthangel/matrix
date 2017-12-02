@@ -691,7 +691,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			// 开始初始化API缓存
 			JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
 			cache.put("list", new ArrayList<String>());  // api target list is null when add a record to database, but keep the cache structure.
-			launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , cache.toJSONString()); 
+			launch.loadDictCache(DCacheEnum.ApiRequester , null).set(e.getKey() , cache.toJSONString()); 
 			
 			result.put("status", "success");
 			result.put("msg", this.getInfo(600010061));  // 600010061=数据添加成功!
@@ -773,7 +773,7 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 			cache.put("list", new ArrayList<String>());   
 		}
 		
-		launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , cache.toJSONString()); 
+		launch.loadDictCache(DCacheEnum.ApiRequester , null).set(e.getKey() , cache.toJSONString()); 
 		result.put("status", "success");
 		result.put("msg", this.getInfo(600010063));  // 600010063=数据修改成功!
 		return result;

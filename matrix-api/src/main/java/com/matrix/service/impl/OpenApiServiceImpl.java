@@ -64,7 +64,7 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			return result;
 		}
 		
-		String val = launch.loadDictCache(DCacheEnum.ApiRequestKey , "InitApiRequestKey").get(key);  // ac_request_info表的缓存
+		String val = launch.loadDictCache(DCacheEnum.ApiRequester , "InitApiRequester").get(key);  // ac_request_info表的缓存
 		if(StringUtils.isBlank(val)) {
 			result.put("status", "error");
 			result.put("code", "10001");
@@ -90,10 +90,12 @@ public class OpenApiServiceImpl extends BaseClass implements IOpenApiService {
 			result.put("msg", this.getInfo(600010005));  // 秘钥验证失败
 		}
 		
-		// TODO 等待页面结构完善
+		// TODO 等待页面结构完善  额。。不该在此处判断吧。。。。
 		response.setHeader("Access-Control-Allow-Origin", "*"); // 移除跨域访问限制 
 		
-		
+		if(cache.getString("atype").equals("public")) {
+			// TODO 遍历该请求者是否拥有该接口的请求权限。
+		}
 		
 		
 		
