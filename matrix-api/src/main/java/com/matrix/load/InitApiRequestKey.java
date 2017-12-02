@@ -1,6 +1,20 @@
 package com.matrix.load;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.alibaba.fastjson.JSONObject;
+import com.matrix.annotation.Inject;
+import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.ILoadCache;
+import com.matrix.cache.CacheLaunch;
+import com.matrix.cache.enums.DCacheEnum;
+import com.matrix.cache.inf.IBaseLaunch;
+import com.matrix.cache.inf.ICacheFactory;
+import com.matrix.dao.IAcRequestInfoDao;
+import com.matrix.dao.IAcRequestOpenApiDao;
+import com.matrix.pojo.entity.AcRequestInfo;
+import com.matrix.pojo.view.AcRequestOpenApiView;
 /**
  * @description: init  ApiRequestKey to cache
  * key: xd-ApiRequestKey-133C9C129D53
@@ -23,13 +37,77 @@ import com.matrix.base.interfaces.ILoadCache;
  * @date 2017年11月20日 下午9:34:34 
  * @version 1.0.0.1
  */
-public class InitApiRequestKey implements ILoadCache {
+public class InitApiRequestKey extends BaseClass implements ILoadCache {
+	
+	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
+	@Inject
+	private IAcRequestInfoDao acRequestInfoDao; 
+	@Inject
+	private IAcRequestOpenApiDao acRequestOpenApiDao;
 
-	// TODO 等待这个缓存结构设计完成。
 	@Override
 	public String load(String key, String field) {
+		AcRequestInfo e = acRequestInfoDao.findByKey( key );
+		if(e == null) {
+			return "";
+		}
 		
-		return "";
+		JSONObject cache = JSONObject.parseObject(JSONObject.toJSONString(e)); 
+		if(e.getAtype().equals("public")) {
+			List<AcRequestOpenApiView> list = acRequestOpenApiDao.findListById(e.getId());
+			if(list == null || list.size() == 0) {
+				cache.put("list", new ArrayList<String>()); 
+			}else {
+				List<String> list_ = new ArrayList<String>();
+				for(AcRequestOpenApiView v : list) {
+					list_.add(v.getTarget());
+				}
+				cache.put("list", list_); 
+			}
+		}else {
+			cache.put("list", new ArrayList<String>());   
+		}
+		String value = cache.toJSONString();
+		launch.loadDictCache(DCacheEnum.ApiRequestKey , null).set(e.getKey() , value); 
+		
+		return value;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

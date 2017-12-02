@@ -35,7 +35,7 @@ var requestInfo = {
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-28ede582b1a4439b9fc064bcd9e59449">删除</a> '
+								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" title="启用/禁用"  style="cursor: pointer;" class="security-btn" key="btn-28ede582b1a4439b9fc064bcd9e59449">启用/禁用</a> '
 								+ '<a onclick="requestInfo.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-19b63e8a10b34b3e855a21ee8a3fd6b1">修改</a> '
 							+ '</td></tr>'
 				}

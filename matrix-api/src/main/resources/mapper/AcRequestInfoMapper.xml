@@ -24,6 +24,15 @@
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
+	<select id="findByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+			*
+		from 
+			apicenter.ac_request_info a 
+		where 
+			a.key = #{key , jdbcType=INTEGER}  
+	</select>
+	
 	<!-- 分页数据 view extends entity-->
 	<resultMap id="AcRequestInfoView" type="com.matrix.pojo.view.AcRequestInfoView"></resultMap>
 	<select id="queryPageList" parameterType="com.matrix.pojo.entity.AcRequestInfo" resultMap="AcRequestInfoView">

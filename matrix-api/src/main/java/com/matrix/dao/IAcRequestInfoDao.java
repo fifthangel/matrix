@@ -9,5 +9,6 @@ import com.matrix.pojo.view.AcRequestInfoView;
 public interface IAcRequestInfoDao extends IBaseDao<AcRequestInfo, Integer>{
 
 	public List<AcRequestInfoView> queryPageList(AcRequestInfo entity); 
+	public AcRequestInfo findByKey(String key);
     
 }
