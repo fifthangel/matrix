@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseController;
-import com.matrix.service.IOpenApiService;
+import com.matrix.service.IApiService;
 
 /**
  * @description: api入口控制器 
@@ -28,7 +28,7 @@ public class ApiController  extends BaseController{
 	private static Logger logger=Logger.getLogger(ApiController.class);
 	
 	@Autowired
-	private IOpenApiService service;
+	private IApiService service;
 	
 	
 	/**
@@ -41,10 +41,10 @@ public class ApiController  extends BaseController{
 	 * @date 2017年11月10日 上午11:49:21 
 	 * @version 1.0.0
 	 */
-	@RequestMapping(value = "api_open_service", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "matrix", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject apiOpenService(HttpServletRequest request , HttpServletResponse response , String key , String value, String json){ 
-		return service.apiOpenService(request , response , key , value , json);
+	public JSONObject apiService(HttpServletRequest request , HttpServletResponse response , String key , String value, String json){ 
+		return service.apiService(request , response , key , value , json);
 	}
 }
 
