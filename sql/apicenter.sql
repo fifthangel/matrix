@@ -25,11 +25,11 @@ CREATE TABLE `ac_api_domain` (
   `ac_api_info_id` int(11) DEFAULT NULL,
   `ac_include_domain_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ac_api_domain` */
 
-insert  into `ac_api_domain`(`id`,`ac_api_info_id`,`ac_include_domain_id`) values (1,80160001,4),(2,80160001,5),(3,80160004,4),(4,80160004,5),(5,80160005,4),(6,80160006,4),(7,80160007,4),(8,80160007,5),(9,80160008,5);
+insert  into `ac_api_domain`(`id`,`ac_api_info_id`,`ac_include_domain_id`) values (3,80160004,4),(4,80160004,5),(5,80160005,4),(6,80160006,4),(9,80160008,5),(16,80160001,4),(17,80160001,5),(18,80160007,4),(19,80160007,5);
 
 /*Table structure for table `ac_api_info` */
 
@@ -56,7 +56,7 @@ CREATE TABLE `ac_api_info` (
 
 /*Data for the table `ac_api_info` */
 
-insert  into `ac_api_info`(`id`,`name`,`target`,`atype`,`module`,`processor`,`domain`,`parent_id`,`seqnum`,`discard`,`remark`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (80160001,'订单信息','ORDER-INFO','private','matrix-api','public.order.OrderInfomation',1,1,1,1,'ORDER-INFO','2017-11-29 10:35:54',1,'2017-11-29 10:35:54',1),(80160004,'开放订单','OPEN-API-ORDER-INFO','public','matrix-api','public.order.aaa',1,2,1,1,'OPEN-API-ORDER-INFO','2017-11-29 11:24:07',1,'2017-11-29 11:24:07',1),(80160007,'测试接口1','TEST-INTERFACE-ONE','private','matrix-api','private.test.aaasdfiProdess',1,1,2,1,'private.test.aaasdfiProdess','2017-11-29 15:04:16',1,'2017-11-29 15:04:16',1),(80160008,'测试接口2','TEST-INTERFACE-TWO','private','matrix-api','private.test.aidwlprocesser',1,1,3,1,'TEST-INTERFACE-TWO','2017-11-29 15:12:11',1,'2017-11-29 15:12:11',1);
+insert  into `ac_api_info`(`id`,`name`,`target`,`atype`,`module`,`processor`,`domain`,`parent_id`,`seqnum`,`discard`,`remark`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (80160001,'订单信息','ORDER-INFO','private','matrix-api','private.order.OrderInfomation',1,1,1,1,'ORDER-INFO','2017-11-29 10:35:54',1,'2017-11-30 22:33:25',1),(80160004,'开放订单','OPEN-API-ORDER-INFO','public','matrix-api','public.order.aaa',1,2,1,1,'OPEN-API-ORDER-INFO','2017-11-29 11:24:07',1,'2017-11-29 11:24:07',1),(80160007,'测试接口1','TEST-INTERFACE-ONE','private','matrix-api','private.test.aaasdfiProdess',1,1,2,0,'private.test.aaasdfiProdess','2017-11-29 15:04:16',1,'2017-12-01 19:12:00',1),(80160008,'测试接口2','TEST-INTERFACE-TWO','private','matrix-api','private.test.aidwlprocesser',1,1,3,1,'TEST-INTERFACE-TWO','2017-11-29 15:12:11',1,'2017-11-29 15:12:11',1);
 
 /*Table structure for table `ac_api_project` */
 
@@ -94,11 +94,11 @@ CREATE TABLE `ac_include_domain` (
   `update_user_id` int(11) DEFAULT NULL,
   `remark` longtext COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ac_include_domain` */
 
-insert  into `ac_include_domain`(`id`,`domain`,`company_name`,`project`,`flag`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`remark`) values (4,'http://api.baidu.com','百度','',1,'2017-11-28 11:17:47',1,'2017-11-28 11:17:47',1,NULL),(5,'http://sub.model.firos.com.cn','氢氧焰','',1,'2017-11-28 11:19:23',1,'2017-11-28 11:19:23',1,NULL);
+insert  into `ac_include_domain`(`id`,`domain`,`company_name`,`project`,`flag`,`create_time`,`create_user_id`,`update_time`,`update_user_id`,`remark`) values (4,'http://api.baidu.com','百度','',1,'2017-11-28 11:17:47',1,'2017-11-28 11:17:47',1,NULL),(5,'http://sub.model.firos.com.cn','氢氧焰','',1,'2017-11-28 11:19:23',1,'2017-12-02 22:59:14',1,NULL);
 
 /*Table structure for table `ac_request_info` */
 
@@ -110,14 +110,32 @@ CREATE TABLE `ac_request_info` (
   `key` varchar(52) DEFAULT '' COMMENT '组织机构标识',
   `value` varchar(52) DEFAULT '' COMMENT '组织结构秘钥',
   `atype` varchar(8) DEFAULT 'private' COMMENT '请求权限  private:私有 即公司内部使用的接口| public:公开，即开放给第三方的接口',
+  `flag` int(2) DEFAULT '1' COMMENT '启用1 禁用 0',
   `create_time` datetime DEFAULT NULL,
   `create_user_id` int(11) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `update_user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `ac_request_info` */
+
+insert  into `ac_request_info`(`id`,`organization`,`key`,`value`,`atype`,`flag`,`create_time`,`create_user_id`,`update_time`,`update_user_id`) values (1,'IOS乘客端','133C9C129D53','6DFA608D49324E47A5D69A13523BDFDA','private',1,'2017-12-01 17:13:47',1,'2017-12-01 17:13:47',1),(2,'广州交委','133C9C12A19B','20840A21482E464FB8B86FF15EACE399','public',1,'2017-12-01 17:24:42',1,'2017-12-01 17:24:43',1);
+
+/*Table structure for table `ac_request_open_api` */
+
+DROP TABLE IF EXISTS `ac_request_open_api`;
+
+CREATE TABLE `ac_request_open_api` (
+  `id` int(11) NOT NULL COMMENT 'open-api与第三方请求者关联信息',
+  `ac_request_info_id` int(11) DEFAULT NULL,
+  `ac_api_info_id` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `create_user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `ac_request_open_api` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
