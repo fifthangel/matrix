@@ -28,6 +28,13 @@ var requestInfo = {
 					if(list[i].atype == 'public'){
 						type_ = '对外开放接口';
 					}
+					
+					var btitle = '启用';
+					var flag_ = 1;
+					if(list[i].flag == 1){
+						btitle = '禁用';
+						flag_ = 0;
+					} 
 					html_ += '<tr id="tr-' + list[i].id + '" class="gradeX">' 
 							+ '<td width="400px" align="center">' + list[i].organization + '</td>'
 							+ '<td width="300px" align="center">' + list[i].key + '</td>'
@@ -35,8 +42,8 @@ var requestInfo = {
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" title="启用/禁用"  style="cursor: pointer;" class="security-btn" key="btn-28ede582b1a4439b9fc064bcd9e59449">启用/禁用</a> '
-								+ '<a onclick="requestInfo.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-19b63e8a10b34b3e855a21ee8a3fd6b1">修改</a> '
+								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" flag="' + flag_ + '" style="cursor: pointer;" class="security-btn" key="btn-28ede582b1a4439b9fc064bcd9e59449"> ' + btitle + ' </a> '
+								+ '<a onclick="requestInfo.openEditDialog(this)"  eleId="' + list[i].id + '"  atype="' + list[i].atype + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-19b63e8a10b34b3e855a21ee8a3fd6b1">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {
@@ -118,31 +125,31 @@ var requestInfo = {
 		/**
 		 * 绘制编辑弹层
 		 */
-		drawEditDialog:function(o){
-			$("#domain-edit").val("");
-			$("#company-name-edit").val("");
+		drawEditDialog:function(o){ 
 			var id = $(o).attr("eleId");
+			var atype = $(o).attr("atype");
 			requestInfo.rowId = id;
-			var domain_ = $($("#tr-" + id).children("td")[0]).text(); 
-			var company_ = $($("#tr-" + id).children("td")[1]).text(); 
-			$("#domain-edit").val(domain_);
-			$("#company-name-edit").val(company_);
+			var name_ = $($("#tr-" + id).children("td")[0]).text();  
+			$("#organization-edit").val(name_);
+			$("#atype-edit").val(atype);
+			$("#atype-edit").find("option[value='" + atype + "']").attr("selected",true);
 		},
 		
 		/**
 		 * 更新一条记录
 		 */
-		editDomain:function(){
-			var domain_ = $("#domain-edit").val(); 
-			var company_ = $("#company-name-edit").val(); 
+		editApiRequestInfo:function(){
+			var organization_ = $("#organization-edit").val(); 
+			var atype_ = $("#atype-edit").val(); 
 			jConfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
-					var url_ = 'ajax_api_domain_edit.do';
+					var url_ = 'ajax_request_info_edit.do';
 					var data_ = {
 						id:requestInfo.rowId,
-						domain : domain_,
-						companyName : company_
+						isallot:0,
+						organization : organization_,
+						atype : atype_
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){
@@ -156,19 +163,20 @@ var requestInfo = {
 		},
 		
 		deleteRow:function(o){
-			var id = $(o).attr("eleId"); 
-			var domain_ = $($("#tr-" + id).children("td")[0]).text(); 
-			var company_ = $($("#tr-" + id).children("td")[1]).text(); 
+			var id = $(o).attr("eleId");  
+			var msg = '禁用';
+			if($(o).attr("flag") == 1){
+				msg = '启用';
+			}
 			
-			jConfirm('您确定要删除【' + domain_ + '】吗?', '系统提示', function(flag) {
+			jConfirm('您确定要' + msg + '【' + $($("#tr-" + id).children("td")[0]).text() + '】吗?', '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
-					var url_ = 'ajax_api_domain_edit.do';
+					var url_ = 'ajax_request_info_edit.do';
 					var data_ = {
 						id:id ,
-						domain : domain_ ,
-						companyName : company_ ,
-						flag:0 
+						isallot:0,
+						flag : $(o).attr("flag")   
 					};
 					var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 					if(obj.status == 'success'){

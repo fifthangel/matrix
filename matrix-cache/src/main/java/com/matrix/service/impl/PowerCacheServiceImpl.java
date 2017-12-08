@@ -55,7 +55,12 @@ public class PowerCacheServiceImpl extends BaseClass implements IPowerCacheServi
 		if(StringUtils.isNotBlank(value)){
 			result.put("status", "success");
 			result.put("msg", "查询成功");
-			result.put("data", JSONObject.parseObject(value)); 
+			try {
+				result.put("data", JSONObject.parseObject(value)); 
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.put("data", value); // 非对象而是一个提示消息，比如：300010100=该缓存key指向唯一{0},请勿传入其他key
+			}
 		}else{
 			result.put("status", "error");
 			result.put("msg", "未找到对应的值");

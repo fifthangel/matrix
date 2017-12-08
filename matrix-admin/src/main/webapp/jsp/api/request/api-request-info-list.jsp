@@ -146,25 +146,28 @@
 	                <tbody>
 	                	<tr >
 	                		<td style="text-align: right">
-	                			域名：
+	                			请 求 者：
 	                		</td>
 	                		<td style="text-align: left">
-	                			<input type="text" id="domain-edit" name="domain" class="dialog-form-input" style="width:200px;"/>
+	                			<input type="text" id="organization-edit" name="organization" class="dialog-form-input" style="width:200px;"/>
 	                		</td>
 	                	</tr>
 	                	<tr >
 	                		<td style="text-align: right">
-	                			所属公司：
+	                			请求类型：
 	                		</td>
 	                		<td style="text-align: left">
-	                			<input type="text" id="company-name-edit" name="companyName" class="dialog-form-input" style="width:200px;"/>
+	                			<select id="atype-edit" name="atype" class="dialog-form-input"  style="width:212px;margin:0px">
+	                				<option value="private" selected>公司内部请求</option>
+	                				<option value="public" >开放接口请求</option>
+	                			</select>
 	                		</td>
 	                	</tr>
 	                </tbody>
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="requestInfo.editDomain()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="requestInfo.editApiRequestInfo()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>

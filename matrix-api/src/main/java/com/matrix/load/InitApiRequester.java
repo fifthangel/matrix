@@ -17,7 +17,7 @@ import com.matrix.pojo.entity.AcRequestInfo;
 import com.matrix.pojo.view.AcRequestOpenApiView;
 /**
  * @description: init  ApiRequestKey to cache
- * key: xd-ApiRequestKey-133C9C129D53
+ * key: xd-ApiRequester-133C9C129D53
  * value:
 				 {
 				    "key": "133C9C129D53",     -------------------- 接口调用方公钥
