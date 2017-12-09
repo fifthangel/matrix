@@ -65,8 +65,8 @@ public class InitApiProject extends BaseClass implements ILoadCache{
 	public String load(String key, String field) {
 		if(!key.equals("all")) {
 			JSONObject r = new JSONObject();
-			r.put("msg", this.getInfo(300010100, "all"));
-			return r.toJSONString(); // 300010100=该缓存key指向唯一的键值: {0},请勿传入其他key
+			r.put("msg", this.getInfo(300010100, "all"));   // 300010100=该缓存key指向唯一的键值: {0},请勿传入其他key
+			return  ""; 					// r.toJSONString(); 	 
 		}
 		
 		List<AcApiProjectListView> list = acApiProjectDao.findAll();
