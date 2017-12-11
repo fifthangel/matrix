@@ -38,6 +38,11 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	public String requestInfoList();
 	public JSONObject ajaxRequestInfoList(AcRequestInfo entity, HttpServletRequest request, HttpSession session);
 	public JSONObject ajaxRequestInfoAdd(AcRequestInfo entity, HttpServletRequest request, HttpSession session);
-	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto dto, HttpServletRequest request, HttpSession session);      
+	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto dto, HttpServletRequest request, HttpSession session);
+	
+	
+	// 页面接口测试
+	public String pageApicenterApiTest();
+	public JSONObject ajaxFindRequestDto(String target);       
  
 }

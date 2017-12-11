@@ -4,17 +4,26 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 /**
- * @descriptions API的注解信息
- * 输入输出参数添加此注解 其注解信息将会反射到API说明文档中
- * 所添加的注解信息相当于数据库表中的备注内容
- * 
- * @author srnpr
- * @date 2016年6月26日-下午3:03:44
+ * @description: Data transfer object annotation
+ *
+ * @author Yangcl
+ * @home https://github.com/PowerYangcl
+ * @date 2017年12月11日 下午7:18:09 
  * @version 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface MatrixApi  {
+public @interface MatrixRequest  {
+	
+	/**
+	 * @description: 定义默认请求类
+	 *
+	 * @author Yangcl
+	 * @date 2017年12月11日 下午7:46:13 
+	 * @version 1.0.0.1
+	 */
+	public Class<?>  clazz() ;  // default Class.class
+	
 	/**
 	 * 名称 默认等同于title
 	 * 

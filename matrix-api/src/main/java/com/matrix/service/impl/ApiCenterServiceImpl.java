@@ -1,5 +1,8 @@
 package com.matrix.service.impl;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,13 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.matrix.annotation.Inject;
+import com.matrix.annotation.MatrixRequest;
 import com.matrix.base.BaseServiceImpl;
+import com.matrix.base.IBaseProcessor;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
@@ -776,6 +784,67 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		launch.loadDictCache(DCacheEnum.ApiRequester , null).set(e.getKey() , cache.toJSONString()); 
 		result.put("status", "success");
 		result.put("msg", this.getInfo(600010063));  // 600010063=数据修改成功!
+		return result;
+	}
+
+	
+	/**
+	 * @description: 前往接口测试页面
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月11日 上午11:46:32 
+	 * @version 1.0.0.1
+	 */
+	public String pageApicenterApiTest() {
+		return "jsp/api/test/api-test-page"; 
+	}
+
+	/**
+	 * @description: 根据接口target，返回查询消息体
+	 *
+	 * @param target
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月11日 下午4:57:09 
+	 * @version 1.0.0
+	 */
+	public JSONObject ajaxFindRequestDto(String target) {
+		JSONObject result = new JSONObject();
+		String apiInfoStr = launch.loadDictCache(DCacheEnum.ApiInfo , "InitApiInfo").get(target);  
+		if(StringUtils.isBlank(apiInfoStr)){
+			result.put("status", "error");
+			result.put("code", "10014"); 
+			result.put("msg", this.getInfo(600010014));  // 600010014=系统未检测到您所访问的接口
+			return result;
+		} 
+		JSONObject apiInfo = JSONObject.parseObject(apiInfoStr);
+		String class_ = apiInfo.getString("processor");
+		if(StringUtils.isBlank(class_)) {
+			result.put("status", "error");
+			result.put("code", "10014"); 
+			result.put("msg", this.getInfo(600010015));  // 600010015=系统未检测到对应接口处理类!请联系开发人员!
+			return result;
+		}
+		
+		try {
+			Class<?> clazz = Class.forName("com.matrix.processor." + class_);   
+			if (clazz != null && clazz.getDeclaredMethods() != null){
+				MatrixRequest dto = clazz.getAnnotation(MatrixRequest.class);
+				if(dto != null) { 
+					result.put("status", "success");
+					result.put("dto", dto.clazz().newInstance());  
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "error");
+			result.put("code", "10010");
+			result.put("msg", this.getInfo(600010011));  // 600010011=系统错误, 请联系开发人员!
+			return result; 
+		}
+		
 		return result;
 	}
 	

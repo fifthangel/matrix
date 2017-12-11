@@ -1,11 +1,15 @@
 package com.matrix.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -319,6 +323,42 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 	public JSONObject ajaxRequestInfoEdit(AcRequestInfoDto dto , HttpServletRequest request, HttpSession session){ 
 		super.userBehavior(session, logger, "ajax_request_info_edit", "ac_request_info 接口请求者 编辑数据");
 		return service.ajaxRequestInfoEdit(dto, request, session);  
+	}
+	
+	
+	//////////////////////////////////////////////////////////////////////////////【接口测试】/////////////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @description: 前往接口测试页面
+	 *
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月11日 上午11:46:32 
+	 * @version 1.0.0
+	 */
+	@RequestMapping("page_apicenter_api_test")  
+	public String pageApicenterApiTest(ModelMap model , HttpSession session){ 
+		super.userBehavior(session, logger, "page_apicenter_api_test", "前往接口测试页面");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		model.addAttribute("date", sdf.format(new Date()));  
+		
+		return service.pageApicenterApiTest(); 
+	}
+	
+	/**
+	 * @description: 根据接口target，返回查询消息体
+	 *
+	 * @param target
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月11日 下午4:57:09 
+	 * @version 1.0.0
+	 */
+	@RequestMapping(value = "ajax_find_request_dto", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxFindRequestDto(String target , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_find_request_dto", "根据接口target，返回查询消息体");
+		return service.ajaxFindRequestDto(target);  
 	}
 }
 

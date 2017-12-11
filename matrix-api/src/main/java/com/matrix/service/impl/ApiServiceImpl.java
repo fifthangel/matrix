@@ -37,7 +37,7 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 	public JSONObject apiService(HttpServletRequest request, HttpServletResponse response , String key , String value , String json) {
 		
 		Head dto = JSONObject.parseObject(JSONObject.parseObject(json).getString("head"), Head.class); 
-		JSONObject result = this.checkAndInit(request, response, key, value, dto);
+		JSONObject result = this.checkRequest(request, response, key, value, dto);
 		if (result.getString("status").equals("success")){  
 			try {
 				// 备调用接口处理类  IBaseProcessor          
@@ -75,7 +75,7 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 	 * @date 2017年11月10日 下午3:59:15 
 	 * @version 1.0.0
 	 */
-	private JSONObject checkAndInit(HttpServletRequest request, HttpServletResponse response , String key ,  String value , Head dto) {
+	private JSONObject checkRequest(HttpServletRequest request, HttpServletResponse response , String key ,  String value , Head dto) {
 		JSONObject result = new JSONObject();
 		if(StringUtils.isBlank(dto.getTarget())) {  
 			result.put("status", "error");
@@ -87,8 +87,8 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 		String requestInfo = launch.loadDictCache(DCacheEnum.ApiRequester , "InitApiRequester").get(key);  // ac_request_info表的缓存
 		if(StringUtils.isBlank(requestInfo)) {
 			result.put("status", "error");
-			result.put("code", "10001");
-			result.put("msg", this.getInfo(600010001));  // 非法的请求! 您请求的公钥未包含在我们的系统中.
+			result.put("code", "10012"); 
+			result.put("msg", this.getInfo(600010012));  // 非法的请求! 您请求的公钥未包含在我们的系统中.
 			return result;
 		}
 		JSONObject requester = JSONObject.parseObject(requestInfo);
@@ -108,11 +108,29 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 		}
 		
 		String apiInfoStr = launch.loadDictCache(DCacheEnum.ApiInfo , "InitApiInfo").get(dto.getTarget()); 
+		if(StringUtils.isBlank(apiInfoStr)){
+			result.put("status", "error");
+			result.put("code", "10014"); 
+			result.put("msg", this.getInfo(600010014));  // 600010014=系统未检测到您所访问的接口
+			return result;
+		} 
 		JSONObject apiInfo = JSONObject.parseObject(apiInfoStr);
 		if(!requester.getString("atype").equals(apiInfo.getString("atype"))) {
 			result.put("status", "error");
 			result.put("code", "10007");
 			result.put("msg", this.getInfo(600010007));  // 600010007=非法的请求! 您的请求域不匹配!
+			return result;
+		}
+		if(apiInfo.getInteger("discard") == 0) {
+			result.put("status", "error");
+			result.put("code", "10013");
+			result.put("msg", this.getInfo(600010013));  // 600010013=您所访问的接口已停用
+			return result;
+		}
+		if(StringUtils.isBlank(apiInfo.getString("processor"))) {
+			result.put("status", "error");
+			result.put("code", "10014"); 
+			result.put("msg", this.getInfo(600010015));  // 600010015=系统未检测到对应接口处理类!请联系开发人员!
 			return result;
 		}
 		
