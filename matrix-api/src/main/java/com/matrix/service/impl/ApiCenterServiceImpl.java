@@ -23,7 +23,7 @@ import com.github.pagehelper.PageInfo;
 import com.matrix.annotation.Inject;
 import com.matrix.annotation.MatrixRequest;
 import com.matrix.base.BaseServiceImpl;
-import com.matrix.base.IBaseProcessor;
+import com.matrix.base.interfaces.IBaseProcessor;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;

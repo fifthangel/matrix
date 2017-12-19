@@ -7,7 +7,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.annotation.Inject;
 import com.matrix.annotation.MatrixRequest;
 import com.matrix.base.BaseClass;
-import com.matrix.base.IBaseProcessor;
+import com.matrix.base.interfaces.IBaseProcessor;
+import com.matrix.pojo.dto.ProcessorTestDto;
 import com.matrix.pojo.entity.AcApiProject;
 import com.matrix.service.IApiCenterService;
 
@@ -20,7 +21,7 @@ import com.matrix.service.IApiCenterService;
  * @date 2017年11月13日 下午12:41:42 
  * @version 1.0.0
  */
-@MatrixRequest(clazz=com.matrix.pojo.entity.AcApiProject.class) 
+@MatrixRequest(clazz=com.matrix.pojo.dto.ProcessorTestDto.class) 
 public class TestPrivateProcessor extends BaseClass implements IBaseProcessor {
 
 	@Inject 
@@ -29,8 +30,10 @@ public class TestPrivateProcessor extends BaseClass implements IBaseProcessor {
 	
 	@Override
 	public JSONObject processor(HttpServletRequest request, HttpServletResponse response, JSONObject data) {
-		AcApiProject entity = JSONObject.parseObject(data.getString("data"), AcApiProject.class); 
-		return service.ajaxApiProjectList(entity, request, null); 
+		ProcessorTestDto dto = JSONObject.parseObject(data.getString("data"), ProcessorTestDto.class); 
+		
+		
+		return service.ajaxApiProjectList(null, request, null); 
 	}
 
 }
