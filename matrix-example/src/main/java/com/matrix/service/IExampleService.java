@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.interfaces.IBaseService;
+import com.matrix.pojo.dto.ApiExampleDto;
 import com.matrix.pojo.entity.UserDemo;
 
 public interface IExampleService  extends IBaseService<UserDemo, Integer> {
@@ -17,4 +18,6 @@ public interface IExampleService  extends IBaseService<UserDemo, Integer> {
 	public JSONObject ajaxUploadFileCfile(String type , HttpServletRequest request);
 
 	public JSONObject apiHttpClientTest(HttpServletRequest request);   
+	
+	public JSONObject apiProcessorTest(ApiExampleDto dto);
 }

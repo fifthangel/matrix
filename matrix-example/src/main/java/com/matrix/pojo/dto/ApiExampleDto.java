@@ -1,21 +1,21 @@
 package com.matrix.pojo.dto;
 
 public class ApiExampleDto {
-	private Integer orderId;
-    private String address = "";
+	private Integer id;
+    private String userName = "";
     private String password = "";
     
-	public Integer getOrderId() {
-		return orderId;
+	public Integer getId() {
+		return id;
 	}
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getAddress() {
-		return address;
+	public String getUserName() {
+		return userName;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;

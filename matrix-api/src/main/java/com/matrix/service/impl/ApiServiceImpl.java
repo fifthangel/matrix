@@ -34,17 +34,17 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 	 * @date 2017年11月10日 上午11:49:21 
 	 * @version 1.0.0
 	 */
-	public JSONObject apiService(HttpServletRequest request, HttpServletResponse response , String key , String value , String json) {
-		
-		Head dto = JSONObject.parseObject(JSONObject.parseObject(json).getString("head"), Head.class); 
-		JSONObject result = this.checkRequest(request, response, key, value, dto);
+	public JSONObject apiService(HttpServletRequest request, HttpServletResponse response , String json) {
+		JSONObject requester = JSONObject.parseObject(json);
+		Head dto = JSONObject.parseObject(requester.getString("head"), Head.class); 
+		JSONObject result = this.checkRequest(request, response, dto);
 		if (result.getString("status").equals("success")){  
 			try {
 				// 备调用接口处理类  IBaseProcessor          
 				Class<?> clazz = Class.forName("com.matrix.processor." + result.getString("processor"));   
 				if (clazz != null && clazz.getDeclaredMethods() != null){
 					IBaseProcessor iprocessor = (IBaseProcessor) clazz.newInstance();
-					return iprocessor.processor(request , response , JSONObject.parseObject(json));
+					return iprocessor.processor(request , response , requester);  
 				}else {
 					JSONObject err = new JSONObject();
 					err.put("status", "error");
@@ -75,8 +75,16 @@ public class ApiServiceImpl extends BaseClass implements IApiService {
 	 * @date 2017年11月10日 下午3:59:15 
 	 * @version 1.0.0
 	 */
-	private JSONObject checkRequest(HttpServletRequest request, HttpServletResponse response , String key ,  String value , Head dto) {
+	private JSONObject checkRequest(HttpServletRequest request, HttpServletResponse response , Head dto) {
 		JSONObject result = new JSONObject();
+		String key = dto.getKey();
+		String value = dto.getValue();
+		if(StringUtils.isAnyBlank(key , value)) {
+			result.put("status", "error");
+			result.put("code", "10016");  
+			result.put("msg", this.getInfo(600010016));  // 600010016=非法的请求数据结构，缺少key或value
+			return result;
+		}
 		if(StringUtils.isBlank(dto.getTarget())) {  
 			result.put("status", "error");
 			result.put("code", "10003");

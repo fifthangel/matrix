@@ -847,6 +847,38 @@ public class ApiCenterServiceImpl extends BaseServiceImpl<AcApiInfo, Integer> im
 		
 		return result;
 	}
+
+	/**
+	 * @description: 根据请求者的key，找到对应的value
+	 *
+	 * @param key
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月25日 下午10:11:23 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject ajaxFindRequestValue(String key) {
+		JSONObject result = new JSONObject();
+		String requestInfo = launch.loadDictCache(DCacheEnum.ApiRequester , "InitApiRequester").get(key);  // ac_request_info表的缓存
+		if(StringUtils.isBlank(requestInfo)) {
+			result.put("status", "error");
+			result.put("code", "10012"); 
+			result.put("msg", this.getInfo(600010012));  // 非法的请求! 您请求的公钥未包含在我们的系统中.
+			return result;
+		}
+		JSONObject requester = JSONObject.parseObject(requestInfo);
+		if(StringUtils.isBlank(requester.getString("value"))) {
+			result.put("status", "error");
+			result.put("code", "10002");
+			result.put("msg", this.getInfo(600010002));  // 系统秘钥数据为空，请联系开发人员，为您带来不便请谅解!
+			return result;
+		}
+		
+		result.put("status", "success");
+		result.put("data", requester.getString("value"));   
+		return result;
+	}
 	
 }
 

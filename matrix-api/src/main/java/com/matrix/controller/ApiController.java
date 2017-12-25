@@ -44,7 +44,7 @@ public class ApiController  extends BaseController{
 	@RequestMapping(value = "matrix", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject apiService(HttpServletRequest request , HttpServletResponse response , String key , String value, String json){ 
-		return service.apiService(request , response , key , value , json);
+		return service.apiService(request , response , json);
 	}
 }
 

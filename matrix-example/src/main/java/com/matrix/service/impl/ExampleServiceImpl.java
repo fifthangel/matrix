@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseServiceImpl;
 import com.matrix.dao.IUserDemoDao;
+import com.matrix.pojo.dto.ApiExampleDto;
 import com.matrix.pojo.entity.UserDemo;
 import com.matrix.service.IExampleService;
 //import com.matrix.support.FileUploadSupport;
@@ -125,6 +126,28 @@ public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> impl
 			} 
 		}
 		return items;
+	}
+
+	/**
+	 * @description: com.matrix.processor.privates.ExamplePrivateProcessor.java对应测试方法
+	 *
+	 * @param dto
+	 * @author Yangcl
+	 * @date 2017年12月25日 下午8:47:53 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject apiProcessorTest(ApiExampleDto dto) {
+		JSONObject r = new JSONObject();
+		List<UserDemo> list = userDemoDao.findEntityByApiDto(dto);
+		if(list != null && list.size() != 0) { 
+			r.put("status", "success");
+			r.put("msg", "测试成功!");
+			r.put("data", list);
+		}else {
+			r.put("status", "error");
+			r.put("msg", "未找到对应的值");
+		}
+		return r;
 	}
 }
 

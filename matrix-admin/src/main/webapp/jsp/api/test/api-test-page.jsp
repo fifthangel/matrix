@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<%@ include file="/inc/iframe-head.jsp" %>
-
+<!-- 调用md5方法 -->
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 <script type="text/javascript" src="${jsp}/api/test/api-test.js"></script>
 <div class="centercontent tables">
 	<div class="pageheader notab">
@@ -14,7 +15,7 @@
 			<div class="statusbox" style="width: 800px">
 				<form id="api-test-form" action="javascript:void(0)">
 					<div style="margin-bottom: 10px;">
-						<span style="vertical-align:middle;">请 求 者 类 型：</span>&nbsp;&nbsp;
+						<span style="vertical-align:middle;">接 口 请 求 者：</span>&nbsp;&nbsp;
 						<input type="radio" name="requester" value="133C9CB27DA0" style="vertical-align:middle;" checked="checked"> 
 						<span style="vertical-align:middle;">developer-private</span> &nbsp;&nbsp;
 						<input type="radio" name="requester" value="133C9CB27E18" style="vertical-align:middle;"> 
@@ -55,7 +56,7 @@
 						<textarea id="json-response" name="" cols="" rows="" style="height: 200px; width: 790px" placeholder="这里将显示数据请求结果"></textarea>
 					</div>
 					<div class="submit">
-						<button class="stdbtn btn_orange" onclick="getCache()">获取结果</button>
+						<button class="stdbtn btn_orange" onclick="apiTest.getResponseMsg('${basePath}')">获取结果</button> 
 					</div>
 				</form>
 			</div>

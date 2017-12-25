@@ -43,6 +43,7 @@ public interface IApiCenterService extends IBaseService<AcApiInfo, Integer>{
 	
 	// 页面接口测试
 	public String pageApicenterApiTest();
-	public JSONObject ajaxFindRequestDto(String target);       
+	public JSONObject ajaxFindRequestDto(String target);
+	public JSONObject ajaxFindRequestValue(String key);        
  
 }

@@ -360,6 +360,23 @@ private static Logger logger=Logger.getLogger(ApiCenterController.class);
 		super.userBehavior(session, logger, "ajax_find_request_dto", "根据接口target，返回查询消息体");
 		return service.ajaxFindRequestDto(target);  
 	}
+	
+	/**
+	 * @description: 根据请求者的key，找到对应的value
+	 *
+	 * @param key
+	 * @param request
+	 * @param session
+	 * @author Yangcl
+	 * @date 2017年12月25日 下午10:11:23 
+	 * @version 1.0.0.1
+	 */
+	@RequestMapping(value = "ajax_find_request_value", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject ajaxFindRequestValue(String key , HttpServletRequest request, HttpSession session){ 
+		super.userBehavior(session, logger, "ajax_find_request_value", "根据请求者的key，找到对应的value");
+		return service.ajaxFindRequestValue(key);  
+	}
 }
 
 

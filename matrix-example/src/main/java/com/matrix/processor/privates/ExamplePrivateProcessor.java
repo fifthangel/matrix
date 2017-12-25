@@ -9,6 +9,7 @@ import com.matrix.annotation.MatrixRequest;
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseProcessor;
 import com.matrix.pojo.dto.ApiExampleDto;
+import com.matrix.service.IExampleService;
 
 /**
  * @description: 这是一个测试私有接口处理的类 
@@ -22,16 +23,14 @@ import com.matrix.pojo.dto.ApiExampleDto;
 @MatrixRequest(clazz=com.matrix.pojo.dto.ApiExampleDto.class) 
 public class ExamplePrivateProcessor extends BaseClass implements IBaseProcessor {
 
-//	@Inject 
-//	private IApiCenterService service;  
+	@Inject 
+	private IExampleService service;   
 	
 	
 	@Override
 	public JSONObject processor(HttpServletRequest request, HttpServletResponse response, JSONObject data) {
-		ApiExampleDto entity = JSONObject.parseObject(data.getString("data"), ApiExampleDto.class); 
-		
-		// TODO 
-		return null;
+		ApiExampleDto dto = JSONObject.parseObject(data.getString("data"), ApiExampleDto.class); 
+		return service.apiProcessorTest(dto);
 	}
 
 }

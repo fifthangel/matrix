@@ -1,6 +1,8 @@
 package com.matrix.pojo.dto;
 
 public class Head {
+	private String key;
+	private String value;
 	private String target; // 所开放的接口名称
 	private String client; // 请求客户端类型。0:IOS   1:Android   2:微信   3:服务器
 	private String version; // 客户端版本
@@ -17,8 +19,21 @@ public class Head {
 //	public void setAtype(String atype) {
 //		this.atype = atype;
 //	}
+	
 	public String getChannel() {
 		return channel;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
 	}
 	public void setChannel(String channel) {
 		this.channel = channel;
