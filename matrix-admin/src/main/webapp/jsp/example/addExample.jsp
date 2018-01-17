@@ -71,8 +71,11 @@
 		</form>
 	</div>
 	<br /> 
-	<a onclick="addInfo()" class="btn btn_orange btn_search radius50  security-btn" key="btn-9bb559430eeb4b9290e0999776ace4b1" style="cursor: pointer; margin-left: 220px"> 
+	<a onclick="addInfo()" class="btn btn_orange btn_search radius50  security-btn" key="add_info_example:add" style="display:none;cursor: pointer; margin-left: 220px"> 
 		<span> 添&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp加 </span>
+	</a>
+	<a onclick="" class="btn btn_orange btn_search radius50  security-btn" key="add_info_example:delete" style="display:none;cursor: pointer; margin-left: 220px"> 
+		<span> 删&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp除 </span>
 	</a>
 </div>
 

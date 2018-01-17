@@ -11,7 +11,7 @@
 	 *
 	 */
 	$(function() {
-		$('#alertboxbutton').click(function() {
+		$('#alert-box-button').click(function() {
 			jAlert('自定义 alert 展示', '系统提示');
 			return false;
 		});
@@ -23,7 +23,7 @@
 		 * 此时会走这个回调函数 
 		 */
 
-		$('#confirmbutton').click(function() {
+		$('#confirm-button').click(function() {
 			// 注意：flag = ture or false - Yangcl
 			jConfirm('Can you confirm this?', '系统提示', function(flag) {
 				jAlert('您选择了: ' + flag, '系统提示');
@@ -31,7 +31,7 @@
 			return false;
 		});
 
-		$('#promptbutton').click(function() {
+		$('#prompt-button').click(function() {
 			// 注意：content = 你输入的内容  如果content == null 则代表你点击了取消按钮，请根据实际需要做判定 - Yangcl
 			jPrompt('请输入：', '', '系统提示', function(content) {
 				if (content) {
@@ -41,7 +41,7 @@
 			return false;
 		});
 
-		$('#alerthtmlbutton').click(function() {
+		$('#alert-html-button').click(function() {
 			var html_ = '<a href="${basePath}example/page_example_ajax_form_dialog.do" target="_blank" class="anchorbutton">Ajax 分页+弹出窗体分页 示例</a>';
 			var title = 'alert 支持html标签';
 			jAlert(html_, title);
@@ -66,11 +66,11 @@
 			<div class="contenttitle2">
 				<h3>请选择你的用例 本页面包含JavaScript调用方式</h3>
 			</div>
-			<div class="subcontent" style="display: block; margin-top: 100px; margin-left: 20px">
-				<a id="alertboxbutton" href="" class="anchorbutton security-btn" key="btn-2c4941853b1849969c336522909ad99b" >基本 Alert</a> &nbsp; 
-				<a id="confirmbutton" href="" class="anchorbutton security-btn" key="btn-5b4d350a836a4bcba7a1716bd3643bab" >确认对话框 confirm</a> &nbsp; 
-				<a id="promptbutton" href="" class="anchorbutton security-btn" key="btn-8067f6befea34eebbb9ea8c8d8ca7f58" >输入对话框 prompt</a> &nbsp; 
-				<a id="alerthtmlbutton" href="" class="anchorbutton security-btn" key="btn-b1044c816ea14c6e9b8ddd3b1087b530" >alert 支持html标签</a>
+			<div class="subcontent" style="display:block; margin-top: 100px; margin-left: 20px">
+				<a id="alert-box-button" href="javascript:void(0)" class="anchorbutton security-btn" key="custom_dialog_example:alert" style="display: none;">基本 Alert</a> &nbsp; 
+				<a id="confirm-button" href="javascript:void(0)" class="anchorbutton security-btn" key="custom_dialog_example:confirm" style="display: none;">确认对话框 confirm</a> &nbsp; 
+				<a id="prompt-button" href="javascript:void(0)" class="anchorbutton security-btn" key="custom_dialog_example:prompt" style="display: none;">输入对话框 prompt</a> &nbsp; 
+				<a id="alert-html-button" href="javascript:void(0)" class="anchorbutton security-btn" key="custom_dialog_example:html" style="display: none;">alert 支持html标签</a>
 			</div>
 		</div>
 	</div>

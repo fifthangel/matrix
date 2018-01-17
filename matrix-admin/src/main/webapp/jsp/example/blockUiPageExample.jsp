@@ -9,17 +9,17 @@
 <script type="text/javascript" src="${js}/system/sysUserRoleFunction.js"></script>
 
 <style type="text/css">
-	.a-btn{
-       	cursor: pointer;
-       	color:#FB9337; 
-       }
-       .a-btn:hover {
-       	color: red;
-      	}  
-	.dialog-table{
-		width:100%; 
-		border-collapse:separate; 
-		border-spacing:10px;  
+	.a-btn {
+		cursor: pointer;
+		color: #FB9337;
+	}
+	.a-btn:hover {
+		color: red;
+	}
+	.dialog-table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 10px;
 	}
 </style>
 
@@ -36,15 +36,15 @@
 		<%-- table-form 这个id分页使用 --%>
 		<div id="table-form" class="dataTables_wrapper">
 			<div class="contenttitle2">
-				<p style="margin: 0px" class="security-btn" key="btn-1a06b8d89eef48f6a2587fc0b4b47cfe">
+				<p style="margin: 0px" class="security-btn" key="dialog_example:add" style="display: none;">
 					<button  onclick="openAddDialog()" class="stdbtn btn_orange">添加弹层示例</button>
 				</p>
 				
-				<p style="margin-top: 20px" class="security-btn" key="btn-0466d157bdbe4288b082dce9b4cb62dc">
+				<p style="margin-top: 20px" class="security-btn" key="dialog_example:slim_scroll" style="display: none;">
 					<button onclick="openULDialog()" class="stdbtn btn_lime">自定义滚动条示例-ul-列表</button>
 				</p>
 				
-				<p style="margin-top: 20px" class="security-btn" key="btn-f140ed655ba347d099b04e2c66a6202c">
+				<p style="margin-top: 20px" class="security-btn" key="dialog_example:slim_scroll:tree" style="display: none;">
 					<button  onclick="openTreeDialog()" class="stdbtn btn_orange">自定义滚动条示例-tree</button>
 				</p>
 			</div>

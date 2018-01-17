@@ -448,7 +448,9 @@
             	html_ += '页面按钮类型：<select id="navType" name="navType" class="radius3" onchange="surfunc.changeNodeType()" style="margin-left:0px; width:262px;  margin-bottom: 10px;">';        
             	html_ += '<option value="4">页面按钮</option><option value="5">内部跳转页面</option></select><br/>';
 				html_ += '<div id = "node-type" style="margin-bottom: 10px;"></div>';
-
+				
+				html_ += '页面按钮标识：<input type="text" name="eleValue" class="smallinput " placeholder="如：二级菜单功能:按钮用途"  style="width: 250px; margin-bottom: 10px;" value="" ><br/>' 
+            	
             	html_ += '<textarea cols="80" rows="5" maxlength="250"  name="remark"  class="longinput "  placeholder="备注信息描述" style="margin-bottom: 10px;"></textarea><br/>';
             	html_ += '<input type="hidden" name="parentId" value="' + treeNode.parentId +'" >';
             	var preNode = treeNode.getPreNode();   // seqnum  需要计算同层所有节点，然后得出顺序码
@@ -487,8 +489,7 @@
             		html_ += '</div>';
             	}
             	
-            	// html_ += '标识：<input name="remark"  class="smallinput "  placeholder="备注信息描述" style="width: 250px; margin-bottom: 10px;" value="' + treeNode.eleValue + '"><br/>';
-            	html_ += '页面按钮标识：<input type="text" class="smallinput " placeholder=""  style="width: 250px; margin-bottom: 10px;" value="' + treeNode.eleValue + '" ><br/>' 
+            	html_ += '页面按钮标识：<input type="text" name="eleValue" class="smallinput " placeholder="如：二级菜单功能:按钮用途"  style="width: 250px; margin-bottom: 10px;" value="' + treeNode.eleValue + '" ><br/>' 
             	html_ += '<input type="hidden" name="id" value="' + treeNode.id +'" >'; 
             	html_ += '<button class="stdbtn btn_orange " onclick="surfunc.addData(\'' + url_ +'\')"> 提 交 </button>'
             }

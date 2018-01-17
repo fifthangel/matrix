@@ -150,12 +150,13 @@ var pageInit = {
 		$("#left-menu").append(html_);
 	},
 	
-	// 显示被隐藏的按钮| pageInit.security();
+	// 显示被隐藏的按钮| pageInit.security();   display:none;
 	security:function(){
 		if( typeof(localStorage.btns) != "undefined" && localStorage.btns.length != 0){
 			var barr = localStorage.btns.split(",");
 			for(var i = 0 ; i < barr.length ; i ++){
 				var key = barr[i].split("@")[1];
+				$(".security-btn[key='" + key + "']").show();
 				$(".security-btn[key='" + key + "']").removeClass("security-btn"); 
 			}
 			$(".security-btn").remove();

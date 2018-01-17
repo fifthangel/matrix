@@ -339,7 +339,6 @@ var dForm = {
     formPaging : function(pn){
         var parse = dForm.parseUrl(this.url);
         var url = parse.protocol + '://' + parse.host + ':' + parse.port + parse.path;
-//        var s = parseInt($("#dialog-select-page-size").val());
         var s = parseInt($("#" +  this.formId + " > .dialog-show-count > label > select").val());
         if(isNaN(s)){
             s = 10;
@@ -355,6 +354,7 @@ var dForm = {
     drawForm : function(callback){
         callback();
         eval("this.callName = callback;");
+        pageInit.security();
         return dForm;
     } ,
 
