@@ -120,7 +120,7 @@
 			<p>
 				<span id="dialog-operate" style="position: relative;">
 					<!-- 等待填充 弹窗操作按钮 如添加和修改等等 -->
-					<button type="button" style="width: 100px;margin-left: 350px;" class="submit radius2" onclick="apiInfo.saveOpenDomain();">确认开放</button>
+					<button type="button"  class="submit radius2 security-btn" key="api_tree:open_domain" style="display:none;width:100px;margin-left: 350px;" onclick="apiInfo.saveOpenDomain();">确认开放</button>
 				</span>
 			</p>
 		</form>

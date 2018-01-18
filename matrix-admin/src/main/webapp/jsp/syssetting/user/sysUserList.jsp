@@ -34,13 +34,13 @@
 							<span class="field"> 
 								<input id="mobile" type="text" name="mobile" class="form-search" />
 							</span> 
-							<a onclick="toUserAddPage()" class="btn btn_orange btn_home radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+							<a onclick="toUserAddPage()" class="btn btn_orange btn_home radius50 security-btn" key="system_user_list:add" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 								<span> 添 加 </span>
 							</a> 
-							<a onclick="searchReset()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+							<a onclick="searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="system_user_list:reset" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 								<span> 重 置 </span>
 							</a> 
-							<a onclick="searchUser()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+							<a onclick="searchUser()" class="btn btn_orange btn_search radius50 security-btn" key="system_user_list:search" style="display:none;float: right; cursor: pointer; margin-left: 20px"> 
 								<span> 查 询 </span>
 							</a>
 						</p>
@@ -122,9 +122,9 @@
 						+ '<td class="center">' + list[i].email + '</td>'
 						+ '<td class="center">' + list[i].createTime + '</td>'
 						+ '<td width="200px" align="center">'
-						+ '<a onclick="deleteOne(\'' + list[i].id + '\')" title="删除"  style="cursor: pointer;">删除</a> | '
-						+ '<a href="${basePath}manager/show_user_edit_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;">修改</a> |'
-						+ '<a userId="' + list[i].id + '" onclick="userRoleListDialog(this)" title="用户权限"  style="cursor: pointer;">用户角色</a> '
+						+ '<a onclick="deleteOne(\'' + list[i].id + '\')" title="删除" class="security-btn" key="system_user_list:delete" style="display:none;cursor: pointer;">删除</a>   '
+						+ '<a href="${basePath}manager/show_user_edit_page.do?id=' + list[i].id + '" title="修改" class="security-btn" key="system_user_list:edit" style="display:none;cursor: pointer;">修改</a> '
+						+ '<a userId="' + list[i].id + '" onclick="userRoleListDialog(this)" title="用户权限" class="security-btn" key="system_user_list:user_role" style="display:none;cursor: pointer;">用户角色</a> '
 						+ '</td></tr>'
 			}
 		}else{
@@ -230,9 +230,9 @@
 						+ '<td align="center" width="150px">' + list[i].createTime + '</td>'
 						+ '<td width="50px" align="center">';
 						if(list[i].userId == -1){
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="addMcUserRole(this)" title="为用户分配这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">分配</a> '  
 						}else{
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="deleteMcUserRole(this)" title="为用户删除这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">取消</a> '  
 						}
 						html_ += '</td></tr>'
 			}

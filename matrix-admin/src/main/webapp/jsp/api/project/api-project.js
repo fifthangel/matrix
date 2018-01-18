@@ -34,8 +34,8 @@ var project = {
 							+ '<td align="center">' + list[i].updateTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="project.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-7e4778fef8984144989fc29a108c90fa">删除</a> '
-								+ '<a onclick="project.update(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-e9a3b210edbb42ff900921125c97de2f">修改</a> '
+								+ '<a onclick="project.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="display:none;cursor: pointer;" class="security-btn" key="api_project_list:delete">删除</a> '
+								+ '<a onclick="project.update(this)"  eleId="' + list[i].id + '"  title="修改"  style="display:none;cursor: pointer;" class="security-btn" key="api_project_list:edit">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {

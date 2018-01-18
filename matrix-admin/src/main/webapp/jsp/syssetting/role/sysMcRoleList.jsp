@@ -44,13 +44,13 @@
 							<span class="field"> 
 								<input id="role-name" type="text" name="roleName" class="form-search" />
 							</span>  
-							<a onclick="toUserAddPage()" class="btn btn_orange btn_home radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+							<a onclick="toUserAddPage()" class="btn btn_orange btn_home radius50 security-btn" key="system_role_list:add" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 								<span> 添 加 </span>
 							</a> 
-							<a onclick="searchReset()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+							<a onclick="searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="system_role_list:reset" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 								<span> 重 置 </span>
 							</a> 
-							<a onclick="searchUser()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+							<a onclick="searchUser()" class="btn btn_orange btn_search radius50 security-btn" key="system_role_list:search" style="display:none;float: right; cursor: pointer; margin-left: 20px"> 
 								<span> 查 询 </span>
 							</a>
 						</p>
@@ -123,7 +123,7 @@
 			<input id="func-ids"  type="hidden" value="" >
 			<p>
 				<span id="dialog-operate" style="position: relative;">
-					<%-- 等待填充 弹窗操作按钮 如添加和修改等等--%>
+					<button id="submit-btn" roleId=""  onclick="submitRoleFunc(this)" type="button" key="system_role_list:dialog_submit" style="display:none;width: 100px;margin-left: 400px;" class="submit radius2 security-btn">提交</button>
 				</span>
 			</p>
 		</form>
@@ -169,9 +169,11 @@
 						+ '<td>' + list[i].roleDesc + '</td>'
 						+ '<td align="center" width="200px">' + list[i].createTime + '</td>'
 						+ '<td width="200px" align="center">'
-						+ '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="openTreeDialog(this , true)" title="分配系统功能到这个角色中"  style="cursor: pointer;">角色功能</a>| ' 
-						+ '<a href="${basePath}sysrole/show_role_edit_page.do?id=' + list[i].id + '" title="修改"  style="cursor: pointer;">修改</a>| '
-						+ '<a roleId="' + list[i].id + '" onclick="surfunc.deleteMcRole(this)" title="删除"  style="cursor: pointer;">删除</a>'
+						// + '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="openTreeDialog(this , true)" title="分配系统功能到这个角色中" class=" security-btn" key="system_role_list:role_function" style="display:none;cursor: pointer;">角色功能</a> ' 
+						+ '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="openTreeDialog(this , true)" title="分配系统功能到这个角色中" style="cursor: pointer;">角色功能</a> ' 
+						
+						+ '<a href="${basePath}sysrole/show_role_edit_page.do?id=' + list[i].id + '" title="修改"  class=" security-btn" key="system_role_list:edit" style="display:none;cursor: pointer;">修改</a>  '
+						+ '<a roleId="' + list[i].id + '" onclick="surfunc.deleteMcRole(this)" title="删除"  class=" security-btn" key="system_role_list:delete" style="display:none;cursor: pointer;">删除</a>'
 						+ '</td></tr>'
 			}
 		}else{
@@ -206,11 +208,11 @@
 		var roleId = $(obj).attr("roleId");  
 		var roleName = $(obj).parent().parent().children()[0].innerText;
 		var dialogId = "#tree-dialog-div";
-		$("#submit-btn").remove();
 		if(flag){
 			$("#dialog-title").children("span").html("为角色【" + roleName + "】赋予系统功能");
-			var html = '<button id="submit-btn" roleId="' + roleId + '"  onclick="submitRoleFunc(this)" type="button" style="width: 100px;margin-left: 400px;" class="submit radius2">提交</button>';
-			$("#dialog-operate").append(html);
+			// var html = '<button id="submit-btn" roleId="' + roleId + '"  onclick="submitRoleFunc(this)" type="button" style="width: 100px;margin-left: 400px;" class="submit radius2">提交2</button>';
+			// $("#dialog-operate").append(html);
+			$("#submit-btn").attr("roleId" , roleId);  
 		}else{
 			$("#dialog-title").children("span").html("查看角色【" + roleName + "】所有功能");  // 此功能暂时不用
 		}

@@ -30,8 +30,8 @@ var domains = {
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="domains.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor: pointer;" class="security-btn" key="btn-7ec99f2159e14847a0b9f6527ddc9ffb">删除</a> '
-								+ '<a onclick="domains.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-f45f1f0e5a844d5581d7f2f04aa7d009">修改</a> '
+								+ '<a onclick="domains.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="display:none;cursor:pointer;" class="security-btn" key="include_domain_list:delete">删除</a> '
+								+ '<a onclick="domains.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="display:none;cursor:pointer;" class="security-btn" key="include_domain_list:edit">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {

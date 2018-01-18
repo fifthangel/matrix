@@ -40,13 +40,13 @@
 						<input id="key" name="key" type="text" class="form-search" />
 					</span>
 					
-					<a onclick="requestInfo.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-618ab3025b4e4fb88286d07aad0d8738" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="requestInfo.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="api_requester_info:add" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 添 加 </span>
 					</a> 
-					<a onclick="requestInfo.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-037e2626d6ac41c5ba68064cca2ea6c3" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="requestInfo.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="api_requester_info:reset" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="requestInfo.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-9dbfd971b5954e6b8a612a98f878e20f" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="requestInfo.search()" class="btn btn_orange btn_search radius50 security-btn" key="api_requester_info:search" style="display:none;float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>

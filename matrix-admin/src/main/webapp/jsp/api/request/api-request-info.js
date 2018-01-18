@@ -42,8 +42,8 @@ var requestInfo = {
 							+ '<td align="center">' + list[i].createTime + '</td>'
 							+ '<td align="center">' + list[i].updater + '</td>'
 							+ '<td width="200px" align="center">'
-								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" flag="' + flag_ + '" style="cursor: pointer;" class="security-btn" key="btn-28ede582b1a4439b9fc064bcd9e59449"> ' + btitle + ' </a> '
-								+ '<a onclick="requestInfo.openEditDialog(this)"  eleId="' + list[i].id + '"  atype="' + list[i].atype + '"  title="修改"  style="cursor: pointer;" class="security-btn" key="btn-19b63e8a10b34b3e855a21ee8a3fd6b1">修改</a> '
+								+ '<a onclick="requestInfo.deleteRow(this)" eleId="' + list[i].id + '" flag="' + flag_ + '" style="display:none;cursor: pointer;" class="security-btn" key="api_requester_info:delete"> ' + btitle + ' </a> '
+								+ '<a onclick="requestInfo.openEditDialog(this)"  eleId="' + list[i].id + '"  atype="' + list[i].atype + '"  title="修改"  style="display:none;cursor: pointer;" class="security-btn" key="api_requester_info:edit">修改</a> '
 							+ '</td></tr>'
 				}
 			} else {

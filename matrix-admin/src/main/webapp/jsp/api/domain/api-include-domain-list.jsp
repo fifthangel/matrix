@@ -42,13 +42,13 @@
 						<input id="company-name" name="companyName" type="text" class="form-search" />
 					</span> 
 					
-					<a onclick="domains.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-9558fd9d4d6b4c278845038576fe7a04" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="domains.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="include_domain_list:add" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 添 加 </span>
 					</a> 
-					<a onclick="domains.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c1ffc1ad85f04b628553c0702f174016" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="domains.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="include_domain_list:reset" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="domains.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-36115fcb839c4770aee18a3697f28461" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="domains.search()" class="btn btn_orange btn_search radius50 security-btn" key="include_domain_list:search" style="display:none;float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>

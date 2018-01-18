@@ -34,13 +34,13 @@
 						<input id="target" type="text" name="target" class="form-search" />
 					</span> 
 					
-					<a onclick="project.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="btn-c30bd4b3bbd2485bb0de1699de16f468" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="project.openAddDialog()" class="btn btn_orange btn_search radius50 security-btn" key="api_project_list:add" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 添 加 </span>
 					</a> 
-					<a onclick="project.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="btn-0fc78c45dc114367a29afc59631a2c8a" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick="project.searchReset()" class="btn btn_orange btn_search radius50 security-btn" key="api_project_list:reset" style="display:none;float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="project.search()" class="btn btn_orange btn_search radius50 security-btn" key="btn-6b623665eba54cc295ce1783f345e551" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick="project.search()" class="btn btn_orange btn_search radius50 security-btn" key="api_project_list:search" style="display:none;float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>
