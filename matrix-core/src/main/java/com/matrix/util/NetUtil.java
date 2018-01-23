@@ -15,8 +15,16 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -199,9 +207,60 @@ public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.
         }
         return sb.toString();
     }
+    
+    /**
+     * @description: 发送消息内容
+     * 
+     * @author Yangcl
+     * @date 2018年1月23日 下午3:31:30 
+     * @version 1.0.0.1
+     */
+    public void sendMessage(String receiver , String title , String msg) {
+        Properties props = new Properties();  
+        props.setProperty("mail.transport.protocol", "smtp");  
+        props.setProperty("mail.smtp.host" , "smtp." + this.getInfo(100090015) + this.getInfo(100090012) + "." 
+        		+ this.getInfo(100090011)  + this.getInfo(100090013) ); 
+        props.setProperty("mail.smtp.auth", "true"); 
+        Session session = Session.getInstance(props);
+        session.setDebug(false);  
+        MimeMessage message = null;
+        Transport transport = null;
+        try {
+        	String sm = this.getInfo(100090007) + "_" + this.getInfo(100090008) + "_" + this.getInfo(100090016) + this.getInfo(100090009) 
+        											+ this.getInfo(100090015) + this.getInfo(100090012) + "." + this.getInfo(100090011)  + this.getInfo(100090013);
+        	String pw = this.getInfo(100090014)  + this.getInfo(100090010);
+        	message = this.createMessage(session , sm , receiver , title , msg);
+        	transport = session.getTransport(); 
+            transport.connect(sm , pw);
+            transport.sendMessage(message , message.getAllRecipients());
+		} catch (Exception ex) {
+			ex.printStackTrace(); 
+		}finally {
+	        try {
+				transport.close();
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		}
+    }
 
     
-    
+    private MimeMessage createMessage(Session session, String send, String receiver , String title , String msg){
+        MimeMessage message = new MimeMessage(session);
+        try {
+			message.setFrom(new InternetAddress(send, "Power-matrix", "UTF-8"));
+			message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiver, "Master", "UTF-8"));
+	        message.setSubject(title, "UTF-8");
+	        message.setContent(msg , "text/html;charset=UTF-8");
+	        message.setSentDate(new Date());
+	        message.saveChanges();
+		} catch (UnsupportedEncodingException e) { 
+			e.printStackTrace();
+		} catch (MessagingException e) { 
+			e.printStackTrace();
+		}
+        return message;
+    }
     
     
     
