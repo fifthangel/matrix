@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.matrix.service.IPowerApiService;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("powerApi")
 public class PowerApiController {
 	private static Logger logger=Logger.getLogger(PowerApiController.class);
 
 	@Autowired
 	private IPowerApiService powerApiService;
 	
-	@RequestMapping("index")
+	@RequestMapping("page_powerApi_index")
 	public String toAddPage(HttpSession session){ 
 		return "jsp/api_pages/index"; 
 	}

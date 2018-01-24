@@ -95,6 +95,7 @@ public class IoUtil {
 
 	/**
 	 * @descriptions 文件夹拷贝(文件内含有文件和文件夹) 
+	 *		从jar包中复制资源到指定的项目目录下
 	 *
 	 * @param sources 源
 	 * @param target 目标路径

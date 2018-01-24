@@ -3,8 +3,8 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.power-matrix</groupId>
-		<artifactId>power-matrix</artifactId>
+		<groupId>com.matrix</groupId>
+		<artifactId>matrix</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent> 
 	<artifactId>power-api</artifactId>
@@ -14,7 +14,7 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.power-matrix</groupId>
+			<groupId>com.matrix</groupId>
 			<!-- <artifactId>matrix-quartz</artifactId> -->
 			<artifactId>matrix-core</artifactId>
 			<version>${project.version}</version>

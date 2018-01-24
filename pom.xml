@@ -13,6 +13,7 @@
 		<module>matrix-manager</module>
 		<module>matrix-file</module>
 		<module>matrix-api</module>
+		<module>power-api</module>
 		
 		<module>matrix-admin</module>
 		<module>matrix-example</module>
