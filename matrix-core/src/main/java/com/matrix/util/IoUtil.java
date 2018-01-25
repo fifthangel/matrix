@@ -54,17 +54,23 @@ public class IoUtil {
 	/**
 	 * @description: 根据名称获取资源 名称支持正则表达式 
 	 * 
-	 * @param resourceName
-	 * @return
-	 * @throws IOException
+	 * @param pattern_ classpath通配查找。
+	 * 		比如：classpath*:org/springframework/core/   -> 此处表达为查找项目路径下包含org/springframework/core/文件夹的资源。
+	 * 		或者：classpath*:META-INF/api_pages/  	-> 此处表达为查找项目路径下含有META-INF/api_pages/的资源文件
+	 *  	    or    ：classpath*:com/++/Driver.class	(此处需要把++替换为**) 
+	 *  
 	 * @author Yangcl 
 	 * @date 2016年11月11日 下午8:52:16 
 	 * @version 1.0.0.1
 	 */
-	public Resource[] upResources(String resourceName) throws IOException {
+	public Resource[] listResources(String pattern_){
 		Resource[] resources = null;
 		PathMatchingResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
-		resources = patternResolver.getResources(resourceName);
+		try {
+			resources = patternResolver.getResources(pattern_);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return resources;
 	}
 	
@@ -81,7 +87,7 @@ public class IoUtil {
 	 */
 	public void copyResources(String sFromClass, String sToPath, String sKeyName) {
 		try {
-			Resource[] resources = upResources(sFromClass);
+			Resource[] resources = this.listResources(sFromClass);
 			for (Resource r : resources) {
 				String sUrlString = StringUtils.substringAfter(r.getURI().toString(), sKeyName);
 				InputStream inStream = r.getInputStream(); // 读入原文件
@@ -105,7 +111,7 @@ public class IoUtil {
 	 */
 	public void copyDir(String sources, String target) throws IOException, URISyntaxException {  
 		target = StringUtils.substringBefore(target, "api_pages/");
-		Resource[] resources = upResources(sources);
+		Resource[] resources = this.listResources(sources);
 		File mdir = null;
 		for (Resource r : resources) {
 			String path = StringUtils.substringAfter(r.getURI().toString(), "jar:file:/");
