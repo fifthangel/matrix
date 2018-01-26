@@ -20,6 +20,7 @@ import com.matrix.base.BaseClass;
 import com.matrix.service.IFileUploadService;
 import com.matrix.support.FileSupport;
 import com.matrix.util.DateUtil;
+import com.matrix.util.JarUtil;
 import com.matrix.util.UuidUtil;
 
 @Service("fileUploadService")
@@ -104,7 +105,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 		
 		// 文件保存路径
 		String hexFolder = DateUtil.getDateHex();
-		String filePath = this.getConfig("matrix-file.server_basic_folder") + File.separator 
+		String filePath = this.getConfig("matrix-file.server_basic_folder_" + this.getConfig("matrix-core.model")) + File.separator 
 				+ this.getConfig("matrix-file.upload_path_" + postfix) + File.separator + hexFolder + File.separator;
 		try {
 			FileUtils.forceMkdir(new File(filePath));
@@ -132,6 +133,26 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 			return result;
 		}
 		System.out.println(result.toJSONString()); 
+		return result;
+	}
+
+
+	@Override
+	public JSONObject apiFileRemoteInject(HttpServletRequest request) {
+		JSONObject result = null;
+		List<FileItem> fileItems = this.getFileFromRequest(request);
+		if(fileItems != null && fileItems.size() != 0){ 
+			try {
+				int size = request.getInputStream().available(); 
+				JarUtil.getInstance().jarInject(request.getInputStream() , fileItems.get(0).getName() , this.getConfig("matrix-core.spring_core"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}else{
+			result = new JSONObject();
+			result.put("status", "error");
+			result.put("msg", this.getInfo(500010006));   // 500010006=未发现要上传的文件，请核实。
+		}
 		return result;
 	}
 	

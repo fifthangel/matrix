@@ -1,5 +1,6 @@
 package com.matrix.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -60,11 +61,12 @@ public class FileUploadController  extends BaseController{
 	 * @date 2017年7月31日 下午10:42:29
 	 * @author Yangcl 
 	 * @version 1.0.0.1
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject apiFileRemoteUpload(HttpServletRequest request , HttpServletResponse response , String key , String value){
-		String [] allowDomain = this.getConfig("matrix-file.access_control_allow_origin_" + this.getConfig("matrix-core.model")).split(","); 
+	public JSONObject apiFileRemoteUpload(HttpServletRequest request , HttpServletResponse response , String key , String value) throws IOException{
+/*		String [] allowDomain = this.getConfig("matrix-file.access_control_allow_origin_" + this.getConfig("matrix-core.model")).split(","); 
 		Set<String> allowedOrigins = new HashSet<String>(Arrays.asList(allowDomain));
 		String originHeader = request.getHeader("Origin");
 		if (StringUtils.isNotBlank(originHeader) && allowedOrigins.contains(originHeader)){
@@ -84,10 +86,15 @@ public class FileUploadController  extends BaseController{
 			JSONObject o = new JSONObject();
 			o.put("status", "error");
 			o.put("msg", this.getInfo(500010007));  // 您所请求的接口不对第三方开放
-			return o;
-		}
-		
-		
+			return o; 
+		}*/ 
+		return service.apiFileRemoteUpload(request);
+	}
+	
+	@RequestMapping(value = "api_file_remote_inject", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject apiFileRemoteInject(HttpServletRequest request , HttpServletResponse response , String key , String value){
+		return service.apiFileRemoteInject(request);
 	}
 }
 

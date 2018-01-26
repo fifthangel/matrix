@@ -14,6 +14,7 @@ import java.util.jar.JarOutputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -47,6 +48,12 @@ public class JarUtil extends BaseClass{
 	 */
 	public JSONObject jarInject(String pattern_) {
 		JSONObject result = new JSONObject();
+		 
+		return result;
+	}
+	
+	public JSONObject jarInject(InputStream istream , String fileName , String pattern_) {
+		JSONObject result = new JSONObject();
 		if(!StringUtils.endsWith(pattern_ , "/")) {
 			result.put("status", "error");
 			result.put("msg", this.getInfo(100090021));   
@@ -55,9 +62,9 @@ public class JarUtil extends BaseClass{
 		result = this.classpathScanning(pattern_);
 		if(result.getString("status").equals("success")){
 			String name = "";
-			List<String> files = JSONArray.parseArray(result.getJSONArray("list").toJSONString() , String.class); 
+			List<String> list = JSONArray.parseArray(result.getJSONArray("list").toJSONString() , String.class); 
 			try {
-				for(String s : files) {
+				for(String s : list) { 
 					name = s;
 					@SuppressWarnings("resource")
 					JarFile jar = new JarFile(s); 
@@ -65,7 +72,7 @@ public class JarUtil extends BaseClass{
 					while(ens.hasMoreElements()){
 						JarEntry e = ens.nextElement(); 
 						if(e.getName().equals(pattern_)) {
-							System.out.println(e.getName());
+							this.needleTubing(e , fileName ,  istream); 
 						}
 					}
 				}
@@ -78,6 +85,29 @@ public class JarUtil extends BaseClass{
 		}
 		return result;
 	}
+	
+	/**
+	 * @description: needle tubing  
+	 *
+	 * @param jarFullName
+	 * @param fileName
+	 * @param fis
+	 * @return 
+	 * @author Yangcl
+	 * @date 2018年1月26日 下午2:35:46 
+	 * @version 1.0.0
+	 * @throws IOException 
+	 */
+	private JSONObject needleTubing(JarEntry je , String fileName , InputStream fiss) throws IOException{
+		JSONObject result = new JSONObject();
+		 int size = fiss.available();
+		new IoUtil().fileCopy(fiss, "D:\\" + fileName);
+        
+//		File out = new File("E:\\");
+//		FileCopyUtils.copy(fis., out);  
+        return result;  
+    }
+	
 	
 	/**
 	 * @description: 扫描指定项目资源文件的jar包

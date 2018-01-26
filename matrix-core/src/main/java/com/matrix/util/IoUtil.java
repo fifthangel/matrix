@@ -135,7 +135,7 @@ public class IoUtil {
 		}
     }
 	
-	private void fileCopy(InputStream input, String target_) throws IOException{
+	public void fileCopy(InputStream input, String target_) throws IOException{
 		File target = new File(target_);
 		FileOutputStream fs = new FileOutputStream(target);
 		IOUtils.copy(input, fs);

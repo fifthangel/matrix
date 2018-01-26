@@ -8,4 +8,6 @@ public interface IFileUploadService {
 
 	public JSONObject apiFileRemoteUpload(HttpServletRequest request);
 
+	public JSONObject apiFileRemoteInject(HttpServletRequest request); 
+
 }
