@@ -95,7 +95,7 @@ public class JarUtil extends BaseClass{
 	 */
 	private JSONObject needleTubing(JarEntry je , FileItem item) throws IOException{
 		JSONObject result = new JSONObject();
-		File out = new File("D:\\");
+		File out = new File("D:\\" + item.getName());
 		FileCopyUtils.copy(item.get() , out);   
         return result;  
     }
