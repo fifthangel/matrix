@@ -22,8 +22,7 @@ public class PropConfig extends RootCache<String, String> {
 		String tempPath = configDir.getTempDir(TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
 //		getLogger().logInfo(0, "开始同步并刷新项目配置文件： " + tempPath);
 		System.out.println("开始同步并刷新项目配置文件： " + tempPath); 
-		IoUtil ioHelper = new IoUtil();
-		ioHelper.copyResources("classpath*:META-INF/matrix/config/*.properties" , tempPath , "/matrix/config/");
+		IoUtil.getInstance().copyResources("classpath*:META-INF/matrix/config/*.properties" , tempPath , "/matrix/config/");
 		
 		LoadProperties loadProperties = new LoadProperties();
 		{	// 开始读取配置放入到ecache中

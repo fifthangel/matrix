@@ -1,19 +1,10 @@
 package com.matrix.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -23,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
 
 /**
  * @description: IO工具类 
@@ -35,6 +27,13 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  */
 public class IoUtil {
 
+	private static class LazyHolder {
+		private static final IoUtil INSTANCE = new IoUtil();
+	}
+	public static final IoUtil getInstance() {
+		return LazyHolder.INSTANCE; 
+	}
+	
 	/**
 	 * @description:  创建目录
 	 * 

@@ -19,8 +19,7 @@ public class PropInfo extends RootCache<Long, String> {
 		SysWorkDir infoDir = new SysWorkDir();
 		String tempConfigPath = infoDir.getTempDir("info/");
 		getLogger().logInfo(0 , "refresh " + tempConfigPath);
-		IoUtil ioHelper = new IoUtil();
-		ioHelper.copyResources("classpath*:META-INF/matrix/info/*.properties" , tempConfigPath , "/matrix/info/");
+		IoUtil.getInstance().copyResources("classpath*:META-INF/matrix/info/*.properties" , tempConfigPath , "/matrix/info/");
 		LoadProperties loadProperties = new LoadProperties();
 		MStringMap map = loadProperties.loadMap(tempConfigPath);
 		System.out.println("开始加载info配置信息");

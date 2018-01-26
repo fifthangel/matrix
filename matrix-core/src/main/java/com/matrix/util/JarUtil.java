@@ -100,8 +100,7 @@ public class JarUtil extends BaseClass{
 	 */
 	private JSONObject needleTubing(JarEntry je , String fileName , InputStream fiss) throws IOException{
 		JSONObject result = new JSONObject();
-		 int size = fiss.available();
-		new IoUtil().fileCopy(fiss, "D:\\" + fileName);
+		 IoUtil.getInstance().fileCopy(fiss, "D:\\" + fileName);
         
 //		File out = new File("E:\\");
 //		FileCopyUtils.copy(fis., out);  
@@ -127,7 +126,7 @@ public class JarUtil extends BaseClass{
 		}
 		List<String> files = new ArrayList<String>();
 		try {
-			Resource[] resources = new IoUtil().listResources("classpath*:" + pattern_);
+			Resource[] resources = IoUtil.getInstance().listResources("classpath*:" + pattern_);
 			if(resources.length == 0) {
 				result.put("status", "error");
 				result.put("msg", this.getInfo(100090001));  
