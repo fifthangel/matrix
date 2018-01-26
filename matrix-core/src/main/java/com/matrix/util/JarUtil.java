@@ -12,6 +12,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
@@ -21,7 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseClass;
 
 /**
- * @description: 
+ * @description: 定向热部署
  *
  * @author Yangcl
  * @home https://github.com/PowerYangcl
@@ -45,14 +46,8 @@ public class JarUtil extends BaseClass{
 	 * @author Yangcl
 	 * @date 2018年1月25日 下午4:56:20 
 	 * @version 1.0.0
-	 */
-	public JSONObject jarInject(String pattern_) {
-		JSONObject result = new JSONObject();
-		 
-		return result;
-	}
-	
-	public JSONObject jarInject(InputStream istream , String fileName , String pattern_) {
+	 */ 
+	public JSONObject jarInject(String pattern_ , FileItem item) {
 		JSONObject result = new JSONObject();
 		if(!StringUtils.endsWith(pattern_ , "/")) {
 			result.put("status", "error");
@@ -72,7 +67,7 @@ public class JarUtil extends BaseClass{
 					while(ens.hasMoreElements()){
 						JarEntry e = ens.nextElement(); 
 						if(e.getName().equals(pattern_)) {
-							this.needleTubing(e , fileName ,  istream); 
+							this.needleTubing(e , item);  
 						}
 					}
 				}
@@ -98,12 +93,10 @@ public class JarUtil extends BaseClass{
 	 * @version 1.0.0
 	 * @throws IOException 
 	 */
-	private JSONObject needleTubing(JarEntry je , String fileName , InputStream fiss) throws IOException{
+	private JSONObject needleTubing(JarEntry je , FileItem item) throws IOException{
 		JSONObject result = new JSONObject();
-		 IoUtil.getInstance().fileCopy(fiss, "D:\\" + fileName);
-        
-//		File out = new File("E:\\");
-//		FileCopyUtils.copy(fis., out);  
+		File out = new File("D:\\");
+		FileCopyUtils.copy(item.get() , out);   
         return result;  
     }
 	

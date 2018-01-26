@@ -22,7 +22,6 @@ public class PowerApiController extends BaseController{
 	@SuppressWarnings("resource")
 	@RequestMapping("page_powerApi_index")
 	public String toAddPage(HttpSession session){ 
-		JarUtil.getInstance().jarInject(this.getConfig("matrix-core.spring_core"));  
 		return "jsp/api_pages/index"; 
 	}
 }

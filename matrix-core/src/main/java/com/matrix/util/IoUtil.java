@@ -1,6 +1,7 @@
 package com.matrix.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -134,12 +135,35 @@ public class IoUtil {
 		}
     }
 	
-	public void fileCopy(InputStream input, String target_) throws IOException{
+	/**
+	 * @description: 文件复制 
+	 *
+	 * @param input
+	 * @param target_ 
+	 * @author Yangcl
+	 * @date 2018年1月26日 下午5:44:46 
+	 * @version 1.0.0
+	 */
+	public void fileCopy(InputStream input, String target_){
 		File target = new File(target_);
-		FileOutputStream fs = new FileOutputStream(target);
-		IOUtils.copy(input, fs);
-		fs.flush();
-		fs.close();
+		FileOutputStream fs = null;
+		try {
+			fs = new FileOutputStream(target);
+			IOUtils.copy(input, fs);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				fs.flush();
+				fs.close();
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+		 
+		
 	}
 	
 }
