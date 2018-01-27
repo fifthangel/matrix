@@ -65,6 +65,36 @@ public class FileUtil {
 	}
 	
 	/**
+	 * @description: 将输入流转换为字节数组
+	 *
+	 * @param inStream
+	 * @return 
+	 * @author Yangcl
+	 * @date 2018年1月27日 下午10:22:13 
+	 * @version 1.0.0.1
+	 */
+	public byte[] inputStreamToByte(InputStream inStream){  
+        ByteArrayOutputStream outSteam = new ByteArrayOutputStream();  
+        byte[] buffer = new byte[1024];  
+        int len = -1;  
+        try {
+			while ((len = inStream.read(buffer)) != -1) {  
+			    outSteam.write(buffer, 0, len);  
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			 try {
+				outSteam.close();
+				inStream.close(); 
+			} catch (IOException e) {
+				e.printStackTrace();
+			}  
+		}  
+        return outSteam.toByteArray();  
+    }
+	
+	/**
 	 * @description: 根据byte数组，生成文件
 	 * 
 	 * @param bfile
