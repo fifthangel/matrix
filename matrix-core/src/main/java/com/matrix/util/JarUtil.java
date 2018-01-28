@@ -1,13 +1,7 @@
 package com.matrix.util;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -22,14 +16,12 @@ import java.util.jar.JarOutputStream;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.Resource;
-import org.springframework.util.FileCopyUtils;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseClass;
 
 /**
- * @description: 定向热部署
+ * @description: 定向修复工具
  *
  * @author Yangcl
  * @home https://github.com/PowerYangcl
@@ -206,13 +198,17 @@ public class JarUtil extends BaseClass{
 		Enumeration<JarEntry> es_ = jarFile.entries();
 		while (es_.hasMoreElements()) {
 			JarEntry je = (JarEntry) es_.nextElement();
-//			byte[] b = FileUtil.getInstance().inputStreamToByte(jarFile.getInputStream(je));
 			if(je.getName().equals(entryName)) {
 				flag = true;
 				break;
 			}
 		}
-		result.put("status" , flag.toString()); 
+		if(flag) {
+			result.put("status" , "success"); 
+		}else {
+			result.put("status" , "error"); 
+			result.put("msg" , this.getInfo(100090022) );         // 100090022=操作失败!
+		}
 		return result;
 	}
 	
