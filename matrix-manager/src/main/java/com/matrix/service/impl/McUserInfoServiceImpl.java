@@ -61,6 +61,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 	 */
 	public JSONObject login(McUserInfo userInfo , HttpSession session) {
 		JSONObject result = new JSONObject();
+		result.put("uploadUrl", this.getConfig("matrix-core.ajax_file_upload_" + this.getConfig("matrix-core.model")));  // 系统文件上传
 		if (StringUtils.isBlank(userInfo.getUserName()) || StringUtils.isBlank(userInfo.getPassword())) {
 			result.put("status", "error");
 			result.put("msg", "用户名或密码不得为空");

@@ -7,6 +7,7 @@ var login = {
      * 登录相关类
      */
     login:function(formId){
+    	localStorage.uploadUrl = "";
         var url_ = 'manager/login.do';
         var data_ = $('#' + formId).serializeArray();
         var object = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
@@ -17,7 +18,8 @@ var login = {
         		});
         	}else{
         		localStorage.pageJson = object.data;
-        		localStorage.userInfo = object.info
+        		localStorage.userInfo = object.info;
+        		localStorage.uploadUrl = object.uploadUrl;
         		window.location.href='manager/page_manager_home.do';
         	}
         }else{
