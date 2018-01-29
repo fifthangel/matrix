@@ -1,7 +1,10 @@
 package com.matrix.util;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -212,6 +215,28 @@ public class JarUtil extends BaseClass{
 		return result;
 	}
 	
+	private JSONObject syringe2(String jarFilePath, String entryName, byte[] data , String type) {
+		JSONObject result = new JSONObject();
+		
+		String cmd = "jar -uf D:\\matrix-file-0.0.1-SNAPSHOT.jar config.matrix-file.properties";
+//		String[] cmds = {"/bin/sh","-c",cmd};  
+		String[] cmds = {cmd};  
+        Process pro;
+        try {
+            pro = Runtime.getRuntime().exec(cmds);
+            pro.waitFor();  
+            InputStream in = pro.getInputStream();  
+            BufferedReader read = new BufferedReader(new InputStreamReader(in));  
+            String line = null;  
+            while((line = read.readLine())!=null){  
+                System.out.println(line);  
+            }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+	
+		return result;
+	}
 	
 	public static void main(String args[]) throws Exception{
         
@@ -222,7 +247,7 @@ public class JarUtil extends BaseClass{
         String data = "visit_url_master=testqqq";
         long start = System.currentTimeMillis();
         
-        JarUtil.getInstance().syringe(jarfile , "\\META-INF\\matrix\\config.matrix-file.properties",data.getBytes()); 
+        JarUtil.getInstance().syringe2(jarfile , "\\META-INF\\matrix\\config.matrix-file.properties",data.getBytes() , ""); 
         
         long end = System.currentTimeMillis();
         System.out.println(end-start);
