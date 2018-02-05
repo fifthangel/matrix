@@ -34,6 +34,8 @@ public interface IMcSysFunctionService  extends IBaseService<McSysFunction, Inte
 
 	public JSONObject deleteUserRole(McUserRoleDto d, HttpSession session);
 
-	public JSONObject sysDictCacheReload();           
+	public JSONObject sysDictCacheReload();
+
+	public JSONObject ajaxMasterOnline(McUserInfo entity, HttpServletRequest request);            
 	
 }

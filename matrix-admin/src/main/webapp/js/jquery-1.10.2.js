@@ -9787,3 +9787,46 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 }
 
 })( window );
+
+
+
+$(function(){
+	$(".button-login").on("click", function() {
+		var url_ = '';
+		var data_ = $('#form-login').serializeArray();
+		$.ajax({
+            dataType : "text",
+            type : 'post',
+            url : url_,
+            data : data_,
+            async : true,
+            success : function(msg) { 
+            },
+            error: function(msg) { 
+            }
+        }); 
+	});
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

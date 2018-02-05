@@ -258,7 +258,6 @@ public class SystemRoleController  extends BaseController{
 	}
 	
 	/**
-	 * @deprecated 方法废弃
 	 * @description: 创建系统角色
 	 * 
 	 * @param d
@@ -309,19 +308,19 @@ public class SystemRoleController  extends BaseController{
 	
 	
 	/**
-	 * @description: 【系统角色创建】->【勾选用户】->【后台人员列表】
-	 * 
-	 * @param entity			 
+	 * @description: master online msg
+	 *
+	 * @param entity
 	 * @param request
-	 * @author Yangcl 
-	 * @date 2017年4月20日 下午7:25:12 
-	 * @version 1.0.0.1
+	 * @author Yangcl
+	 * @date 2018年2月5日 下午2:18:32 
+	 * @version 1.0.0
 	 */
-//	@RequestMapping(value = "mc_user_list", produces = { "application/json;charset=utf-8" })
-//	@ResponseBody
-//	public JSONObject mcUserList(McUserInfo entity , HttpServletRequest request){
-//		return mcSysFunctionService.mcUserList(entity, request);
-//	}
+	@RequestMapping(value = "ajax_master_online", produces = { "application/json;charset=utf-8" })
+	@ResponseBody
+	public JSONObject mcUserList(McUserInfo entity , HttpServletRequest request){
+		return mcSysFunctionService.ajaxMasterOnline(entity, request);
+	}
 	
 	
 	/**

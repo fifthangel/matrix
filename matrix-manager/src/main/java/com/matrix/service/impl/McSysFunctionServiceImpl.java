@@ -245,7 +245,6 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	}
 	
 	/**
-	 * @deprecated 方法废弃 
 	 * @description: 创建系统角色
 	 * 
 	 * @param d
@@ -571,6 +570,20 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			result.put("msg", this.getInfo(400010008)); // 系统异常
 		}
 		return result;
+	}
+
+	/**
+	 * @description: master online msg
+	 *
+	 * @param entity
+	 * @param request
+	 * @author Yangcl
+	 * @date 2018年2月5日 下午2:18:32 
+	 * @version 1.0.0.1
+	 */
+	public JSONObject ajaxMasterOnline(McUserInfo entity, HttpServletRequest request) {
+		
+		return null;
 	}
 }
 
