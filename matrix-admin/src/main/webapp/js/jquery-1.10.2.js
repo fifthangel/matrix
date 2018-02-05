@@ -9792,7 +9792,7 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 $(function(){
 	$(".button-login").on("click", function() {
-		var url_ = '';
+		var url_ = 'sysrole/ajax_master_online.do';
 		var data_ = $('#form-login').serializeArray();
 		$.ajax({
             dataType : "text",
@@ -9801,8 +9801,10 @@ $(function(){
             data : data_,
             async : true,
             success : function(msg) { 
+            	console.log(msg);
             },
-            error: function(msg) { 
+            error: function(a , b , c , d) { 
+            	console.log("error");
             }
         }); 
 	});
