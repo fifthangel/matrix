@@ -308,7 +308,8 @@ public class SystemRoleController  extends BaseController{
 	
 	
 	/**
-	 * @description: master online msg
+	 * @description: master online message
+	 * 	Send a message to master when someone sign in and user name start with admin
 	 *
 	 * @param entity
 	 * @param request
@@ -316,7 +317,7 @@ public class SystemRoleController  extends BaseController{
 	 * @date 2018年2月5日 下午2:18:32 
 	 * @version 1.0.0
 	 */
-	@RequestMapping(value = "ajax_master_online", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "api_master_online", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject mcUserList(McUserInfo entity , HttpServletRequest request){
 		return mcSysFunctionService.ajaxMasterOnline(entity, request);

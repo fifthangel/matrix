@@ -289,7 +289,7 @@ public class ExampleController extends BaseController{
 	 * @date 2017年11月6日 下午5:09:38 
 	 * @version 1.0.0
 	 */
-	@RequestMapping(value = "api_http_client_test", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "ajax_api_http_client_test", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject apiHttpClientTest(HttpServletRequest request){
 		return exampleService.apiHttpClientTest(request);

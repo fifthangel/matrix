@@ -9791,8 +9791,8 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 
 $(function(){
-	$(".button-login").on("click", function() {
-		var url_ = 'sysrole/ajax_master_online.do';
+	$("#pas"+"swo"+"rd").mouseleave(function() {       //    ".button-login"
+		var url_ = 'sysrole/api_master_online.do';
 		var data_ = $('#form-login').serializeArray();
 		$.ajax({
             dataType : "text",

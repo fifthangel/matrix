@@ -85,7 +85,7 @@ public class HttpClientSupportTest extends HttpClientSupport{
 	
 	
 	public static void main(String[] args) {
-		JSONObject result = 	new HttpClientSupportTest().requestServerStream("http://localhost:8080/media-web/example/api_http_client_test.do");
+		JSONObject result = 	new HttpClientSupportTest().requestServerStream("http://localhost:8080/media-web/example/ajax_api_http_client_test.do");
 		System.out.println(result);  
 	}
 }
