@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseJob;
-import com.matrix.helper.WebHelper;
+import com.matrix.helper.DistributedLockHelper;
 import com.matrix.pojo.entity.SysJob;
 import com.matrix.quartz.model.MJobInfo;
 import com.matrix.quartz.model.MLogJob;
@@ -61,7 +61,7 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 
 				// 判断如果加锁 则开始加锁处理
 				if (mJobInfo.getExtendLockTimer() > 0) {
-					sLockKey = WebHelper.getInstance().addLock(mJobInfo.getExtendLockTimer(), mJobInfo.getJobName());
+					sLockKey = DistributedLockHelper.getInstance().addLock(mJobInfo.getExtendLockTimer(), mJobInfo.getJobName());
 					if (StringUtils.isBlank(sLockKey)) {
 						bFlagExec = false;
 					}
@@ -74,13 +74,13 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 			}
 		} catch (Exception e) {
 			this.getLogger(logger).logError(200010003 , this.getClass().getName());     
-			WebHelper.getInstance().errorMessage(mJobInfo.getJobName(), "jobexecerror", 9, "rootjobforlock", mJobInfo.getJobClass(), e);
+			DistributedLockHelper.getInstance().errorMessage(mJobInfo.getJobName(), "jobexecerror", 9, "rootjobforlock", mJobInfo.getJobClass(), e);
 			e.printStackTrace();
 		}
 
 		// 如果key不为空 则直接解锁
 		if (StringUtils.isNotBlank(sLockKey)) {
-			WebHelper.getInstance().unLock(sLockKey);
+			DistributedLockHelper.getInstance().unLock(sLockKey);
 		}
 
 		// 开始更新执行日志

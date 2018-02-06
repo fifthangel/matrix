@@ -9,22 +9,35 @@ import com.matrix.pojo.entity.SysError;
 import com.matrix.service.ISystemService;
 
 
-
-public class WebHelper extends BaseClass {
+/**
+ * @description: 分布式锁控制器 
+ * @example:
+ 		String lockCode = "";
+		try {
+			lockCode = DistributedLockHelper.getInstance().addLock(10 , "JobForTestOne");	// 分布式锁定
+			// TODO you code 
+		}catch (Exception e) {
+			DistributedLockHelper.getInstance().unLock(lockCode);
+			e.printStackTrace();
+		}
+ *
+ * @author Yangcl
+ * @home https://github.com/PowerYangcl
+ * @date 2018年2月6日 下午5:59:06 
+ * @version 1.0.0
+ */
+public class DistributedLockHelper extends BaseClass {
 
 	@Inject
 	private ISystemService systemService;
 
-	private static WebHelper self;
-
-	public static WebHelper getInstance() {
-		if (self == null) {
-			synchronized (WebHelper.class) {
-				if (self == null)
-					self = new WebHelper();
-			}
-		}
-		return self;
+	private DistributedLockHelper() {
+	}
+	private static class LazyHolder {
+		private static final DistributedLockHelper INSTANCE = new DistributedLockHelper();
+	}
+	public static final DistributedLockHelper getInstance() {
+		return LazyHolder.INSTANCE; 
 	}
 
 	/**
