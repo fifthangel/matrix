@@ -1,6 +1,7 @@
 package com.matrix.quartz.job;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 
 import com.matrix.helper.WebHelper;
@@ -16,15 +17,17 @@ import com.matrix.helper.WebHelper;
  */
 public class JobForTestThree extends RootJob {
 
+	private static Logger logger = Logger.getLogger(JobForTestThree.class);
+	
 	public void doExecute(JobExecutionContext context) {
 		String lockCode = "";
 		try {
 			lockCode = WebHelper.getInstance().addLock(100 , "JobForTestThree");	// 分布式锁定
 			if (StringUtils.isNotBlank(lockCode)){
 				String rglist = "***************** 所属任务组：matrix-quartz-test";
-				System.out.println(this.getInfo(999990001 , "@ JobForTestThree.java is running" , rglist)); 
+				this.getLogger(logger).logInfo(this.getInfo(999990001 , "@ JobForTestThree.java is running" , rglist)); 
 			}else{
-				this.getLogger().logInfo(999990002, "【JobForTestThree】");   
+				this.getLogger(logger).logInfo(999990002, "【JobForTestThree】");   
 			}
 		} catch (Exception e) {
 			WebHelper.getInstance().unLock(lockCode);

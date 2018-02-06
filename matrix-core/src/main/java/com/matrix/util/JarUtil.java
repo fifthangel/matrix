@@ -32,7 +32,7 @@ import com.matrix.base.BaseClass;
  * @version 1.0.0
  */
 public class JarUtil extends BaseClass{
-	
+	private JarUtil() {}  
 	private static class LazyHolder {
 		private static final JarUtil INSTANCE = new JarUtil();
 	}

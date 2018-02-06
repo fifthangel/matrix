@@ -3,6 +3,7 @@ package com.matrix.base;
 import java.lang.reflect.Field;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
@@ -19,8 +20,7 @@ import com.matrix.system.cache.PropVisitor;
  * @version 1.0.0
  */
 public class BaseClass {
-	
-	public static BaseLog logger = new BaseLog();
+	private static Logger logger = Logger.getLogger(BaseClass.class);
 
 	public BaseClass() {
 		inject(this.getClass());
@@ -44,10 +44,10 @@ public class BaseClass {
 					}
 				} catch (NoSuchBeanDefinitionException e) {
 					e.printStackTrace();
-					getLogger().logError(e.getMessage());
+					getLogger(logger).logError(e.getMessage());
 				} catch(IllegalAccessException e) {
 					e.printStackTrace();
-					getLogger().logError(e.getMessage());
+					getLogger(logger).logError(e.getMessage()); 
 				}
 			}
 		}
@@ -68,13 +68,12 @@ public class BaseClass {
 	/**
 	 * @description: 为子类提供日志访问 
 	 * 
-	 * @return
 	 * @author Yangcl 
 	 * @date 2016年11月11日 下午6:37:29 
 	 * @version 1.0.0.1
-	 */
-	public BaseLog getLogger() {
-		return logger;
+	 */ 
+	public BaseLog getLogger(Logger logger) {
+		return BaseLog.getInstance().setLogger(logger); 
 	}
 	
 	/**

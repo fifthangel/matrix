@@ -25,7 +25,8 @@ import java.util.Properties;
  * @version 1.0.0
  */
 public class MailSupport extends BaseClass{
-	
+	private MailSupport() {
+	}
 	private static class LazyHolder {
 		private static final MailSupport INSTANCE = new MailSupport();
 	}

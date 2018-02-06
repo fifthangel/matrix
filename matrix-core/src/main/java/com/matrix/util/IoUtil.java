@@ -28,6 +28,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
  */
 public class IoUtil {
 
+	private IoUtil() {
+	}
 	private static class LazyHolder {
 		private static final IoUtil INSTANCE = new IoUtil();
 	}

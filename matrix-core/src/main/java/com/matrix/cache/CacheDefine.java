@@ -5,6 +5,7 @@ import com.matrix.base.BaseClass;
 import java.net.URL;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -21,6 +22,8 @@ import net.sf.ehcache.config.CacheConfiguration;
  */
 public class CacheDefine extends BaseClass {
 
+	private static Logger logger = Logger.getLogger(CacheDefine.class);
+	
 	// cache名称如果以该值开始 则标记该cache继承自rootcache
 	private final static String CACHE_TYPE_NO_ETERNAL = "rootcache:";
 	// 自定义cache 该cache自由设置配置 清除缓存时不清除该类cache
@@ -120,7 +123,7 @@ public class CacheDefine extends BaseClass {
 		for (String sKey : cacheManager.getCacheNames()) {
 			if (StringUtils.startsWith(sKey, CACHE_TYPE_NO_ETERNAL)) {
 				Cache cache = getCache(sKey);
-				getLogger().logInfo(0, "CacheDefine.java 开始清除缓存：" + cache.getName());
+				this.getLogger(logger).logInfo(0, "CacheDefine.java 开始清除缓存：" + cache.getName());
 				cache.removeAll();
 			}
 		}
