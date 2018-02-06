@@ -21,7 +21,7 @@ public class JobForTestThree extends RootJob {
 		try {
 			lockCode = WebHelper.getInstance().addLock(100 , "JobForTestThree");	// 分布式锁定
 			if (StringUtils.isNotBlank(lockCode)){
-				String rglist = "***************** 所属任务组：" + this.getConfig("matrix-example.rglist");
+				String rglist = "***************** 所属任务组：matrix-quartz-test";
 				System.out.println(this.getInfo(999990001 , "@ JobForTestThree.java is running" , rglist)); 
 			}else{
 				this.getLogger().logInfo(999990002, "【JobForTestThree】");   
