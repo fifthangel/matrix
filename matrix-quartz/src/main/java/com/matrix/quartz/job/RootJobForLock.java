@@ -3,6 +3,7 @@ package com.matrix.quartz.job;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.matrix.annotation.Inject;
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseJob;
-import com.matrix.helper.LogHelper;
 import com.matrix.helper.WebHelper;
 import com.matrix.pojo.entity.SysJob;
 import com.matrix.quartz.model.MJobInfo;
@@ -30,7 +30,9 @@ import com.matrix.util.DateUtil;
  * @version 1.0.1
  */
 public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob {
-
+	
+	private static Logger logger = Logger.getLogger(RootJobForLock.class);
+	
 	@Inject
 	public IJobService jobService;
 	
@@ -54,7 +56,7 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 					MLogJob mLogJob = new MLogJob();
 					mLogJob.setNextExecTime(DateUtil.formatDate(sNextTime));
 					mLogJob.setJobInfo(mJobInfo);
-					LogHelper.addLog("run_job", mLogJob);
+//					LogHelper.addLog("run_job", mLogJob);   TODO  此处考虑使用ActiveMq处理消息
 				}
 
 				// 判断如果加锁 则开始加锁处理
@@ -71,7 +73,7 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 				sEndTime = new Date();
 			}
 		} catch (Exception e) {
-			getLogger().logError(200010003 , this.getClass().getName());     
+			this.getLogger(logger).logError(200010003 , this.getClass().getName());     
 			WebHelper.getInstance().errorMessage(mJobInfo.getJobName(), "jobexecerror", 9, "rootjobforlock", mJobInfo.getJobClass(), e);
 			e.printStackTrace();
 		}

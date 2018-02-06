@@ -1,11 +1,11 @@
 package com.matrix.quartz.job;
 
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.matrix.base.interfaces.IBaseJob;
-import com.matrix.helper.LogHelper;
 import com.matrix.quartz.model.MJobInfo;
 import com.matrix.quartz.model.MLogJob;
 import com.matrix.system.cache.TopConst;
@@ -20,6 +20,8 @@ import com.matrix.util.DateUtil;
  */
 public abstract class RootJob extends RootJobForLock implements Job, IBaseJob {
 
+	private static Logger logger = Logger.getLogger(RootJob.class);
+	
 	// 这个是备份执行 为了防止新逻辑出错时 直接修改代码 更新继承和这块逻辑就行
 	public void back_execute(JobExecutionContext context) throws JobExecutionException {
 		try {
@@ -33,12 +35,12 @@ public abstract class RootJob extends RootJobForLock implements Job, IBaseJob {
 					MLogJob mLogJob = new MLogJob();
 					mLogJob.setNextExecTime(DateUtil.formatDate(context.getNextFireTime()));
 					mLogJob.setJobInfo(mJobInfo);
-					LogHelper.addLog("run_job", mLogJob);
+//					LogHelper.addLog("run_job", mLogJob);    TODO  此处考虑使用ActiveMq处理消息
 				}
 			}
 			doExecute(context);
 		} catch (Exception e) {
-			getLogger().logError(200010001, this.getClass().getName());
+			this.getLogger(logger).logError(200010001, this.getClass().getName()); 
 			e.printStackTrace();
 		}
 

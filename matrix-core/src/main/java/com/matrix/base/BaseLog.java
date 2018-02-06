@@ -82,6 +82,18 @@ public class BaseLog{
 	public void logWarn(String content) {
 		this.logger.warn(content);
 	}
+	
+	public void logDebug(int infoCode) {
+		this.logger.debug(PropVisitor.getLogInfo(infoCode));
+	}
+	
+	public void logDebug(int infoCode, Object... sParms) {
+		this.logger.debug(formatLog(infoCode, sParms));
+	}
+	
+	public void logDebug(String content) {
+		this.logger.debug(content);
+	}
 }
 
 

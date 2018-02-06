@@ -1,5 +1,7 @@
 package com.matrix.system.init;
 
+import org.apache.log4j.Logger;
+
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseCache;
 
@@ -12,9 +14,11 @@ import com.matrix.base.interfaces.IBaseCache;
  * @version 1.0.1
  */
 public abstract class RootInit extends BaseClass {
-
+	
+	private static Logger logger = Logger.getLogger(RootInit.class);
+	
 	public RootInit() {
-		getLogger().logInfo(0, "初始化调用类 : " + this.getClass().getName());
+		this.getLogger(logger).logInfo(0, "初始化调用类 : " + this.getClass().getName());
 	}
  
  

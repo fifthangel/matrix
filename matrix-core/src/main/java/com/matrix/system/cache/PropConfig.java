@@ -1,5 +1,7 @@
 package com.matrix.system.cache;
 
+import org.apache.log4j.Logger;
+
 import com.matrix.cache.RootCache;
 import com.matrix.map.MStringMap;
 import com.matrix.util.IoUtil;
@@ -15,13 +17,14 @@ import com.matrix.util.IoUtil;
  */
 public class PropConfig extends RootCache<String, String> {
 
+	private static Logger logger = Logger.getLogger(PropConfig.class);
+	
 	public final static PropConfig Instance = new PropConfig();
 
 	public synchronized void refresh() {
 		SysWorkDir configDir = new SysWorkDir();
 		String tempPath = configDir.getTempDir(TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
-//		getLogger().logInfo(0, "开始同步并刷新项目配置文件： " + tempPath);
-		System.out.println("开始同步并刷新项目配置文件： " + tempPath); 
+		this.getLogger(logger).logInfo("开始同步并刷新项目配置文件： " + tempPath); 
 		IoUtil.getInstance().copyResources("classpath*:META-INF/matrix/config/*.properties" , tempPath , "/matrix/config/");
 		
 		LoadProperties loadProperties = new LoadProperties();
@@ -34,12 +37,10 @@ public class PropConfig extends RootCache<String, String> {
 
 		{	// 开始扫描扩展自定义的设置
 			String customConfig = configDir.getCustomPath(TopConst.CONST_TOP_CUSTOM_CONFIG_PATH);
-//			getLogger().logInfo(0, " 开始扫描扩展自定义缓存设置：" + customConfig);
-			System.out.println("开始扫描扩展自定义缓存设置：" + customConfig);
+			this.getLogger(logger).logDebug(0 , "开始扫描扩展自定义缓存设置：" + customConfig);
 			MStringMap customMap = loadProperties.loadMap(customConfig);
 			if (customMap.size() == 0) {
-//				getLogger().logWarn(0, "不存在自定义缓存");
-				System.out.println("不存在自定义缓存");
+				this.getLogger(logger).logInfo("不存在自定义缓存");
 			} else {
 				for (String s : customMap.getKeys()) {
 					this.addElement(s, customMap.get(s));
@@ -49,16 +50,15 @@ public class PropConfig extends RootCache<String, String> {
 		
 		{	// 开始加载最后本地配置项
 			String localConfig = configDir.getLocalConfigPath();
-//			getLogger().logInfo(0, "开始加载最后本地配置项： " + localConfig);
-			System.out.println("开始加载本地配置项： " + localConfig); 
+			this.getLogger(logger).logInfo("开始加载本地配置项： " + localConfig); 
 			MStringMap customMap = loadProperties.loadMap(localConfig);
 			if(customMap.size() == 0){
-				System.out.println("不存在本地配置项");
+				this.getLogger(logger).logInfo("不存在本地配置项");
 			}else{
 				for (String s : customMap.getKeys()) {
 					this.addElement(s, customMap.get(s));
 				}
-				System.out.println("本地配置项加载完成"); 
+				this.getLogger(logger).logInfo("本地配置项加载完成"); 
 			}
 		}
 	}

@@ -27,6 +27,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.matrix.base.BaseClass;
 
@@ -41,7 +42,9 @@ import com.matrix.base.BaseClass;
  */
 public class NetUtil extends BaseClass {
 	
-public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+	private static Logger logger = Logger.getLogger(NetUtil.class);
+	
+	public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 	
 	
 	
@@ -308,7 +311,7 @@ public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.
 	 * @date 2016年9月29日 下午3:09:35 
 	 * @version 1.0.0.1
 	 */
-	public static boolean checkUrlHost(String url) {
+	public boolean checkUrlHost(String url) {
 		// 判断如果没有带标记 则增加标记
 		if (!StringUtils.containsIgnoreCase(url, "://")) {
 			url = "http://" + url;
@@ -327,7 +330,7 @@ public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.
 	 * @date 2016年9月29日 下午3:11:42 
 	 * @version 1.0.0.1
 	 */
-	private static boolean checkUrlStatus(String urlStr) {
+	private boolean checkUrlStatus(String urlStr) {
 		boolean bFlag = false;
 		int counts = 0;
 		if (urlStr == null || urlStr.length() <= 0) {
@@ -344,7 +347,7 @@ public static String userAgent =  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.
 				if (state == 200||state==404) {
 					bFlag = true;
 				} else {
-					logger.logWarn(NetUtil.class, "connect to " + urlStr + " return status " + state);
+					getLogger(logger).logWarn("connect to " + urlStr + " return status " + state);  
 				}
 				break;
 			} catch (Exception ex) {

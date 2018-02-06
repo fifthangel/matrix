@@ -33,8 +33,7 @@ public class SysWorkDir extends BaseClass {
 	public String getTempDir(String sTempDir) {
 		if (StringUtils.isEmpty(TopConst.CONST_TOP_DIR_TEMP)) {
 			TopConst.CONST_TOP_DIR_TEMP = this.getServerletPath("matrixzoos/dir/temp/");   
-//			logger.info(this.getClass().getName() + "  初始化全局的配置文件夹和系统信息：" + TopConst.CONST_TOP_DIR_TEMP);
-			System.out.println(this.getClass().getName() + "  初始化全局的配置文件夹和系统信息：" + TopConst.CONST_TOP_DIR_TEMP); 
+			this.getLogger(logger).logInfo("初始化全局的配置文件夹和系统信息：" + TopConst.CONST_TOP_DIR_TEMP); 
 		}
 		String dirPath = TopConst.CONST_TOP_DIR_TEMP + sTempDir;
 		IoUtil.createDir(dirPath);

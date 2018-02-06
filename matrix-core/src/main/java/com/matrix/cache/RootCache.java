@@ -2,6 +2,8 @@ package com.matrix.cache;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.matrix.base.BaseClass;
 import com.matrix.base.interfaces.IBaseCache;
 
@@ -20,6 +22,8 @@ import net.sf.ehcache.Element;
  */
 public abstract class RootCache<K, V> extends BaseClass implements IBaseCache {
 
+	private static Logger logger = Logger.getLogger(RootCache.class);
+	
 	private Cache cache;
 
 	/**
@@ -123,13 +127,13 @@ public abstract class RootCache<K, V> extends BaseClass implements IBaseCache {
 					v = (V) cache.get(k).getObjectValue();
 				} else {
 					v = getOneSetCatch(k);  // 获取一个子类设置的缓存内容
-//					getLogger().logInfo(0, this.getClass().getName() + " 开始设置自定义缓存 " + k.toString() + "  RootCatch.java 执行中");
+					this.getLogger(logger).logInfo(0, this.getClass().getName() + " 开始设置自定义缓存 " + k.toString() + "  RootCatch.java 执行中");
 					System.out.println(this.getClass().getName() + " 开始设置自定义缓存 " + k.toString() + "  RootCatch.java 执行中");
 					if (v != null && !containsKey(k)) {
 						addElement(k, v);
 					}
 					else if(v==null){
-//						getLogger().logWarn(0 , this.getClass().getName() + " 未成功加载自定义缓存内容，其缓存定义可能为空 "+k.toString()  + "  RootCatch.java 执行中");
+						this.getLogger(logger).logInfo(0 , this.getClass().getName() + " 未成功加载自定义缓存内容，其缓存定义可能为空 "+k.toString()  + "  RootCatch.java 执行中");
 						System.out.println(this.getClass().getName() + " 未成功加载自定义缓存内容，其缓存定义可能为空 "+k.toString()  + "  RootCatch.java 执行中");
 					}
 				}

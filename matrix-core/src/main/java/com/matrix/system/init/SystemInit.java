@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.matrix.map.MStringMap;
 import com.matrix.system.cache.PropConfig;
@@ -27,7 +28,9 @@ import com.matrix.system.cache.SysWorkDir;
  * @version 1.0.1
  */
 public class SystemInit extends RootInit {
-
+	
+	private static Logger logger = Logger.getLogger(SystemInit.class);
+	
 	public synchronized boolean onInit() {
 		initDelete();
 		initProps();
@@ -86,7 +89,7 @@ public class SystemInit extends RootInit {
 					}
 				} catch (Exception e) {
 					bFlagInit = false;
-					getLogger().logInfo(100090003, sClassName);
+					this.getLogger(logger).logInfo(100090003, sClassName);
 					e.printStackTrace();
 				}
 			}
@@ -111,7 +114,7 @@ public class SystemInit extends RootInit {
 					}
 				} catch (Exception e) {
 					bFlagInit = false;
-					getLogger().logInfo(100090003, sClassName);
+					this.getLogger(logger).logInfo(100090003, sClassName);
 					e.printStackTrace();
 				}
 			}

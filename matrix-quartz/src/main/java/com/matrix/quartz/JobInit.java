@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.matrix.annotation.Inject;
 import com.matrix.base.interfaces.IBaseJob;
@@ -20,6 +21,8 @@ import com.matrix.system.init.RootInit;
 
 // properties配置信息核对完成
 public class JobInit extends RootInit {
+	
+	private static Logger logger = Logger.getLogger(JobInit.class);
 	
 	@Inject
 	private IJobService jobService;
@@ -48,7 +51,7 @@ public class JobInit extends RootInit {
 				try {
 					IBaseJob iJob = (IBaseJob) ClassUtils.getClass(sj.getJobClass()).newInstance();
 					iJob.doExecute(null);
-					getLogger().logInfo(200010004, sj.getJobTitle());  
+					this.getLogger(logger).logInfo(200010004, sj.getJobTitle());  
 				} catch (Exception e) {
 					flag = false;
 					e.printStackTrace();
@@ -73,7 +76,7 @@ public class JobInit extends RootInit {
 				}
 				
 				JobSupport.getInstance().addJob(mJobInfo);
-				getLogger().logInfo(200010005 , sj.getJobTitle() , sj.getJobTriger() );  
+				this.getLogger(logger).logInfo(200010005 , sj.getJobTitle() , sj.getJobTriger() );  
 			}
 		}
 		return flag;     
