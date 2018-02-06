@@ -142,13 +142,7 @@ public class FileUploadServiceImpl extends BaseClass implements IFileUploadServi
 		JSONObject result = null;
 		List<FileItem> fileItems = this.getFileFromRequest(request);
 		if(fileItems != null && fileItems.size() != 0){ 
-			
-			
-			
 			JarUtil.getInstance().jarInject(this.getConfig("matrix-core.spring_core") , fileItems.get(0));
-			
-			
-			
 		}else{
 			result = new JSONObject();
 			result.put("status", "error");

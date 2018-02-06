@@ -66,7 +66,7 @@ public class FileUploadController  extends BaseController{
 	@RequestMapping(value = "api_file_remote_upload", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject apiFileRemoteUpload(HttpServletRequest request , HttpServletResponse response , String key , String value) throws IOException{
-/*		String [] allowDomain = this.getConfig("matrix-file.access_control_allow_origin_" + this.getConfig("matrix-core.model")).split(","); 
+		String [] allowDomain = this.getConfig("matrix-file.access_control_allow_origin_" + this.getConfig("matrix-core.model")).split(","); 
 		Set<String> allowedOrigins = new HashSet<String>(Arrays.asList(allowDomain));
 		String originHeader = request.getHeader("Origin");
 		if (StringUtils.isNotBlank(originHeader) && allowedOrigins.contains(originHeader)){
@@ -87,13 +87,21 @@ public class FileUploadController  extends BaseController{
 			o.put("status", "error");
 			o.put("msg", this.getInfo(500010007));  // 您所请求的接口不对第三方开放
 			return o; 
-		}*/ 
-		return service.apiFileRemoteUpload(request);
+		} 
+//		return service.apiFileRemoteUpload(request);
 	}
 	
+	/**
+	 * @description: TODO 一个需要完善的方法
+	 *
+	 * @param request 
+	 * @author Yangcl
+	 * @date 2018年2月6日 下午12:28:07 
+	 * @version 1.0.0.1
+	 */
 	@RequestMapping(value = "api_file_remote_inject", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject apiFileRemoteInject(HttpServletRequest request , HttpServletResponse response , String key , String value){
+	public JSONObject apiFileRemoteInject(HttpServletRequest request){
 		return service.apiFileRemoteInject(request);
 	}
 }
