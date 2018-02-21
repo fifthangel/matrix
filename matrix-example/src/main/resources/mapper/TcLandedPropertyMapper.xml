@@ -41,18 +41,18 @@
 		select
 			<include refid="Base_Column_List" /> 
 		from 
-			tc_landed_property
+			test.tc_landed_property
 		where 
 			id = #{id,jdbcType=INTEGER}
 	</select>
 	
 	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from tc_landed_property
+		delete from test.tc_landed_property
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.TcLandedProperty">
-		insert into tc_landed_property
+		insert into test.tc_landed_property
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -222,7 +222,7 @@
 	</insert>
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.TcLandedProperty">
-		update tc_landed_property
+		update test.tc_landed_property
 		<set>
 			<if test="uuid != null">
 				uuid = #{uuid,jdbcType=VARCHAR},
@@ -305,6 +305,24 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	
+	<!-- 列表页数据查询，对应BaseServiceImpl.java中的baseDao.queryPage()方法 -->
+	<select id="queryPage" resultMap="BaseResultMap" parameterType="com.matrix.pojo.entity.TcLandedProperty">
+		select
+			<include refid="Base_Column_List" /> 
+		from 
+			test.tc_landed_property
+		where
+			1 = 1 
+			<if test="title != null and title != ''  ">
+				and title = #{title , jdbcType=VARCHAR}
+			</if> 
+			<if test="city != null and city != ''  ">
+				and city = #{city , jdbcType=VARCHAR}
+			</if> 
+	</select>
+	
 	
 </mapper>
 
