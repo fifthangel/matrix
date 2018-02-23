@@ -80,7 +80,7 @@
 						<th class="head0 sorting" width="100px">入住数量</th>
 						<th class="head0 sorting" width="100px">价格</th>
 						<th class="head0 sorting" width="150px">绿化率</th>
-						<th class="head0 sorting" >创建时间</th> 
+						<th class="head0 sorting" width="150px">创建时间</th> 
 						<th class="head0 " width="100px">操作</th>
 					</tr>
 				</thead>

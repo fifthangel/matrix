@@ -62,12 +62,12 @@ var requestInfo = {
 		},
 		
 		closeDialog : function(){
-			$.unblockUI();
+			window.parent.$.unblockUI();
 		},
 		
 		openAddDialog : function(){
 			var dialogId = 'add-dialog-div';   // 弹窗ID
-			$.blockUI({
+			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',
@@ -107,7 +107,7 @@ var requestInfo = {
 		openEditDialog : function(o){
 			requestInfo.drawEditDialog(o);  
 			var dialogId = 'edit-dialog-div';   // 弹窗ID
-			$.blockUI({
+			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',

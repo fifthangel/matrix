@@ -15,6 +15,15 @@
 			window.onresize=function(){  
 				iframeChange();  
 			} 
+			
+			/**
+			 * @描述: 关闭BlockUI弹框
+			 * @作者: Yangcl
+			 * @时间: 2016-08-19 : 15-20-56
+			 */
+			function closeDialog() { 
+				 $.unblockUI();
+			}
 		</script>
 	</head>
 

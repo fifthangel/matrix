@@ -225,7 +225,7 @@
 			height: '630px' // '208px'
 		});
 		
-		$.blockUI({
+		window.parent.$.blockUI({
 			showOverlay:true ,
 			css:{
 				cursor:'auto',

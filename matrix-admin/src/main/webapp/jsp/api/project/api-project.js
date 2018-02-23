@@ -54,12 +54,12 @@ var project = {
 		},
 		
 		closeDialog : function(){
-			$.unblockUI();
+			window.parent.$.unblockUI();
 		},
 		
 		openAddDialog : function(){
 			var dialogId = 'add-dialog-div';   // 弹窗ID
-			$.blockUI({
+			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',

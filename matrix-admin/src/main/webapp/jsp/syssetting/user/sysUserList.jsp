@@ -171,7 +171,7 @@
 	}
 	
 	function closeDialog(){
-        $.unblockUI();
+		window.parent.$.unblockUI();
     }
 	
 	// 展示用户权限列表 
@@ -186,7 +186,7 @@
         dForm.launch(url_ , 'dialog-table-form' , obj).init().drawForm(loadDialogTable);
 
         var dialogId = 'dialog-page-div';  // 弹窗ID
-		$.blockUI({
+		window.parent.$.blockUI({
             showOverlay:true ,
             css:  {
                 cursor:'auto',

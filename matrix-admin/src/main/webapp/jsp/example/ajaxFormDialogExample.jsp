@@ -80,14 +80,6 @@
 		});
 	}
 
-	/**
-	 * @描述: 关闭BlockUI弹框
-	 * @作者: Yangcl
-	 * @时间: 2016-08-19 : 15-20-56
-	 */
-	function closeDialog() {
-		$.unblockUI();
-	}
 
 	/**
 	 * @描述: 打开dialog insert BlockUI弹框
@@ -104,13 +96,13 @@
 		var eleId = $(ele).attr("eleId");  // 取出所需信息 
 		
 		var dialogId = 'dialog-page-div'; // 弹窗ID
-		$.blockUI({
+		window.parent.$.blockUI({
 			showOverlay : true,
 			css : {
 				cursor : 'auto',
-				left : ($(window).width() - $("#" + dialogId).width()) / 2 + 'px',
+				left : ($(window.parent).width() - $("#" + dialogId).width()) / 2 + 'px',
 				width : $("#" + dialogId).width() + 'px',
-				top : ($(window).height() - $("#" + dialogId).height()) / 2 + 'px',
+				top : ($(window.parent).height() - $("#" + dialogId).height()) / 2 + 'px',
 				position : 'fixed', //居中
 				border : '3px solid #FB9337' // 边界
 			},

@@ -50,12 +50,12 @@ var domains = {
 		},
 		
 		closeDialog : function(){
-			$.unblockUI();
+			window.parent.$.unblockUI();
 		},
 		
 		openAddDialog : function(){
 			var dialogId = 'add-dialog-div';   // 弹窗ID
-			$.blockUI({
+			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',
@@ -95,7 +95,7 @@ var domains = {
 		openEditDialog : function(o){
 			domains.drawEditDialog(o);  
 			var dialogId = 'edit-dialog-div';   // 弹窗ID
-			$.blockUI({
+			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',

@@ -50,7 +50,7 @@ var demo = {
 							+ '<td width="100px" align="center">' + list[i].total + '</td>'
 							+ '<td width="100px" align="center">' + list[i].price + '</td>'
 							+ '<td width="150px" align="center">' + list[i].greeningRate + '</td>'
-							+ '<td align="center">' + list[i].createTime + '</td>'
+							+ '<td width="150px" align="center">' + list[i].createTime + '</td>'
 							+ '<td width="200px" align="center">'
 								+ '<a onclick="demo.deleteRow(this)" eleId="' + list[i].id + '" title="删除"  style="cursor:pointer;" >删除</a> '
 								+ '<a onclick="demo.openEditDialog(this)"  eleId="' + list[i].id + '"  title="修改"  style="cursor:pointer;" >修改</a> '
@@ -75,12 +75,6 @@ var demo = {
 			$.unblockUI();
 		},
 }
-
-
-
-
-
-
 
 
 

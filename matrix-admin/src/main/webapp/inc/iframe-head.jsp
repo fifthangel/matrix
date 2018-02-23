@@ -26,8 +26,7 @@
     <script type="text/javascript" src="${js}/system/general.js"></script> 
     
     <script type="text/javascript" src="${js}/system/ajax-form.js"></script>
-    <script src="${js}/blockUI/jquery.blockUI.js" type="text/javascript"></script>
-    <script type="text/javascript" src="${js}/system/pageInit.js"></script>
+    <script type="text/javascript" src="${js}/system/pageInit.js"></script> 
     
     <script type="text/javascript">
 		$(function(){

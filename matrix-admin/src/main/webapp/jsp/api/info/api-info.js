@@ -259,7 +259,7 @@ var apiInfo = {
     		});
     		apiInfo.drawDomainDialog();
     		
-    		$.blockUI({
+    		window.parent.$.blockUI({
     			showOverlay:true ,
     			css:{
     				cursor:'auto',
@@ -381,7 +381,7 @@ var apiInfo = {
         },
         
         closeDialog:function(){
-            $.unblockUI();
+        	window.parent.$.unblockUI();
         }
 }
  

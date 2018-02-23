@@ -38,6 +38,10 @@
     <script type="text/javascript" src="${js}/system/login.js"></script> 
     <script type="text/javascript" src="${js}/system/pageInit.js"></script>  
     
+    <!-- 主要使用dform对象，针对弹层分页 -->
+    <script type="text/javascript" src="${js}/system/ajax-form.js"></script>
+    <script type="text/javascript" src="${js}/blockUI/jquery.blockUI.js" ></script>
+    
     <!-- 
     	这个页面引入到所html的head标签中 这里控制了浏览器自适应以及整个系统页面的全局样式。
     	注：此页面禁止改动。- Yangcl 

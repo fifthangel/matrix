@@ -806,7 +806,7 @@
         
         
         closeDialog:function(){
-            $.unblockUI();
+        	window.parent.$.unblockUI();
         }
     };
     

@@ -58,7 +58,7 @@
 <script type="text/javascript">
 	function openAddDialog(){
 		var dialogId = 'add-dialog-div';   // 弹窗ID
-		$.blockUI({
+		window.parent.$.blockUI({
             showOverlay:true ,
             css:  {
                 cursor:'auto',
@@ -75,7 +75,7 @@
 	}
 
 	function closeDialog(){
-        $.unblockUI();
+		window.parent.$.unblockUI();
     }
 </script>
 <div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 400px;height: 300px">
@@ -142,7 +142,7 @@
 			height: '400px' // '208px'
 		});
 		
-		$.blockUI({
+		window.parent.$.blockUI({
 			showOverlay:true ,
 			css:{
 				cursor:'auto',
@@ -295,7 +295,7 @@
 			height: '630px' // '208px'
 		});
 		
-		$.blockUI({
+		window.parent.$.blockUI({
 			showOverlay:true ,
 			css:{
 				cursor:'auto',
