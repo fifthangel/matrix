@@ -80,7 +80,9 @@
 		});
 	}
 
-
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ajax弹框分页示例开始 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @描述: 打开dialog insert BlockUI弹框
 	 * @作者: Yangcl
@@ -91,7 +93,9 @@
 		var url_ = '${basePath}example/ajax_page_data.do';
 		var data_ = null;
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
-		dForm.launch(url_, 'dialog-table-form', obj).init().drawForm(loadDialogTable);
+		
+		// 因为此时还在iframe中，但是dForm对象在父窗体中，所以这里使用window.parent来调用父窗体的对象
+		window.parent.dForm.launch(url_, 'dialog-table-form', obj).init().drawForm(loadDialogTable);
 
 		var eleId = $(ele).attr("eleId");  // 取出所需信息 
 		
@@ -115,19 +119,26 @@
 	// 回调函数
 	function loadDialogTable(url_) {
 		if (url_ == undefined) { // 首次加载表单
-			drawDialog(dForm.jsonObj);
+			drawDialog(window.parent.dForm.jsonObj);
 			return;
 		}
 		// 这种情况是响应上一页或下一页的触发事件
 		var type_ = 'post';
 		var data_ = null;
 		var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
-		dForm.launch(url_, 'dialog-table-form', obj).init();
+		window.parent.dForm.launch(url_, 'dialog-table-form', obj).init();		// 绘制当前第**页，首页/上一页/下一页 
 		drawDialog(obj);
 	}
 
+	// 开始具体绘制表格中的数据
 	function drawDialog(obj) {
-		$('#dialog-ajax-tbody tr').remove();
+		
+		if($('#dialog-ajax-tbody tr').length == 0){ 
+			$('#dialog-ajax-tbody tr' , window.parent.document).remove();
+		}else{
+			$('#dialog-ajax-tbody tr').remove();
+		}
+		
 		var html_ = '';
 		var list = obj.data.list;
 		if (list.length > 0) {
@@ -147,7 +158,12 @@
 		} else {
 			html_ = '<tr><td colspan="11" style="text-align: center;">' + obj.msg + '</td></tr>';
 		}
-		$('#dialog-ajax-tbody').append(html_);
+		
+		if($('#dialog-ajax-tbody').length == 0){ 
+			$('#dialog-ajax-tbody' , window.parent.document).append(html_);
+		}else{
+			$('#dialog-ajax-tbody').append(html_);
+		}
 	}
 
 	//搜索
@@ -252,11 +268,10 @@
         <div id="dialog-table-form" class="dataTables_wrapper" >
             <div id="dialog-dyntable" class=" dialog-show-count" >
                 <label>
-                    当前显示
-                    <%-- TODO 注意：dialog-select-page-size 这个ID是写定的，如果没有这个显示条数，则默认显示10条 - Yangcl --%>
-                    <select id="dialog-select-page-size" size="1" name="dyntable2_length" onchange="dForm.formPaging('1')">
+                    当前显示 
+                    <select>
                         <option value="10">10</option>
-                        <%-- TODO 注意：这里最好只给10条，因为悬浮窗体并不会随之变大 onchange()事件也最好不要，但这里作为示例给出 - Yangcl--%>
+                        <%--注意：这里最好只给10条，因为悬浮窗体并不会随之变大 onchange()事件也最好不要，但这里作为示例给出 - Yangcl--%>
                     </select>
                     条记录
                 </label>

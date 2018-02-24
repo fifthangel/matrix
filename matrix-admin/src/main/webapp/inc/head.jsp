@@ -39,7 +39,7 @@
     <script type="text/javascript" src="${js}/system/pageInit.js"></script>  
     
     <!-- 主要使用dform对象，针对弹层分页 -->
-    <script type="text/javascript" src="${js}/system/ajax-form.js"></script>
+    <script type="text/javascript" src="${js}/system/ajax-form-dialog.js"></script>
     <script type="text/javascript" src="${js}/blockUI/jquery.blockUI.js" ></script>
     
     <!-- 
