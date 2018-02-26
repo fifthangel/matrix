@@ -29,6 +29,9 @@
 	<script type="text/javascript" src="${js}/plugins/colorpicker.js" ></script>
 	<script type="text/javascript" src="${js}/plugins/jquery.alerts.js" ></script>
 	
+	<!-- 自定义滚动条 -->
+	<script type="text/javascript" src="${js}/plugins/jquery.slimscroll-1.3.8.js"></script>
+	
 	<script type="text/javascript" src="${js}/datePicker/WdatePicker.js" ></script>
 	
 	<!-- ajax相关方法 jsonp等 -->

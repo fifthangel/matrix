@@ -1297,8 +1297,9 @@ form label.error { float: none; color: #f00; font-size: 11px; display: block; te
 /***** 25. SLIM SCROLLBAR STYLES *****/
 /*************************************/
 
+/**这个类描述了滚动条属性**/
+.slimScrollDiv { border:1px solid transparent; }
 
-.slimScrollDiv { border: 1px solid #ddd; }
 .entrylist li { display: block; padding: 20px; border-bottom: 1px solid #ddd; }
 .entrylist li.even { background: #fcfcfc; }
 .entry_wrap { min-height: 60px; }

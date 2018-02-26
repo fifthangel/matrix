@@ -62,9 +62,9 @@
             showOverlay:true ,
             css:  {
                 cursor:'auto',
-                left:($(window).width() - $("#" + dialogId).width())/2 + 'px',
+                left:($(window.parent).width() - $("#" + dialogId).width())/2 + 'px',
                 width:$("#" + dialogId).width()+'px',
-                top:($(window).height()-$("#" + dialogId).height())/2 + 'px',
+                top:($(window.parent).height()-$("#" + dialogId).height())/2 + 'px',
                 position:'fixed', //居中
                 border: '3px solid #FB9337'  // 边界
             },
@@ -73,10 +73,6 @@
             fadeOut: 1000  //淡出时间
         });
 	}
-
-	function closeDialog(){
-		window.parent.$.unblockUI();
-    }
 </script>
 <div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 400px;height: 300px">
     <p class="dialog-title">	<!-- dialog-title是必填的一个类，修饰弹窗的头部 -->
@@ -134,22 +130,15 @@
 <script type="text/javascript">
 	function openULDialog(){
 		var dialogId = "#ul-dialog-div";
-		// 自定义滚动条 | 执行此代码自定义滚动条则生效
-		$('#interface-list').slimscroll({
-			color: '#666',
-			size: '10px',
-			width: 'auto',
-			height: '400px' // '208px'
-		});
 		
 		window.parent.$.blockUI({
 			showOverlay:true ,
 			css:{
 				cursor:'auto',
-				left:($(window).width() - $(dialogId).width())/2 + 'px',
+				left:($(window.parent).width() - $(dialogId).width())/2 + 'px',
 				width:$(dialogId).width()+'px',
 				height:580,
-				top:($(window).height()-$(dialogId).height())/2 + 'px',
+				top:($(window.parent).height()-$(dialogId).height())/2 + 'px',
 				position:'fixed', //居中
 				textAlign:'left',
 				border: '3px solid #FB9337'   // 边界,
@@ -157,6 +146,20 @@
 			message: $(dialogId),
 			fadeIn: 500,//淡入时间
 			fadeOut: 1000  //淡出时间
+		});
+		
+		// 自定义滚动条 | 执行此代码自定义滚动条则生效
+		$('#interface-list' , window.parent.document).slimscroll({
+			color: '#666',
+			alwaysVisible: true, //是否 始终显示组件
+			railVisible: false, //是否 显示轨道
+			
+			
+			
+			
+			size: '10px',
+			width: 'auto',
+			height: '400px' // '208px'
 		});
 	}
 </script>
@@ -299,10 +302,10 @@
 			showOverlay:true ,
 			css:{
 				cursor:'auto',
-				left:($(window).width() - $(dialogId).width())/2 + 'px',
+				left:($(window.parent).width() - $(dialogId).width())/2 + 'px',
 				width:$(dialogId).width()+'px',
 				// height:580,
-				top:($(window).height()-$(dialogId).height())/2 + 'px',
+				top:($(window.parent).height()-$(dialogId).height())/2 + 'px',
 				position:'fixed', //居中
 				textAlign:'left',
 				border: '3px solid #FB9337'   // 边界,
