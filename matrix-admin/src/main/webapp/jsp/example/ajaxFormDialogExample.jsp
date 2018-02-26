@@ -132,12 +132,13 @@
 
 	// 开始具体绘制表格中的数据
 	function drawDialog(obj) {
-		
+		// 弹窗分页-表格绘制-固定代码段 -> First start
 		if($('#dialog-ajax-tbody tr').length == 0){ 
 			$('#dialog-ajax-tbody tr' , window.parent.document).remove();
 		}else{
 			$('#dialog-ajax-tbody tr').remove();
 		}
+		// 弹窗分页-表格绘制-固定代码段 -> First end
 		
 		var html_ = '';
 		var list = obj.data.list;
@@ -159,11 +160,13 @@
 			html_ = '<tr><td colspan="11" style="text-align: center;">' + obj.msg + '</td></tr>';
 		}
 		
+		// 弹窗分页-表格绘制-固定代码段 -> Second start 
 		if($('#dialog-ajax-tbody').length == 0){ 
 			$('#dialog-ajax-tbody' , window.parent.document).append(html_);
 		}else{
 			$('#dialog-ajax-tbody').append(html_);
 		}
+		// 弹窗分页-表格绘制-固定代码段 -> Second end
 	}
 
 	//搜索

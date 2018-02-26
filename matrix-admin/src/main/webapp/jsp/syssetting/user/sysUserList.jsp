@@ -170,14 +170,11 @@
 		aForm.formPaging(0);
 	}
 	
-	function closeDialog(){
-		window.parent.$.unblockUI();
-    }
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ajax弹框分页示例开始 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 展示用户权限列表 
 	function userRoleListDialog(obj){
-		$("#userId").val($(obj).attr("userId"));
+		$("#user-id").val($(obj).attr("userId"));
 		var type_ = 'post';
         var url_ = '${basePath}sysrole/user_role_list.do'; 
         var data_ = {
@@ -213,7 +210,7 @@
         var type_ = 'post';
         var data_ = {
 			roleName : $("#role-name" , window.parent.document).val(),
-			userId : $("#userId" , window.parent.document).val()
+			userId : $("#user-id" , window.parent.document).val()
 		};
         var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         window.parent.dForm.launch(url_ , 'dialog-table-form' , obj).init();
@@ -221,7 +218,12 @@
     }
 
     function drawDialog(obj){
-        $('#dialog-ajax-tbody tr').remove();
+    	if($('#dialog-ajax-tbody tr').length == 0){ 
+			$('#dialog-ajax-tbody tr' , window.parent.document).remove();
+		}else{
+			$('#dialog-ajax-tbody tr').remove();
+		}
+    	
         var html_ = '';
         var list = obj.data.list;
         if (list.length > 0) {
@@ -240,7 +242,13 @@
 		}else{
 			html_ = '<tr><td colspan="11" style="text-align: center;">' + obj.msg + '</td></tr>';
 		}
-        $('#dialog-ajax-tbody').append(html_);
+        
+        
+        if($('#dialog-ajax-tbody').length == 0){ 
+			$('#dialog-ajax-tbody' , window.parent.document).append(html_);
+		}else{
+			$('#dialog-ajax-tbody').append(html_);
+		}
     }
     
     function dialogSearch(){
@@ -254,7 +262,7 @@
     
     // 为用户分配这个角色
     function addMcUserRole(ele){
-    	var userInfoId = $("#userId").val(); 
+    	var userInfoId = $("#user-id").val(); 
     	var roleId = $(ele).attr("roleId");
     	var type_ = 'post';
         var url_ = '../sysrole/add_user_role.do';
@@ -273,7 +281,7 @@
     
     // 针对一个用户 删除一个角色
     function deleteMcUserRole(ele){
-    	var userId = $("#userId").val(); 
+    	var userId = $("#user-id").val(); 
     	var roleId = $(ele).attr("roleId");
     	var type_ = 'post';
         var url_ = '../sysrole/remove_user_role.do';
@@ -306,7 +314,7 @@
 					<span class="field"> 
 						<input id="role-name" type="text" name="roleName" class="form-search" />
 					</span>  
-		            <input type="hidden" id="userId" value=""/>	<!-- 保存数据 -->
+		            <input type="hidden" id="user-id" value=""/>	<!-- 保存数据 -->
 					<a onclick='$("#sub-page").contents().dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
