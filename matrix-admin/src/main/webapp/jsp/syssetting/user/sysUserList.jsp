@@ -256,7 +256,7 @@
     }
     
     function dialogSearchReset(){
-    	$("#role-name").val(""); 
+    	$("#role-name" , window.parent.document).val(""); 
     	window.parent.dForm.formPaging(0);
     }
     
@@ -315,7 +315,7 @@
 						<input id="role-name" type="text" name="roleName" class="form-search" />
 					</span>  
 		            <input type="hidden" id="user-id" value=""/>	<!-- 保存数据 -->
-					<a onclick='$("#sub-page").contents().dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick='document.getElementById("sub-page").contentWindow.dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
 					<a onclick='document.getElementById("sub-page").contentWindow.dialogSearch()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
