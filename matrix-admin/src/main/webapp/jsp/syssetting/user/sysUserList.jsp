@@ -174,6 +174,7 @@
 		window.parent.$.unblockUI();
     }
 	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ajax弹框分页示例开始 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 展示用户权限列表 
 	function userRoleListDialog(obj){
 		$("#userId").val($(obj).attr("userId"));
@@ -183,16 +184,16 @@
         		userId:$(obj).attr("userId")
         };
         var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
-        dForm.launch(url_ , 'dialog-table-form' , obj).init().drawForm(loadDialogTable);
+        window.parent.dForm.launch(url_ , 'dialog-table-form' , obj).init().drawForm(loadDialogTable);
 
         var dialogId = 'dialog-page-div';  // 弹窗ID
 		window.parent.$.blockUI({
             showOverlay:true ,
             css:  {
                 cursor:'auto',
-                left:($(window).width() - $("#" + dialogId).width())/2 + 'px',
+                left:($(window.parent).width() - $("#" + dialogId).width())/2 + 'px',
                 width:$("#" + dialogId).width()+'px',
-                top:($(window).height()-$("#" + dialogId).height())/2 + 'px',
+                top:($(window.parent).height()-$("#" + dialogId).height())/2 + 'px',
                 position:'fixed', //居中
                 border: '3px solid #FB9337'  // 边界
             },
@@ -205,17 +206,17 @@
 	// 回调函数
     function loadDialogTable(url_){
         if(url_ == undefined){ // 首次加载表单
-            drawDialog(dForm.jsonObj);
+            drawDialog(window.parent.dForm.jsonObj);
             return;
         }
         // 这种情况是响应上一页或下一页的触发事件
         var type_ = 'post';
         var data_ = {
-			roleName : $("#role-name").val(),
-			userId : $("#userId").val()
+			roleName : $("#role-name" , window.parent.document).val(),
+			userId : $("#userId" , window.parent.document).val()
 		};
         var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
-        dForm.launch(url_ , 'dialog-table-form' , obj).init();
+        window.parent.dForm.launch(url_ , 'dialog-table-form' , obj).init();
         drawDialog(obj);
     }
 
@@ -243,12 +244,12 @@
     }
     
     function dialogSearch(){
-    	dForm.formPaging(0);
+    	window.parent.dForm.formPaging(0);
     }
     
     function dialogSearchReset(){
     	$("#role-name").val(""); 
-		dForm.formPaging(0);
+    	window.parent.dForm.formPaging(0);
     }
     
     // 为用户分配这个角色
@@ -306,10 +307,10 @@
 						<input id="role-name" type="text" name="roleName" class="form-search" />
 					</span>  
 		            <input type="hidden" id="userId" value=""/>	<!-- 保存数据 -->
-					<a onclick="dialogSearchReset()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick='$("#sub-page").contents().dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick="dialogSearch()" class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick='document.getElementById("sub-page").contentWindow.dialogSearch()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>
@@ -318,7 +319,7 @@
             <div id="dialog-dyntable" class=" dialog-show-count" >
                 <label>
                     当前显示 
-                    <select id="dialog-select-page-size" size="1" name="dyntable2_length" onchange="dForm.formPaging('1')">
+                    <select id="dialog-select-page-size" >
                         <option value="10">10</option>
                     </select>
                     条记录

@@ -45,6 +45,11 @@
     <script type="text/javascript" src="${js}/system/ajax-form-dialog.js"></script>
     <script type="text/javascript" src="${js}/blockUI/jquery.blockUI.js" ></script>
     
+    <!-- 原则上讲 ztree组件应该放到对应的每个jsp页面中，但如果出现BlockUI弹窗的情况则需要使用这里的资源，因为这里是父层窗体 -->
+    <link rel="stylesheet" href="${css}/ztree/zTreeStyle.css" type="text/css" />
+	<script type="text/javascript" src="${js}/ztree/jquery.ztree.all.js"></script>
+
+
     <!-- 
     	这个页面引入到所html的head标签中 这里控制了浏览器自适应以及整个系统页面的全局样式。
     	注：此页面禁止改动。- Yangcl 

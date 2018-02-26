@@ -96,7 +96,7 @@
 <!-- 树形组件弹出框 -> 带自定义滚动条 -->
 <div id="tree-dialog-div" class="dialog-page-div" style="display: none;width: 600px;height: 800px">
 	<p id="dialog-title" class="dialog-title">
-		<a href="javascript:void(0)" onclick="surfunc.closeDialog()" class="dialog-close"></a>
+		<a href="javascript:void(0)" onclick="closeDialog()" class="dialog-close"></a>
 		<span>
 			<%-- 等待填充 弹层标题 --%>
 		</span>

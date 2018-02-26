@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ include file="/inc/iframe-head.jsp"%>
- <link rel="stylesheet" href="${css}/ztree/zTreeStyle.css" type="text/css" />
+<link rel="stylesheet" href="${css}/ztree/zTreeStyle.css" type="text/css" />
    
 <script type="text/javascript" src="${js}/ztree/jquery.ztree.all.js"></script>
 <!-- 系统角色权限 -->
@@ -131,6 +131,16 @@
 	function openULDialog(){
 		var dialogId = "#ul-dialog-div";
 		
+		// 自定义滚动条 | 执行此代码自定义滚动条则生效
+		$('#interface-list').slimscroll({
+			color: '#666',
+			alwaysVisible: true, //是否 始终显示组件
+			railVisible: false, //是否 显示轨道 
+			size: '10px',
+			width: 'auto',
+			height: '400px' // '208px'
+		});
+		
 		window.parent.$.blockUI({
 			showOverlay:true ,
 			css:{
@@ -148,19 +158,7 @@
 			fadeOut: 1000  //淡出时间
 		});
 		
-		// 自定义滚动条 | 执行此代码自定义滚动条则生效
-		$('#interface-list' , window.parent.document).slimscroll({
-			color: '#666',
-			alwaysVisible: true, //是否 始终显示组件
-			railVisible: false, //是否 显示轨道
-			
-			
-			
-			
-			size: '10px',
-			width: 'auto',
-			height: '400px' // '208px'
-		});
+		
 	}
 </script>
 
