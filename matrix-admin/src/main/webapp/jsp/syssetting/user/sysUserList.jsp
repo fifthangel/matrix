@@ -233,9 +233,9 @@
 						+ '<td align="center" width="150px">' + list[i].createTime + '</td>'
 						+ '<td width="50px" align="center">';
 						if(list[i].userId == -1){
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="addMcUserRole(this)" title="为用户分配这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">分配</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="document.getElementById(\'sub-page\').contentWindow.addMcUserRole(this)" title="为用户分配这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">分配</a> '  
 						}else{
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="deleteMcUserRole(this)" title="为用户删除这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">取消</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="document.getElementById(\'sub-page\').contentWindow.deleteMcUserRole(this)" title="为用户删除这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">取消</a> '  
 						}
 						html_ += '</td></tr>'
 			}
@@ -262,7 +262,7 @@
     
     // 为用户分配这个角色
     function addMcUserRole(ele){
-    	var userInfoId = $("#user-id").val(); 
+    	var userInfoId = $("#user-id" , window.parent.document).val(); 
     	var roleId = $(ele).attr("roleId");
     	var type_ = 'post';
         var url_ = '../sysrole/add_user_role.do';
@@ -272,7 +272,7 @@
 			};
     	var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         if(obj.status == 'success'){
-        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> ';  
+        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> ';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
         	jAlert(obj.msg , '系统提示 ');
@@ -281,7 +281,7 @@
     
     // 针对一个用户 删除一个角色
     function deleteMcUserRole(ele){
-    	var userId = $("#user-id").val(); 
+    	var userId = $("#user-id" , window.parent.document).val(); 
     	var roleId = $(ele).attr("roleId");
     	var type_ = 'post';
         var url_ = '../sysrole/remove_user_role.do';
@@ -291,7 +291,7 @@
 			};
     	var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         if(obj.status == 'success'){ 
-        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a>';  
+        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a>';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
         	jAlert(obj.msg , '系统提示 ');

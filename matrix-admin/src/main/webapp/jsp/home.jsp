@@ -25,6 +25,16 @@
 				 $.unblockUI();
 			}
 		</script>
+		
+		<style type="text/css">
+			.a-btn{
+	        	cursor: pointer;
+	        	color:#FB9337; 
+	        }
+	        .a-btn:hover {
+	        	color: red;
+	       	} 
+		</style>
 	</head>
 
 	<body class="withvernav" style="overflow-x:hidden">

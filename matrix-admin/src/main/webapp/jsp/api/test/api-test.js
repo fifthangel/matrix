@@ -44,6 +44,9 @@ var apiTest = {
 		findRequestDto : function(o){
 			$("#dto-json-str").val("");  
 			var target_ = $(o).val();
+			if(apiTest.trim(target_) == ""){
+				return;
+			}
 			var type_ = 'post';
 			var url_ = 'ajax_find_request_dto.do';
 			var data_ = {target : target_};

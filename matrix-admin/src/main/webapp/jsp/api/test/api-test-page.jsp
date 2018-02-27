@@ -9,6 +9,7 @@
 	<div class="pageheader notab">
 		<h1 class="pagetitle">模拟测试接口请求</h1>
 		<span class="pagedesc">调用之前请先确定是否已经在【api信息树】中添加了该接口信息</span>
+		<span style="display: none">jsp/api/test/api-test-page.jsp</span>
 	</div>
 	<div class="contentwrapper" style="padding-top:0px;padding-left:0px">
 		<div> 

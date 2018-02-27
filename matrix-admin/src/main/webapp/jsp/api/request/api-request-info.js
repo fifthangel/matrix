@@ -66,14 +66,15 @@ var requestInfo = {
 		},
 		
 		openAddDialog : function(){
+			$("#add-dialog-form").find("input[type='text']").val("");
 			var dialogId = 'add-dialog-div';   // 弹窗ID
 			window.parent.$.blockUI({
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',
-	                left:($(window).width() - $("#" + dialogId).width())/2 + 'px',
+	                left:($(window.parent).width() - $("#" + dialogId).width())/2 + 'px',
 	                width:$("#" + dialogId).width()+'px',
-	                top:($(window).height()-$("#" + dialogId).height())/2 + 'px',
+	                top:($(window.parent).height()-$("#" + dialogId).height())/2 + 'px',
 	                position:'fixed', //居中
 	                border: '3px solid #FB9337'  // 边界
 	            },
@@ -89,7 +90,7 @@ var requestInfo = {
 		addRequestInfo : function(){
 			var type_ = 'post';
 			var url_ = 'ajax_request_info_add.do';
-			var data_ = $("#add-dialog-form").serializeArray() ;
+			var data_ = $("#add-dialog-form" , parent.document).serializeArray() ;
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){
 				jAlert(obj.msg , '系统提示' , function(){
@@ -111,9 +112,9 @@ var requestInfo = {
 	            showOverlay:true ,
 	            css:  {
 	                cursor:'auto',
-	                left:($(window).width() - $("#" + dialogId).width())/2 + 'px',
+	                left:($(window.parent).width() - $("#" + dialogId).width())/2 + 'px',
 	                width:$("#" + dialogId).width()+'px',
-	                top:($(window).height()-$("#" + dialogId).height())/2 + 'px',
+	                top:($(window.parent).height()-$("#" + dialogId).height())/2 + 'px',
 	                position:'fixed', //居中
 	                border: '3px solid #FB9337'  // 边界
 	            },
@@ -139,8 +140,8 @@ var requestInfo = {
 		 * 更新一条记录
 		 */
 		editApiRequestInfo:function(){
-			var organization_ = $("#organization-edit").val(); 
-			var atype_ = $("#atype-edit").val(); 
+			var organization_ = $("#organization-edit" , parent.document).val(); 
+			var atype_ = $("#atype-edit" , parent.document).val(); 
 			jConfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';

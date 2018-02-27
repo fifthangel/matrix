@@ -90,7 +90,7 @@
 <!-- 添加弹层 -->
 <div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
-        <a href="#" onclick="domains.closeDialog()" class="dialog-close"></a>
+        <a href="#" onclick="closeDialog()" class="dialog-close"></a>
         添加跨域白名单
     </p>
 
@@ -119,7 +119,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="domains.addDomain()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.domains.addDomain()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>
@@ -133,7 +133,7 @@
 <!-- 修改弹层 -->
 <div id="edit-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
-        <a href="#" onclick="domains.closeDialog()" class="dialog-close"></a>
+        <a href="#" onclick="closeDialog()" class="dialog-close"></a>
         修改跨域白名单
     </p>
 
@@ -162,7 +162,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="domains.editDomain()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.domains.editDomain()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>

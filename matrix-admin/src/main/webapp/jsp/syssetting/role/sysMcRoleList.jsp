@@ -107,8 +107,8 @@
 				<div  class="title">
 					<h3 id="platform-title">
 						<%-- 等待填充--%>
-						<a herf="javascript:void(0)" onclick="surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
-                        <a herf="javascript:void(0)" onclick="surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
+						<a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
+                        <a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
 					</h3>
 				</div>
 				<div class="widgetcontent">
@@ -123,7 +123,8 @@
 			<input id="func-ids"  type="hidden" value="" >
 			<p>
 				<span id="dialog-operate" style="position: relative;">
-					<button id="submit-btn" roleId=""  onclick="submitRoleFunc(this)" type="button" key="system_role_list:dialog_submit" style="display:none;width: 100px;margin-left: 400px;" class="submit radius2 security-btn">提交</button>
+					<button id="submit-btn" roleId=""  onclick="document.getElementById('sub-page').contentWindow.submitRoleFunc(this)" type="button" 
+							key="system_role_list:dialog_submit" style="display:none;width: 100px;margin-left: 400px;" class="submit radius2 security-btn">提交</button>
 				</span>
 			</p>
 		</form>
@@ -183,7 +184,7 @@
 		$('#ajax-tbody-user-list').append(html_);
 	}
 	
-	// 前往添加用户界面 
+	// 前往添加界面 
 	function toUserAddPage(){
 		window.location.href = "${basePath}sysrole/show_role_add_page.do";
 	}
@@ -229,10 +230,9 @@
 			showOverlay:true ,
 			css:{
 				cursor:'auto',
-				left:($(window).width() - $(dialogId).width())/2 + 'px',
+				left:($(window.parent).width() - $(dialogId).width())/2 + 'px',
 				width:$(dialogId).width()+'px',
-				// height:580,
-				top:($(window).height()-$(dialogId).height())/2 + 'px',
+				top:($(window.parent).height()-$(dialogId).height())/2 + 'px',
 				position:'fixed', //居中
 				textAlign:'left',
 				border: '3px solid #FB9337'   // 边界,

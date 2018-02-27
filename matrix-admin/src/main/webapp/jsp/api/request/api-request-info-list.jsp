@@ -20,9 +20,8 @@
 	<!--这个跳转页面的功能及跳转路径等等-->
 	<div class="pageheader notab">
 		<h1 class="pagetitle">接口请求者列表</h1>
-		<span class="pagedesc"> 
-			
-		</span>  
+		<span class="pagedesc"></span>  
+		<span style="display: none">jsp/api/request/api-request-info-list.jsp</span>
 	</div>
 
 	<div id="contentwrapper" class="contentwrapper">
@@ -89,7 +88,7 @@
 <!-- 添加弹层 -->
 <div id="add-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
-        <a href="#" onclick="requestInfo.closeDialog()" class="dialog-close"></a>
+        <a href="#" onclick="closeDialog()" class="dialog-close"></a>
         添加接口请求者
     </p>
 
@@ -121,7 +120,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="requestInfo.addRequestInfo()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.requestInfo.addRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>
@@ -135,7 +134,7 @@
 <!-- 修改弹层 -->
 <div id="edit-dialog-div" class="dialog-page-div" style="display: none;width: 350px;height: 200px">
     <p class="dialog-title">
-        <a href="#" onclick="requestInfo.closeDialog()" class="dialog-close"></a>
+        <a href="#" onclick="closeDialog()" class="dialog-close"></a>
         修改跨域白名单
     </p>
 
@@ -167,7 +166,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick="requestInfo.editApiRequestInfo()" >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.requestInfo.editApiRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>

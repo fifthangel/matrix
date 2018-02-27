@@ -54,12 +54,13 @@
 	<div class="pageheader notab">
 		<h1 class="pagetitle">API树形结构列表</h1>
 		<span class="pagedesc">同层节点之间可以进行拖动来调整其先后顺序 </span>
+		<span style="display: none">jsp/api/info/api-info-list.jsp</span>
 	</div>
 	<div class="contentwrapper" style="padding-top: 0px;">
 		<div id="nav-menu" class="subcontent">
 			<div class="contenttitle2" style="margin-top: 5px; margin-bottom: 5px;">
 				<h3>
-					<a herf="javascript:void(0)" onclick="surfunc.closeNavi('api-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起</a>
+					<a herf="javascript:void(0)" onclick="apiInfo.closeNavi('api-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起</a>
 				</h3>
 			</div>
 			<div class="stdform">

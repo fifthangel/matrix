@@ -380,6 +380,23 @@ var apiInfo = {
         	$("#remark").val(o.remark ); 
         },
         
+        /**
+         * 收起导航栏从而方便操作
+         */
+        closeNavi:function(treeId){
+        	var tree = $.fn.zTree.getZTreeObj(treeId);  
+        	var nodes = tree.transformToArray(tree.getNodes()); 
+        	if(nodes.length == 0){
+        		return;
+        	}
+        	for(var n = 0 ; n < nodes.length ; n ++){
+        		var node = nodes[n];
+        		if(node.level == 1){
+        			tree.expandNode(node , false , false ,false ,false );
+        		}
+        	}
+        },
+        
         closeDialog:function(){
         	window.parent.$.unblockUI();
         }
