@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${js}/jquery-1.10.2.js"></script> 
 	<script type="text/javascript" src="${js}/plugins/jquery-ui.js"></script>
 	<script type="text/javascript" src="${js}/plugins/colorpicker.js" ></script>
-	<script type="text/javascript" src="${js}/plugins/jquery.alerts.js" ></script>
+	
 	<!-- 自定义滚动条 -->
 	<script type="text/javascript" src="${js}/plugins/jquery.slimscroll-1.3.8.js"></script>
 	
@@ -30,12 +30,19 @@
     
     <script type="text/javascript">
 		$(function(){
-			$('body').addClass("withmenucoll2"); 
-			
-			/* 
-			var pd = $(window.parent.document);
-			var lw = pd[0].body.clientWidth - pd.find("#left-menu div:visible")[0].clientWidth - 40; 
-			*/
+			$('body').addClass("withmenucoll2");  
+			/**
+			 * 自定义对话框封装
+			 */
+			malert = function(message, title, callback) {
+				window.parent.malert(message, title, callback);
+			}
+			mconfirm = function(message, title, callback) {
+				window.parent.mconfirm(message, title, callback);
+			};
+			mprompt = function(message, value, title, callback) {
+				window.parent.mprompt(message, value, title, callback);
+			};
 		});  
 
 		window.onload = function(){

@@ -329,8 +329,8 @@
 				<div  class="title">
 					<h3 id="platform-title">
 						<%-- 等待填充--%>
-						<a herf="javascript:void(0)" onclick="surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
-                        <a herf="javascript:void(0)" onclick="surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
+						<a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
+                        <a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
 					</h3>
 				</div>
 				<div class="widgetcontent">

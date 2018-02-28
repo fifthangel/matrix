@@ -140,7 +140,7 @@
 	}
 
 	function deleteOne(id_) {
-		jConfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
+		mconfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
 			if (flag) {
 				var type_ = 'post';
 				var url_ = '${basePath}manager/delete_user.do';
@@ -153,7 +153,7 @@
 					aForm.formPaging(currentPageNumber);
 				} else {
 				}
-				jAlert(obj.msg, '系统提示');
+				malert(obj.msg, '系统提示');
 			}
 		});
 	}
@@ -275,7 +275,7 @@
         	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> ';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
-        	jAlert(obj.msg , '系统提示 ');
+        	malert(obj.msg , '系统提示 ');
         }
     }
     
@@ -294,7 +294,7 @@
         	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a>';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
-        	jAlert(obj.msg , '系统提示 ');
+        	malert(obj.msg , '系统提示 ');
         }
     }
 </script>

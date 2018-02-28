@@ -12,7 +12,7 @@
 	 */
 	$(function() {
 		$('#alert-box-button').click(function() {
-			jAlert('自定义 alert 展示', '系统提示');
+			malert('自定义 alert 展示', '系统提示');
 			return false;
 		});
 		/*
@@ -25,15 +25,15 @@
 
 		$('#confirm-button').click(function() {
 			// 注意：flag = ture or false - Yangcl
-			jConfirm('Can you confirm this?', '系统提示', function(flag) {
-				jAlert('您选择了: ' + flag, '系统提示');
+			mconfirm('Can you confirm this?', '系统提示', function(flag) {
+				malert('您选择了: ' + flag, '系统提示');
 			});
 			return false;
 		});
 
 		$('#prompt-button').click(function() {
 			// 注意：content = 你输入的内容  如果content == null 则代表你点击了取消按钮，请根据实际需要做判定 - Yangcl
-			jPrompt('请输入：', '', '系统提示', function(content) {
+			mprompt('请输入：', '', '系统提示', function(content) {
 				if (content) {
 					alert('您输入了：' + content);
 				}
@@ -44,7 +44,7 @@
 		$('#alert-html-button').click(function() {
 			var html_ = '<a href="${basePath}example/page_example_ajax_form_dialog.do" target="_blank" class="anchorbutton">Ajax 分页+弹出窗体分页 示例</a>';
 			var title = 'alert 支持html标签';
-			jAlert(html_, title);
+			malert(html_, title);
 			return false;
 		});
 
