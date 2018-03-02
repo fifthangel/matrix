@@ -48,7 +48,8 @@
 		if (obj.status == 'success') {
 			$("#json-str").val(JSON.stringify(obj.data));
 		}else{
-			jAlert(obj.msg, '系统提示');
+			$("#json-str").val(""); 
+			malert(obj.msg, '系统提示');
 		}
 	}
 </script>

@@ -333,10 +333,10 @@ public class SystemRoleController  extends BaseController{
 	 * @date 2017年4月20日 下午7:29:12 
 	 * @version 1.0.0.1
 	 */
-	@RequestMapping(value = "add_user_role", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "ajax_sysrole_add_user_role", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject addUserRole(McUserRole entity , HttpSession session){
-		super.userBehavior(session, logger, "add_user_role", "关联用户与某一个角色");
+	public JSONObject ajaxSysroleAddUserRole(McUserRole entity , HttpSession session){
+		super.userBehavior(session, logger, "ajax_sysrole_add_user_role", "关联用户与某一个角色");
 		return mcSysFunctionService.addUserRole(entity , session);
 	}
 	

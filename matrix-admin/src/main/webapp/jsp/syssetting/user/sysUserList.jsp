@@ -122,7 +122,7 @@
 						+ '<td class="center">' + list[i].email + '</td>'
 						+ '<td class="center">' + list[i].createTime + '</td>'
 						+ '<td width="200px" align="center">'
-						+ '<a onclick="deleteOne(\'' + list[i].id + '\')" title="删除" class="security-btn" key="system_user_list:delete" style="display:none;cursor: pointer;">删除</a>   '
+						+ '<a onclick="deleteSystemUser(this)" userId="' + list[i].id + '" title="删除" class="security-btn" key="system_user_list:delete" style="display:none;cursor: pointer;">删除</a>   '
 						+ '<a href="${basePath}manager/show_user_edit_page.do?id=' + list[i].id + '" title="修改" class="security-btn" key="system_user_list:edit" style="display:none;cursor: pointer;">修改</a> '
 						+ '<a userId="' + list[i].id + '" onclick="userRoleListDialog(this)" title="用户权限" class="security-btn" key="system_user_list:user_role" style="display:none;cursor: pointer;">用户角色</a> '
 						+ '</td></tr>'
@@ -139,14 +139,16 @@
 		window.location.href = "${basePath}manager/show_user_add_page.do";
 	}
 
-	function deleteOne(id_) {
+	// 删除一个系统用户 
+	function deleteSystemUser(obj) {
+		var o = obj; // 自定义弹窗后参数obj消失，故这里保存
 		mconfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
 			if (flag) {
 				var type_ = 'post';
-				var url_ = '${basePath}manager/delete_user.do';
+				var url_ = '${basePath}manager/ajax_manager_delete_user.do';
 				var data_ = {
-					id : id_
-				};
+					id : $(o).attr("userId") 
+				}; 
 				var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 				if (obj.status == 'success') {
 					var currentPageNumber = $(".paginate_active").html(); // 定位到当前分页的页码，然后重新加载数据
@@ -265,7 +267,7 @@
     	var userInfoId = $("#user-id" , window.parent.document).val(); 
     	var roleId = $(ele).attr("roleId");
     	var type_ = 'post';
-        var url_ = '../sysrole/add_user_role.do';
+        var url_ = '../sysrole/ajax_sysrole_add_user_role.do';
     	var data_ = {
     			mcRoleId : roleId,
     			mcUserId : userInfoId

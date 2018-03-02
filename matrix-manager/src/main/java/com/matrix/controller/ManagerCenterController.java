@@ -143,10 +143,10 @@ public class ManagerCenterController extends BaseController{
 		return mcUserInfoService.editSysUser(info);
 	}
 	
-	@RequestMapping(value = "delete_user", produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "ajax_manager_delete_user", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject deleteUser(Integer id , HttpSession session) {
-		super.userBehavior(session, logger, "delete_user", "删除用户");
+	public JSONObject ajaxManagerDeleteUser(Integer id , HttpSession session) {
+		super.userBehavior(session, logger, "ajax_manager_delete_user", "系统用户列表-删除用户");
 		return mcUserInfoService.deleteUser(id);
 	}
 	

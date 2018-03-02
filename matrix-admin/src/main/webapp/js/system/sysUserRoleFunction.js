@@ -730,7 +730,7 @@
          * 关联用户与这个角色
          * @ surfunc.addUserRole(this)
          */
-        addUserRole:function(ele){
+        /*addUserRole:function(ele){
         	var userInfoId = $(ele).attr("userInfoId");
         	var roleId = $( surfunc.roleElement).attr("roleId");
         	var type_ = 'post';
@@ -746,14 +746,14 @@
             }else{
             	jAlert(obj.msg , '系统提示 ');
             }
-        },
+        },*/
         
 
         /**
          * 解除后台用户的权限
          * @ surfunc.deleteUserRole(this)
          */
-        deleteUserRole:function(obj){
+        /*deleteUserRole:function(obj){
         	var userId = $(obj).attr("userId");
         	var zId = $(obj).attr("zId");  
         	var type_ = 'post';
@@ -768,7 +768,7 @@
                 aForm.formPaging(currentPageNumber);
             } 
             jAlert(obj.msg , '系统提示 ');
-        },
+        },*/
         
         /**
          * 收起导航栏从而方便操作

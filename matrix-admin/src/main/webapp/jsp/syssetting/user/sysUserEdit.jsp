@@ -33,7 +33,7 @@
 					<p>
 						<label>密码</label>
 						<span class="field">
-							<input type="password" name="password" id="password" class="ae-form-input" value="111111"/>
+							<input type="password" name="password" class="ae-form-input" value="111111"/>
 							<span style="color:red">*默认111111</span>
 						</span>
 					</p>
