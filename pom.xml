@@ -18,6 +18,7 @@
 		<module>matrix-example</module>
     </modules>
 	<properties>
+		<!-- 全局性控制项目编码为UTF-8 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.6.RELEASE</spring.version>
 		<mybatis.version>3.4.0</mybatis.version>
@@ -361,6 +362,32 @@
 
 	<build>
 		<finalName>${project.name}</finalName>
+		
+		<!--   此处摘取自公司项目，目的在于忽略指定的资源文件，此处不用，仅供参考
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			剔除针对各profile的配置文件
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>conf/**</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/test/java</directory>
+			</resource>
+			<resource>
+				<directory>src/test/resources</directory>
+			</resource>
+		</resources> -->
+		
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
@@ -375,4 +402,37 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- 		此处摘取自公司项目，根据具体情况来修改仓库url路径
+	
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://dev.cecook.cn/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://dev.cecook.cn/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+	 -->
 </project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
