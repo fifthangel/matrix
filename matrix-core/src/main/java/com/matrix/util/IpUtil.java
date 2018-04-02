@@ -95,6 +95,7 @@ public class IpUtil {
         }*/
 		
 		result.put("status", "success");
+		result.put("firstIp", ip);
         Enumeration<NetworkInterface> netInterfaces = null;
         try {
             netInterfaces = NetworkInterface.getNetworkInterfaces();
