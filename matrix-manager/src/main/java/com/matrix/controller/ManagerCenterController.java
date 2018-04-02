@@ -9,12 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseController;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IMcUserInfoService;
+import com.matrix.util.IpUtil;
 
 /**
  * @description: 权限、角色、后台登录等等操作 
@@ -43,8 +43,14 @@ public class ManagerCenterController extends BaseController{
 	 */
 	@RequestMapping(value = "login", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject login(McUserInfo info, HttpSession session) {
+	public JSONObject login(HttpServletRequest request , McUserInfo info, HttpSession session) {
 		logger.info( info.getUserName() + " - 尝试请求 - " + "login() - 方法 - " +  "正在尝试登录"); 
+		
+		//开始监控登录者的网卡详细信息。TODO 消息队列异步更新
+		JSONObject r = IpUtil.analysisRemoteHostIp(request);
+		System.out.println(r.toJSONString()); 
+		
+		
 		return mcUserInfoService.login(info, session);
 	}
 	
