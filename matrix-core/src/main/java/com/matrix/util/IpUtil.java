@@ -121,7 +121,7 @@ public class IpUtil {
         }catch (Exception e) {
         	e.printStackTrace(); 
         	result.put("status", "error");
-    		result.put("msg", "When analysis local host ip:" + ip + " , we got a exception. Please see log.");
+    		result.put("msg", "When analysis remote host ip:" + ip + " , we got a exception. Please see log.");
     		return result;
         }
         
