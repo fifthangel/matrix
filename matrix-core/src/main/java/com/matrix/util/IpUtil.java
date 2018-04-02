@@ -61,39 +61,6 @@ public class IpUtil {
     		return result;
 		}
 		
-		
-		/*if ("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)) {
-			JSONObject local = new JSONObject();  // 请求者本地调试
-            Enumeration<NetworkInterface> netInterfaces = null;
-            try {
-                netInterfaces = NetworkInterface.getNetworkInterfaces();
-                a: while (netInterfaces.hasMoreElements()) {
-                    NetworkInterface ni = netInterfaces.nextElement();
-                    
-                    System.out.println("驱动名称:" + ni.getDisplayName());
-                    System.out.println("网络名称:" + ni.getName()); 
-                    
-                    Enumeration<InetAddress> ips = ni.getInetAddresses();
-                    while (ips.hasMoreElements()) {
-                        ip = ips.nextElement().getHostAddress();
-                        System.out.println("IP地址:" + ip); 
-                        if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {
-                            break a;
-                        }
-                    }
-                }
-            } catch (Exception e) {
-            	e.printStackTrace(); 
-            	result.put("status", "error");
-        		result.put("msg", "When analysis local host ip:127.0.0.1 , we got a exception. Please see log.");
-        		return result;
-            }
-            
-            result.put("status", "success");
-    		result.put("ip", "127.0.0.1");
-    		return result;
-        }*/
-		
 		result.put("status", "success");
 		result.put("firstIp", ip);
         Enumeration<NetworkInterface> netInterfaces = null;
