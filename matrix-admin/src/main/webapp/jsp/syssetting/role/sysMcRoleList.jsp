@@ -270,11 +270,11 @@
     	var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         if(obj.status == 'success'){
         	var cache = obj.cache; // 扩展 暂时不用
-        	jAlert("角色修改成功!" , '系统提示' , function(){
+        	malert("角色修改成功!" , '系统提示' , function(){
 	        	surfunc.closeDialog();
         	});
         }else{
-        	jAlert(obj.msg , '系统提示');
+        	malert(obj.msg , '系统提示');
         }
     }
 </script>

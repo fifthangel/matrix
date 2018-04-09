@@ -35,3 +35,33 @@
 		HttpClientSupportTest.java					HttpClientSupport工具类的测试类
 		api file remote upload								系统内部使用的高权限接口
 		api file remote inject								系统内部使用的高权限接口|等待完善
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+【TODO】接口模拟请求测试弹窗		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

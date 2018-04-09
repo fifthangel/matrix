@@ -10,7 +10,7 @@ var apiTest = {
 		getResponseMsg : function(path_){
 			var jsonStr = $("#dto-json-str").val();
 			if(apiTest.trim($("#target").val()) == '' || apiTest.trim(jsonStr) == ''){
-				jAlert('缺少关键请求值!', '系统提示');
+				malert('缺少关键请求值!', '系统提示');
 			}else{
 				var requester = new Object();
 				var head_ = new Object();
@@ -32,7 +32,7 @@ var apiTest = {
 				if (obj.status == 'success') {
 					$("#json-response").val(JSON.stringify(obj));
 				}else{
-					jAlert(obj.msg, '系统提示');
+					malert(obj.msg, '系统提示');
 					$("#json-response").val("");  
 				}
 			}
@@ -54,7 +54,7 @@ var apiTest = {
 			if (obj.status == 'success') {
 				$("#dto-json-str").val(JSON.stringify(obj.dto));
 			}else{
-				jAlert(obj.msg, '系统提示');
+				malert(obj.msg, '系统提示');
 				$("#dto-json-str").val("");  
 			}
 		},
@@ -68,7 +68,7 @@ var apiTest = {
 			if (obj.status == 'success') {
 				value = obj.data;
 			}else{
-				jAlert(obj.msg, '系统提示');
+				malert(obj.msg, '系统提示');
 				$("#dto-json-str").val("");  
 			}
 			return value;

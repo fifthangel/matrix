@@ -123,10 +123,10 @@
         	
             var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
             if(obj.status == 'success'){
-            	jAlert(obj.msg , '系统提示 ');   
+            	malert(obj.msg , '系统提示 ');   
             	return true;
             }else{
-            	jAlert(obj.msg , '系统提示 '); 
+            	malert(obj.msg , '系统提示 '); 
             	return false;
             }
         }, 
@@ -227,7 +227,7 @@
         				$("#" + node.tId).removeClass("seller-node");  
         				flag =  true;
         			}else{
-        				jAlert("只能选择一个商户节点!" , '系统提示 ');
+        				malert("只能选择一个商户节点!" , '系统提示 ');
         				flag =  false; 
         			}
         		}else{
@@ -242,7 +242,7 @@
         				flag =  true;
             		}else {
             			if(par.tId != $(".seller-node")[0].id){
-                			jAlert("只能选择一个商户节点!" , '系统提示 ');
+                			malert("只能选择一个商户节点!" , '系统提示 ');
                 			flag =  false; 
                 		}else{
                 			flag =  true;  
@@ -519,7 +519,7 @@
             var data_ = $("#tree-node-edit").serializeArray();
             var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
 			if(obj.status == 'success'){
-				jAlert(obj.msg , '系统提示' , function(){
+				malert(obj.msg , '系统提示' , function(){
 					var zTree = $.fn.zTree.getZTreeObj("sys-tree");
 	            	var parent = zTree.getNodeByTId(surfunc.currentNode.parentTId);
 	            	var e = obj.entity;
@@ -546,7 +546,7 @@
                     surfunc.parentNode = null;
 				});
 			}else{
-				jAlert(obj.msg , '系统提示');
+				malert(obj.msg , '系统提示');
 			}
         },
 
@@ -707,7 +707,7 @@
         
         deleteMcRole:function(ele){
         	var roleId = $(ele).attr("roleId");
-        	jConfirm('您确定要删除这个角色吗？', '系统提示', function(flag) {
+        	mconfirm('您确定要删除这个角色吗？', '系统提示', function(flag) {
         		if(flag){
 					var type_ = 'post';
 		            var url_ = 'delete_mc_role.do';
@@ -719,7 +719,7 @@
 		            	var tr_ = ele.parentElement.parentElement;  
 		            	$(tr_).remove();
 		            }else{
-		            	jAlert(obj.msg , '系统提示 ');
+		            	malert(obj.msg , '系统提示 ');
 		            }
 				}
 			});
@@ -744,7 +744,7 @@
             	ele.onclick = null;
             	ele.innerText="完成";
             }else{
-            	jAlert(obj.msg , '系统提示 ');
+            	malert(obj.msg , '系统提示 ');
             }
         },*/
         
@@ -767,7 +767,7 @@
             	var currentPageNumber = $(".paginate_active").html();   // 定位到当前分页的页码，然后重新加载数据
                 aForm.formPaging(currentPageNumber);
             } 
-            jAlert(obj.msg , '系统提示 ');
+            malert(obj.msg , '系统提示 ');
         },*/
         
         /**

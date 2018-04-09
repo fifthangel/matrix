@@ -22,12 +22,12 @@
 <script type="text/javascript">
 $(function() {
 	$('#reload-all-user').click(function() {
-		jConfirm('您确定要重置所有用户级别的字典缓存吗? 这是一个高风险操作！', '系统提示', function(flag) {
+		mconfirm('您确定要重置所有用户级别的字典缓存吗? 这是一个高风险操作！', '系统提示', function(flag) {
 			if(flag){
 				var url_ = '${basePath}sysrole/system_sysrole_dict_cache_reload.do';
 		        var data_ = null;
 		        var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
-	        	jAlert(obj.msg, '系统提示'); 
+	        	malert(obj.msg, '系统提示'); 
 			}
 		});
 		return false;

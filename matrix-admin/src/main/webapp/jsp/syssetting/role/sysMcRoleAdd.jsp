@@ -56,7 +56,7 @@
 		if(obj.status == 'success'){
 			$("input[type='text']").val("");
 		}
-		jAlert(obj.msg, '系统提示');  
+		malert(obj.msg, '系统提示');  
 	}
 </script>
 

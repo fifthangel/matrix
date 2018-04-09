@@ -48,18 +48,18 @@
 
 <script type="text/javascript">
 	function editUserInfo(id_){
-		jConfirm('您确定要修改这条记录吗?', '系统提示', function(flag) {
+		mconfirm('您确定要修改这条记录吗?', '系统提示', function(flag) {
 			if(flag){
 				var type_ = 'post';
 				var url_ = '${basePath}sysrole/edit_mc_role_only.do';
 				var data_ = $("#form-edit-role").serializeArray();
 				var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
 				if(obj.status == 'success'){
-					jAlert(obj.msg, '系统提示' , function(){
+					malert(obj.msg, '系统提示' , function(){
 						window.location.href = '${basePath}sysrole/page_sysrole_mc_role_list.do'  
 					});
 				}else{
-					jAlert(obj.msg, '系统提示'); 
+					malert(obj.msg, '系统提示'); 
 				}
 			}
 		});
