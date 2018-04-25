@@ -11,7 +11,7 @@
 		if (obj.status) {
 
 		}
-		jAlert(obj.msg, 'title');
+		malert(obj.msg, 'title');
 	}
 </script>
 
