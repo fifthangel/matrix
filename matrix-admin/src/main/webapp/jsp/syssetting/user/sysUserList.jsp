@@ -235,9 +235,9 @@
 						+ '<td align="center" width="150px">' + list[i].createTime + '</td>'
 						+ '<td width="50px" align="center">';
 						if(list[i].userId == -1){
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="document.getElementById(\'sub-page\').contentWindow.addMcUserRole(this)" title="为用户分配这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">分配</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="subpage.addMcUserRole(this)" title="为用户分配这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">分配</a> '  
 						}else{
-							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="document.getElementById(\'sub-page\').contentWindow.deleteMcUserRole(this)" title="为用户删除这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">取消</a> '  
+							html_ += '<a href="javascript:void(0)" roleId="' + list[i].id + '" onclick="subpage.deleteMcUserRole(this)" title="为用户删除这个角色" class="security-btn" key="system_user_list:allot_cancel" style="display:none;cursor: pointer;">取消</a> '  
 						}
 						html_ += '</td></tr>'
 			}
@@ -274,7 +274,7 @@
 			};
     	var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         if(obj.status == 'success'){
-        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> ';  
+        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="subpage.deleteMcUserRole(this)" title="为用户删除这个角色"  style="cursor: pointer;">取消</a> ';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
         	malert(obj.msg , '系统提示 ');
@@ -293,7 +293,7 @@
 			};
     	var obj = JSON.parse(ajaxs.sendAjax(type_ , url_ , data_));
         if(obj.status == 'success'){ 
-        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="document.getElementById(\'sub-page\').contentWindow.addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a>';  
+        	var html_ = '<a href="javascript:void(0)" roleId="' + roleId + '" onclick="subpage.addMcUserRole(this)" title="为用户分配这个角色"  style="cursor: pointer;">分配</a>';  
         	$(ele)[0].parentElement.innerHTML = html_;
         }else{
         	malert(obj.msg , '系统提示 ');
@@ -317,10 +317,10 @@
 						<input id="role-name" type="text" name="roleName" class="form-search" />
 					</span>  
 		            <input type="hidden" id="user-id" value=""/>	<!-- 保存数据 -->
-					<a onclick='document.getElementById("sub-page").contentWindow.dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
+					<a onclick='subpage.dialogSearchReset()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 10px"> 
 						<span> 重 置 </span>
 					</a> 
-					<a onclick='document.getElementById("sub-page").contentWindow.dialogSearch()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
+					<a onclick='subpage.dialogSearch()' class="btn btn_orange btn_search radius50" style="float: right; cursor: pointer; margin-left: 20px"> 
 						<span> 查 询 </span>
 					</a>
 				</p>

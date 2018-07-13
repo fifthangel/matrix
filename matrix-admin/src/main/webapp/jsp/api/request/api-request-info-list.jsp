@@ -120,7 +120,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.requestInfo.addRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='subpage.requestInfo.addRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>
@@ -166,7 +166,7 @@
 	                <tfoot>
 		                <tr>
 					      <td colspan="2" style="text-align: right;">
-					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='document.getElementById("sub-page").contentWindow.requestInfo.editApiRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
+					      	<button class="stdbtn btn_orange" style="opacity:1; margin-top:20px;" onclick='subpage.requestInfo.editApiRequestInfo()' >提 &nbsp&nbsp&nbsp&nbsp&nbsp 交</button>
 					      </td> 
 					    </tr>
 	                </tfoot>

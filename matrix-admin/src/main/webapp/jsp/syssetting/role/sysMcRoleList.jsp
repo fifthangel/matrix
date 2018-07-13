@@ -107,8 +107,8 @@
 				<div  class="title">
 					<h3 id="platform-title">
 						<%-- 等待填充--%>
-						<a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
-                        <a herf="javascript:void(0)" onclick="document.getElementById('sub-page').contentWindow.surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
+						<a herf="javascript:void(0)" onclick="subpage.surfunc.closeNavi('user-role-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起导航</a>|
+                        <a herf="javascript:void(0)" onclick="subpage.surfunc.closeMenu('user-role-tree')" class="a-btn" title="收起一级菜单栏从而方便您的操作">收起菜单</a>
 					</h3>
 				</div>
 				<div class="widgetcontent">
@@ -123,7 +123,7 @@
 			<input id="func-ids"  type="hidden" value="" >
 			<p>
 				<span id="dialog-operate" style="position: relative;">
-					<button id="submit-btn" roleId=""  onclick="document.getElementById('sub-page').contentWindow.submitRoleFunc(this)" type="button" 
+					<button id="submit-btn" roleId=""  onclick="subpage.submitRoleFunc(this)" type="button" 
 							key="system_role_list:dialog_submit" style="display:none;width: 100px;margin-left: 400px;" class="submit radius2 security-btn">提交</button>
 				</span>
 			</p>

@@ -5,6 +5,10 @@
 	<head>
 		<%@ include file="/inc/head.jsp" %>
 		<script type="text/javascript">
+			$(function(){
+				// iframe sub page object|when the sub page init a blockUI dialog, the action in the dialog should to use the subpage to find the js object
+				subpage = document.getElementById("sub-page").contentWindow;      
+			})
 			function iframeChange(){
 				var lw = $("#left-menu div:visible")[0]; // 取左侧菜单的宽度
 				var toph = $(".header")[0].offsetHeight + $(".topheader")[0].offsetHeight;  // 取顶部高 

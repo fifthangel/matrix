@@ -58,6 +58,7 @@ var project = {
 		},
 		
 		openAddDialog : function(){
+			$("#target-add").val("");
 			var dialogId = 'add-dialog-div';   // 弹窗ID
 			window.parent.$.blockUI({
 	            showOverlay:true ,
@@ -82,17 +83,17 @@ var project = {
 			var type_ = 'post';
 			var url_ = 'ajax_api_project_add.do';
 			var data_ = {
-				target : $("#target-add").val(),
-				atype : $("#atype-add").val()
+				target : $("#target-add" , parent.document).val(),
+				atype : $("#atype-add" , parent.document).val()
 			};
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){
-				jAlert(obj.msg , '系统提示' , function(){
+				malert(obj.msg , '系统提示' , function(){
 					project.search();
 					project.closeDialog();
 				});
 			}else{
-				jAlert(obj.msg , '系统提示');
+				malert(obj.msg , '系统提示');
 			}
 		},
 		
@@ -103,7 +104,7 @@ var project = {
 			var id = $(o).attr("eleId"); 
 			var td_ = $("#tr-" + id).children("td")[0];
 			var name = $(td_).text();
-			jPrompt( '请修改项目名称，提交生效! ' , name, '系统提示', function(content) {
+			mprompt( '请修改项目名称，提交生效! ' , name, '系统提示', function(content) {
 				if(content){
 					var type_ = 'post';
 					var url_ = 'ajax_api_project_edit.do';
@@ -115,7 +116,7 @@ var project = {
 					if(obj.status == 'success'){
 						project.search();
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});
@@ -126,7 +127,7 @@ var project = {
 			var td_ = $("#tr-" + id).children("td")[0];
 			var name = $(td_).text();
 			
-			jConfirm('您确定要删除【' + name + '】吗?', '系统提示', function(flag) {
+			mconfirm('您确定要删除【' + name + '】吗?', '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
 					var url_ = 'ajax_api_project_edit.do';
@@ -139,7 +140,7 @@ var project = {
 					if(obj.status == 'success'){
 						project.search();
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});
