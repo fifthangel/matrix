@@ -62,7 +62,7 @@
 	}
 
 	function deleteOne(ele) {
-		jConfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
+		mconfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
 			if (flag) {
 				var type_ = 'post';
 				var url_ = '${basePath}example/ajax_delete_one.do';
@@ -171,13 +171,13 @@
 
 	//搜索
 	function searchUser() {
-		aForm.formPaging(0);
+		aForm.formPaging(1);
 	}
 
 	// 重置查询条件
 	function searchReset() {
 		$(".form-search").val(""); 
-		aForm.formPaging(0);
+		aForm.formPaging(1);
 	}
 </script>
 

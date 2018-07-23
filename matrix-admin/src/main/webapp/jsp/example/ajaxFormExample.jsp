@@ -81,13 +81,13 @@
 
 	//搜索
 	function searchUser() {
-		aForm.formPaging(0);
+		aForm.formPaging(1);
 	}
 
 	// 重置查询条件
 	function searchReset() {
 		$(".form-search").val(""); 
-		aForm.formPaging(0);
+		aForm.formPaging(1);
 	}
 </script>
 

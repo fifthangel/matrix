@@ -53,7 +53,7 @@ var requestInfo = {
 		},
 		
 		search : function(){
-			aForm.formPaging(0);
+			aForm.formPaging(1);
 		},
 		
 		searchReset : function(){
