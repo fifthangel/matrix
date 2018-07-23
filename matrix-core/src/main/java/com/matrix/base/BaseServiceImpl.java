@@ -140,7 +140,7 @@ public class BaseServiceImpl<T, PK extends Serializable> extends BaseClass imple
 	@Override
 	public JSONObject ajaxPageData(T entity, HttpServletRequest request) {
 		JSONObject result = new JSONObject();
-		String pageNum = request.getParameter("pageNum"); // 当前第几页
+		String pageNum = request.getParameter("pageNum"); // 当前第几页 | 必须大于0
 		String pageSize = request.getParameter("pageSize"); // 当前页所显示记录条数
 		int num = 1;
 		int size = 10;
