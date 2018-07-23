@@ -93,12 +93,12 @@ var requestInfo = {
 			var data_ = $("#add-dialog-form" , parent.document).serializeArray() ;
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){
-				jAlert(obj.msg , '系统提示' , function(){
+				malert(obj.msg , '系统提示' , function(){
 					requestInfo.search();
 					requestInfo.closeDialog();
 				});
 			}else{
-				jAlert(obj.msg , '系统提示');
+				malert(obj.msg , '系统提示');
 			}
 		},
 		
@@ -142,7 +142,7 @@ var requestInfo = {
 		editApiRequestInfo:function(){
 			var organization_ = $("#organization-edit" , parent.document).val(); 
 			var atype_ = $("#atype-edit" , parent.document).val(); 
-			jConfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
+			mconfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
 					var url_ = 'ajax_request_info_edit.do';
@@ -157,7 +157,7 @@ var requestInfo = {
 						requestInfo.search();
 						requestInfo.closeDialog();  
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});
@@ -170,7 +170,7 @@ var requestInfo = {
 				msg = '启用';
 			}
 			
-			jConfirm('您确定要' + msg + '【' + $($("#tr-" + id).children("td")[0]).text() + '】吗?', '系统提示', function(flag) {
+			mconfirm('您确定要' + msg + '【' + $($("#tr-" + id).children("td")[0]).text() + '】吗?', '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
 					var url_ = 'ajax_request_info_edit.do';
@@ -183,7 +183,7 @@ var requestInfo = {
 					if(obj.status == 'success'){
 						requestInfo.search();
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});

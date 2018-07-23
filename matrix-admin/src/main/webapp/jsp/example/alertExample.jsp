@@ -16,8 +16,8 @@
 			return false;
 		});
 		/*
-		 * 针对jAlert函数，他支持一个回调方法，也可以像下面这样使用：
-		 		jAlert(obj.msg, '系统提示' , function(){
+		 * 针对malert函数，他支持一个回调方法，也可以像下面这样使用：
+		 		malert(obj.msg, '系统提示' , function(){
 					window.location.href = '${basePath}/manager/sys_user_list_page.do'  
 				});
 		 * 此时会走这个回调函数 

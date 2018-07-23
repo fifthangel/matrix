@@ -62,7 +62,7 @@
 	}
 
 	function deleteOne(ele) {
-		jConfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
+		mconfirm('您确定要删除这条记录吗？', '系统提示', function(flag) {
 			if (flag) {
 				var type_ = 'post';
 				var url_ = '${basePath}example/ajax_delete_one.do';
@@ -74,7 +74,7 @@
 					var currentPageNumber = $(".paginate_active").html(); // 定位到当前分页的页码，然后重新加载数据
 					aForm.formPaging(currentPageNumber);
 				} 
-				jAlert(obj.msg, '系统提示');
+				malert(obj.msg, '系统提示');
 			}
 		});
 	}

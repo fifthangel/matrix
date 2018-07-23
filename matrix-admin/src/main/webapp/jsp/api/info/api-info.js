@@ -99,7 +99,7 @@ var apiInfo = {
         
         // 捕获节点被删除之前的事件 
         beforeRemove: function(treeId , treeNode){ 
-        	// setTimeout("jConfirm('您确定要删除这个节点吗?', '系统提示', function(flag) {return flag;}); ",5000);
+        	// setTimeout("mconfirm('您确定要删除这个节点吗?', '系统提示', function(flag) {return flag;}); ",5000);
         	return true;
         },
         
@@ -236,7 +236,7 @@ var apiInfo = {
             	if(api_.status == 'success'){
             		apiInfo.drawApiEdit(api_);  
             	}else{
-            		jAlert(api_.msg , '系统提示'); 
+            		malert(api_.msg , '系统提示'); 
             	}
             }
         },
@@ -308,7 +308,7 @@ var apiInfo = {
         saveOpenDomain:function(){
         	var arr = new Array();
         	var dcl = new Array();
-        	$("input[name='domainId']:checked").each(function(){ 
+        	$("input[name='domainId']:checked" , window.parent.document).each(function(){ 
         		arr.push($(this).val());
         		dcl.push($(this).attr("domain-data")); 
     		});  
@@ -322,7 +322,7 @@ var apiInfo = {
             var data_ = $("#tree-node-edit").serializeArray();
             var obj = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
 			if(obj.status == 'success'){
-				jAlert(obj.msg , '系统提示' , function(){
+				malert(obj.msg , '系统提示' , function(){
 					var zTree = apiInfo.zTree;
 	            	var parent = zTree.getNodeByTId(apiInfo.currentNode.parentTId);
 	            	var e = obj;
@@ -348,16 +348,16 @@ var apiInfo = {
                     apiInfo.parentNode = null;
 				});
 			}else{
-				jAlert(obj.msg , '系统提示');
+				malert(obj.msg , '系统提示');
 			}
         },
         
         openDiscardWarning:function(o){
         	var val_ = $(o).val();
         	if($(o).val() == 0){
-        		jAlert('选择此项并点击提交按钮后, 系统接口将会立刻熔断! 所有对此接口的访问都会失效!' , '高风险操作!');
+        		malert('选择此项并点击提交按钮后, 系统接口将会立刻熔断! 所有对此接口的访问都会失效!' , '高风险操作!');
         	}else{
-        		jAlert('选择此项并点击提交按钮后, 系统接口将会恢复使用! 如果接口曾因为风险被关闭,请仔细确认并核对后开启!' , '系统提示!');
+        		malert('选择此项并点击提交按钮后, 系统接口将会恢复使用! 如果接口曾因为风险被关闭,请仔细确认并核对后开启!' , '系统提示!');
         	}
         },
         

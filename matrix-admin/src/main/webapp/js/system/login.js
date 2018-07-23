@@ -13,7 +13,7 @@ var login = {
         var object = JSON.parse(ajaxs.sendAjax('post' , url_ , data_));
         if(object.status == 'success'){
         	if(object.data == undefined || object.data == ""){
-        		jAlert("未检查到您有任何权限，请联系系统管理员！" , "系统提示" , function(){
+        		malert("未检查到您有任何权限，请联系系统管理员！" , "系统提示" , function(){
         			return;
         		});
         	}else{
@@ -23,7 +23,7 @@ var login = {
         		window.location.href='manager/page_manager_home.do';
         	}
         }else{
-        	jAlert(object.msg);
+        	malert(object.msg);
         }
     },
 

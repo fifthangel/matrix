@@ -60,7 +60,7 @@
 		<div id="nav-menu" class="subcontent">
 			<div class="contenttitle2" style="margin-top: 5px; margin-bottom: 5px;">
 				<h3>
-					<a herf="javascript:void(0)" onclick="apiInfo.closeNavi('api-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起</a>
+					<a herf="javascript:void(0)" onclick="subpage.apiInfo.closeNavi('api-tree')" class="a-btn" title="收起导航栏从而方便您的操作">收起</a>
 				</h3>
 			</div>
 			<div class="stdform">
@@ -95,7 +95,7 @@
 <!-- 域名列表弹窗 -->
 <div id="ul-dialog-div" class="dialog-page-div" style="display: none;width: 500px;height: 300px">
 	<p class="dialog-title">
-		<a href="javascript:void(0)" onclick="apiInfo.closeDialog()" class="dialog-close"></a>
+		<a href="javascript:void(0)" onclick="subpage.apiInfo.closeDialog()" class="dialog-close"></a>
 		<span>
 			可用域名列表
 		</span>
@@ -121,7 +121,7 @@
 			<p>
 				<span id="dialog-operate" style="position: relative;">
 					<!-- 等待填充 弹窗操作按钮 如添加和修改等等 -->
-					<button type="button"  class="submit radius2 security-btn" key="api_tree:open_domain" style="display:none;width:100px;margin-left: 350px;" onclick="apiInfo.saveOpenDomain();">确认开放</button>
+					<button type="button"  class="submit radius2 security-btn" key="api_tree:open_domain" style="display:none;width:100px;margin-left: 350px;" onclick="subpage.apiInfo.saveOpenDomain();">确认开放</button>
 				</span>
 			</p>
 		</form>

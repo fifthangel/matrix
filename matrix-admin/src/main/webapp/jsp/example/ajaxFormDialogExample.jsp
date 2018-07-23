@@ -75,7 +75,7 @@
 					aForm.formPaging(currentPageNumber);
 				} else {
 				}
-				jAlert(obj.msg, 'title');
+				malert(obj.msg, 'title');
 			}
 		});
 	}

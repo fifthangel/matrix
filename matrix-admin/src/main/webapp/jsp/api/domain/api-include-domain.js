@@ -81,12 +81,12 @@ var domains = {
 			var data_ = $("#add-dialog-table" , parent.document).serializeArray() ;
 			var obj = JSON.parse(ajaxs.sendAjax(type_, url_, data_));
 			if(obj.status == 'success'){
-				jAlert(obj.msg , '系统提示' , function(){
+				malert(obj.msg , '系统提示' , function(){
 					domains.search();
 					domains.closeDialog();
 				});
 			}else{
-				jAlert(obj.msg , '系统提示');
+				malert(obj.msg , '系统提示');
 			}
 		},
 		
@@ -131,7 +131,7 @@ var domains = {
 		editDomain:function(){
 			var domain_ = $("#domain-edit" , parent.document).val(); 
 			var company_ = $("#company-name-edit" , parent.document).val(); 
-			jConfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
+			mconfirm( '您确定要修改这条记录吗? ' , '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
 					var url_ = 'ajax_api_domain_edit.do';
@@ -145,7 +145,7 @@ var domains = {
 						domains.search();
 						domains.closeDialog();  
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});
@@ -156,7 +156,7 @@ var domains = {
 			var domain_ = $($("#tr-" + id).children("td")[0]).text(); 
 			var company_ = $($("#tr-" + id).children("td")[1]).text(); 
 			
-			jConfirm('您确定要删除【' + domain_ + '】吗?', '系统提示', function(flag) {
+			mconfirm('您确定要删除【' + domain_ + '】吗?', '系统提示', function(flag) {
 				if(flag){
 					var type_ = 'post';
 					var url_ = 'ajax_api_domain_edit.do';
@@ -170,7 +170,7 @@ var domains = {
 					if(obj.status == 'success'){
 						domains.search();
 					}else{
-						jAlert(obj.msg , '系统提示');
+						malert(obj.msg , '系统提示');
 					}
 				}
 			});
