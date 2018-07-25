@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @description: 数据返回视图模型基类 | 提供dubbo分布式序列化支持
+ * @description: 实体类基础类
  *
  * @author Yangcl
  * @home https://github.com/PowerYangcl
- * @date 2018年7月24日 上午2:44:55 
+ * @date 2018年7月25日 下午2:16:57 
  * @version 1.0.0.1
  */
-public class BaseView  implements Serializable {
+public class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -7383391233275138625L;
+	private static final long serialVersionUID = -7383391444275138625L;
 
 	private Date createTime;
 	
@@ -84,6 +84,4 @@ public class BaseView  implements Serializable {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
-	
-	
 }
