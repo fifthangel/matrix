@@ -1,22 +1,32 @@
 package com.matrix.pojo.view;
 
-public class McRoleView  {
-	private Integer id;
+import java.util.Date;
+
+import com.matrix.base.BaseView;
+
+public class McRoleView  extends BaseView{
+	
+	private static final long serialVersionUID = -7615697912055073094L;
+	
+	private Long id;
     private String roleName;
-    private String roleDesc;
-    private Integer flag;
-    private String createTime;
-    private String updateTime;
-    private Integer createUserId;
-    private Integer updateUserId;
+    private String roleDesc; 
     private String remark;
-	private Integer userId = -1;  // 一个标识，默认为-1
+	private Date createTime;
+	private Long createUserId;
+	private String createUserName;
+	private Date updateTime;
+	private Long updateUserId;
+	private String updateUserName;
+	private Integer deleteFlag;               // 0 删除 | 1 未删除 数据库记录默认未删除
+	
+	private Long userId = -1L;  // 一个标识，默认为-1
 	
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getRoleName() {
@@ -31,48 +41,58 @@ public class McRoleView  {
 	public void setRoleDesc(String roleDesc) {
 		this.roleDesc = roleDesc;
 	}
-	public Integer getFlag() {
-		return flag;
-	}
-	public void setFlag(Integer flag) {
-		this.flag = flag;
-	}
-	public String getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-	public String getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
-	public Integer getCreateUserId() {
-		return createUserId;
-	}
-	public void setCreateUserId(Integer createUserId) {
-		this.createUserId = createUserId;
-	}
-	public Integer getUpdateUserId() {
-		return updateUserId;
-	}
-	public void setUpdateUserId(Integer updateUserId) {
-		this.updateUserId = updateUserId;
-	}
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public Integer getUserId() {
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Long getCreateUserId() {
+		return createUserId;
+	}
+	public void setCreateUserId(Long createUserId) {
+		this.createUserId = createUserId;
+	}
+	public String getCreateUserName() {
+		return createUserName;
+	}
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	public Long getUpdateUserId() {
+		return updateUserId;
+	}
+	public void setUpdateUserId(Long updateUserId) {
+		this.updateUserId = updateUserId;
+	}
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-
-	
 }
