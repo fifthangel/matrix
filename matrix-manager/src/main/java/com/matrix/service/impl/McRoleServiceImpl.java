@@ -21,7 +21,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcRoleDao;
+import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcUserRoleDao;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.dto.McRoleDto;
@@ -38,7 +38,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
 	@Resource
-	private IMcRoleDao dao;
+	private IMcRoleMapper mcRoleMapper;
 	
 	@Resource
 	private IMcUserRoleDao mcUserRoleDao;
@@ -90,7 +90,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 		role.setCreateUserId(userInfo.getId());
 		role.setUpdateUserId(userInfo.getId());
 		try {
-			int count = dao.insertSelectiveGetZid(role);
+			int count = mcRoleMapper.insertGotEntityId(role); 
 			if(count == 1){
 				result.put("status", "success");
 				result.put("msg", "添加成功");
@@ -136,7 +136,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 		role.setUpdateTime(currentTime);
 		role.setUpdateUserId(userInfo.getId());
 		try {
-			int count = dao.updateSelective(role);
+			int count = mcRoleMapper.updateSelective(role);
 			if(count == 1){
 				result.put("status", "success");
 				result.put("msg", "修改成功");
@@ -188,7 +188,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 		role.setFlag(1); 
 		role.setRoleName(dto.getRoleName()); 
 		PageHelper.startPage(num, size);
-		List<McRoleView> list = dao.queryPageView(role);
+		List<McRoleView> list = mcRoleMapper.queryPageView(role);
 		if (list != null && list.size() > 0) {
 			List<McUserRole> urList = mcUserRoleDao.selectByMcUserId(dto.getUserId());  
 			if(urList != null && urList.size() != 0){

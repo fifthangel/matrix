@@ -12,7 +12,6 @@ public class McRoleDto extends BaseDto{
     private String roleName;
     private String roleDesc;
     private String remark;
-    
 	private Date createTime;
 	private Long createUserId;
 	private String createUserName;

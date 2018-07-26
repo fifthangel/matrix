@@ -10,7 +10,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcRoleDao;
+import com.matrix.dao.IMcRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 /**
  * @description: 如果缓存取值为空则此处做处理
@@ -32,14 +32,14 @@ public class InitMcRole extends BaseClass implements ILoadCache {
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	private List<McRoleCache> list;
 	@Inject
-	private IMcRoleDao roleDao; 
+	private IMcRoleMapper mcRoleMapper; 
 	
 	
 	@Override
 	public String load(String key, String field) {
 		// 这里偷懒，沿用LoadCacheMcRole.java中的方法。
 		try {
-			list = roleDao.findMcRoleDtoList();
+			list = mcRoleMapper.findMcRoleDtoList();
 			if(list != null && list.size() != 0){
 				for(McRoleCache d : list){
 					if(d.getMcRoleId().toString().equals(key)) {

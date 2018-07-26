@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.matrix.dao.IMcRoleDao;
+import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcRoleFunctionDao;
 import com.matrix.dao.IMcSellerCompanyDao;
 import com.matrix.dao.IMcSysFunctionDao;
@@ -29,7 +29,7 @@ public class ManagerCenterServiceImpl implements IManagerCenterService{
 	@Resource
 	private IMcUserInfoDao mcUserInfoDao;
 	@Resource
-	private IMcRoleDao mcRoleDao;
+	private IMcRoleMapper mcRoleMapper;
 	@Resource
 	private IMcRoleFunctionDao mcRoleFunctionDao;
 	@Resource

@@ -22,7 +22,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcRoleDao;
+import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcRoleFunctionDao;
 import com.matrix.dao.IMcSysFunctionDao;
 import com.matrix.dao.IMcUserInfoDao;
@@ -51,7 +51,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	private IMcSysFunctionDao dao;
 	
 	@Resource
-	private IMcRoleDao roleDao;
+	private IMcRoleMapper mcRoleMapper;
 	
 	@Resource
 	private IMcRoleFunctionDao roleFunctionDao;
@@ -188,7 +188,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				if(StringUtils.isNotBlank(request.getParameter("id"))){
 					role.setId(Integer.valueOf(request.getParameter("id")));  
 				}
-				List<McRole> roleList = roleDao.findList(role);
+				List<McRole> roleList = mcRoleMapper.findList(role);
 				if(roleList.size() != 0){
 					for(McRole m : roleList){
 						String json = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(m.getId().toString());
@@ -274,7 +274,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			role.setCreateUserId(userInfo.getId());
 			role.setUpdateUserId(userInfo.getId());
 			try {
-				roleDao.insertSelectiveGetZid(role);
+				mcRoleMapper.insertGotEntityId(role);
 				
 				String[] arr = d.getIds().split(",");
 				for(int i = 0 ; i < arr.length ; i ++){
@@ -332,7 +332,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			role.setUpdateTime(currentTime); 
 			role.setUpdateUserId(userInfo.getId());
 			try {
-				roleDao.updateSelective(role);
+				mcRoleMapper.updateSelective(role);
 				
 				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
 				if(StringUtils.isBlank(d.getRoleName()) && StringUtils.isBlank(d.getRoleDesc())){
@@ -387,7 +387,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("status", "error");
 				result.put("msg", this.getInfo(400010009)); // 该角色已经关联了用户，如果想删除则必选先将用户与该角色解除绑定
 			}else{
-				roleDao.deleteById(d.getMcRoleId());
+				mcRoleMapper.deleteById(d.getMcRoleId());
 				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
 				launch.loadDictCache(DCacheEnum.McRole , null).del(d.getMcRoleId().toString());  
 				result.put("status", "success");

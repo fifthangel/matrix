@@ -8,12 +8,7 @@ import com.matrix.pojo.dto.McRoleDto;
 import com.matrix.pojo.entity.McRole;
 import com.matrix.pojo.view.McRoleView;
 
-public interface IMcRoleDao extends IBaseDao<Integer , McRole , McRoleDto , McRoleView>{
-	
-	
-	
-	
-	public Integer insertSelectiveGetZid(McRole e);
+public interface IMcRoleMapper extends IBaseDao<Integer , McRole , McRoleDto , McRoleView>{
 	
 	public List<McRoleCache> findMcRoleDtoList();
 	

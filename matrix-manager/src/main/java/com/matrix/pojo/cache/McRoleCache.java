@@ -1,15 +1,15 @@
 package com.matrix.pojo.cache;
 
 public class McRoleCache {
-	private Integer mcRoleId;
+	private Long mcRoleId;
 	private String roleName;
 	private String roleDesc;
 	private String ids;
 	
-	public Integer getMcRoleId() {
+	public Long getMcRoleId() {
 		return mcRoleId;
 	}
-	public void setMcRoleId(Integer mcRoleId) {
+	public void setMcRoleId(Long mcRoleId) {
 		this.mcRoleId = mcRoleId;
 	}
 	public String getRoleName() {

@@ -9,9 +9,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcRoleDao;
-import com.matrix.dao.IMcRoleFunctionDao;
-import com.matrix.dao.IMcSysFunctionDao;
+import com.matrix.dao.IMcRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 
 /**
@@ -37,13 +35,13 @@ public class LoadCacheMcRole extends BaseClass implements IBaseCache{
 	private List<McRoleCache> list;
 	 
 	@Inject
-	private IMcRoleDao roleDao; 
+	private IMcRoleMapper mcRoleMapper; 
 	
 	
 	@Override
 	public void refresh() {
 		try {
-			list = roleDao.findMcRoleDtoList();
+			list = mcRoleMapper.findMcRoleDtoList();
 			if(list != null && list.size() != 0){
 				for(McRoleCache d : list){
 					launch.loadDictCache(DCacheEnum.McRole , null).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));
@@ -58,7 +56,7 @@ public class LoadCacheMcRole extends BaseClass implements IBaseCache{
 	@Override
 	public void removeAll() {
 		try {
-			list = roleDao.findMcRoleDtoList();
+			list = mcRoleMapper.findMcRoleDtoList();
 			if(list != null && list.size() != 0){
 				for(McRoleCache d : list){
 					launch.loadDictCache(DCacheEnum.McRole , null).del(d.getMcRoleId().toString()); 

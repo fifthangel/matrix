@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class McRoleFunction {
     private Integer id;
-    private Integer mcRoleId;
+    private Long mcRoleId;
     private Integer mcSysFunctionId;
     private Integer flag;
     private Date createTime;
@@ -20,10 +20,10 @@ public class McRoleFunction {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getMcRoleId() {
+	public Long getMcRoleId() {
 		return mcRoleId;
 	}
-	public void setMcRoleId(Integer mcRoleId) {
+	public void setMcRoleId(Long mcRoleId) {
 		this.mcRoleId = mcRoleId;
 	}
 	public Integer getMcSysFunctionId() {
