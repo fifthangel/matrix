@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.matrix.base.BaseServiceImpl;
-import com.matrix.dao.ISysErrorDao;
-import com.matrix.dao.ISysLockDao;
-import com.matrix.dao.ISysWebcodeDao;
+import com.matrix.dao.ISysErrorMapper;
+import com.matrix.dao.ISysLockMapper;
+import com.matrix.dao.ISysWebcodeMapper;
 import com.matrix.map.MObjMap;
 import com.matrix.pojo.dto.SystemUtil;
 import com.matrix.pojo.entity.SysError;
@@ -18,11 +18,11 @@ import com.matrix.service.ISystemService;
 public class SystemServiceImpl implements ISystemService {
 	
 	@Resource
-	private ISysLockDao sysLockDao;
+	private ISysLockMapper sysLockMapper;
 	@Resource
-	private ISysWebcodeDao sysWebcodeDao;  
+	private ISysWebcodeMapper sysWebcodeMapper;  
 	@Resource
-	private ISysErrorDao sysErrorDao;
+	private ISysErrorMapper sysErrorMapper;
 	
 	public String addLock(String keycode, Integer timeoutSecond, String uuid) {
 		MObjMap<String, Object> param = new MObjMap<String, Object>();
@@ -31,7 +31,7 @@ public class SystemServiceImpl implements ISystemService {
 		param.put("timeoutsecond", timeoutSecond);
 		param.put("lockflag", "1");
 		param.put("uuid", uuid);
-		return sysLockDao.addLock(param);
+		return sysLockMapper.addLock(param);
 	}
 
 	public String unLock(String uuid) {
@@ -41,17 +41,17 @@ public class SystemServiceImpl implements ISystemService {
 		param.put("timeoutsecond", new Integer(0));
 		param.put("lockflag", "2");
 		param.put("uuid", uuid);
-		return sysLockDao.addLock(param);
+		return sysLockMapper.addLock(param);
 	}
 
 	public String getUniqueCode(String codeStart) {
 		MObjMap<String, Object> param = new MObjMap<String, Object>();
 		param.put("code", codeStart);
-		return sysWebcodeDao.callUniqueCode(param); 
+		return sysWebcodeMapper.callUniqueCode(param); 
 	}
 	
 	public Integer addSystemError(SysError entity) {
-		return sysErrorDao.insertSelective(entity); 
+		return sysErrorMapper.insertSelective(entity); 
 	}
 }
 

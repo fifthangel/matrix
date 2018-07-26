@@ -239,7 +239,7 @@ public class BaseServiceImpl<PK extends Serializable , E extends BaseEntity , D 
      * @author Yangcl
      * @version 1.0.0.1
      */
-    public Integer batchDelete(List<Integer> list) {
+    public Integer batchDelete(List<PK> list) {
     	return baseDao.batchDelete(list);
     }
 	
@@ -362,7 +362,7 @@ public class BaseServiceImpl<PK extends Serializable , E extends BaseEntity , D 
      * @date 2018年7月25日 下午3:12:48 
      * @version 1.0.0.1
      */
-    public List<E> selectByPrimaryKey(Integer id){
+    public List<E> selectByPrimaryKey(PK id){
     	return baseDao.selectByPrimaryKey(id);
     }
     

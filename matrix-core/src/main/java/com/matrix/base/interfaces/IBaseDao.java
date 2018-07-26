@@ -189,7 +189,7 @@ public interface IBaseDao<PK extends Serializable , E extends BaseEntity , D ext
      * @author Yangcl
      * @version 1.0.0.1
      */
-    public Integer batchDelete(List<Integer> list);
+    public Integer batchDelete(List<PK> list);
     
     /**
      * @descriptions 根据条件集合删除对象
@@ -336,7 +336,7 @@ public interface IBaseDao<PK extends Serializable , E extends BaseEntity , D ext
      * @date 2018年7月25日 下午3:12:48 
      * @version 1.0.0.1
      */
-    public List<E> selectByPrimaryKey(Integer id);
+    public List<E> selectByPrimaryKey(PK id);
     
     /**
      * @descriptions 根据数据传输对象中的条件进行查询。此方法常用于分组查询：group by 

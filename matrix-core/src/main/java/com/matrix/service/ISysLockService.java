@@ -3,7 +3,7 @@ package com.matrix.service;
 import com.matrix.base.interfaces.IBaseService;
 import com.matrix.pojo.entity.SysLock;
 
-public interface ISysLockService extends IBaseService<SysLock, Integer> {
+public interface ISysLockService {
 	
 	/**
 	 * 

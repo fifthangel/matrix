@@ -4,17 +4,22 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.matrix.base.BaseServiceImpl;
-import com.matrix.dao.ISysLockDao;
+import com.matrix.dao.ISysLockMapper;
 import com.matrix.map.MObjMap;
-import com.matrix.pojo.entity.SysLock;
 import com.matrix.service.ISysLockService;
 
-
+/**
+ * @description: 分布式锁|锁库|准备废弃的类
+ *
+ * @author Yangcl
+ * @home https://github.com/PowerYangcl
+ * @date 2018年7月26日 下午4:03:15 
+ * @version 1.0.0.1
+ */
 @Service("lockService")
-public class SysLockServiceImpl extends BaseServiceImpl<SysLock, Integer> implements ISysLockService {
+public class SysLockServiceImpl  implements ISysLockService {
 	@Resource
-	private ISysLockDao lockDao;
+	private ISysLockMapper sysLockMapper;
 
 	@Override
 	public String addLock(String keycode, Integer timeoutSecond, String uuid) {
@@ -24,7 +29,7 @@ public class SysLockServiceImpl extends BaseServiceImpl<SysLock, Integer> implem
 		param.put("timeoutsecond", timeoutSecond);
 		param.put("lockflag", "1");
 		param.put("uuid", uuid);
-		return lockDao.addLock(param);
+		return sysLockMapper.addLock(param);
 	}
 	
 	@Override
@@ -35,6 +40,18 @@ public class SysLockServiceImpl extends BaseServiceImpl<SysLock, Integer> implem
 		param.put("timeoutsecond", new Integer(0));
 		param.put("lockflag", "2");
 		param.put("uuid", uuid);
-		return lockDao.addLock(param);
+		return sysLockMapper.addLock(param);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
