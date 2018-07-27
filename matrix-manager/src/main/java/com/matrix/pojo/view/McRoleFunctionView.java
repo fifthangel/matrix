@@ -1,9 +1,11 @@
-package com.matrix.pojo.entity;
+package com.matrix.pojo.view;
 
-import com.matrix.base.BaseEntity;
+import com.matrix.base.BaseView;
 
-public class McRoleFunction extends BaseEntity{
-	private static final long serialVersionUID = -4522812598809666306L;
+public class McRoleFunctionView extends BaseView {
+
+	private static final long serialVersionUID = -6150256492091550718L;
+
 	private Long id;
     private Long mcRoleId;
     private Long mcSysFunctionId; 
@@ -34,4 +36,6 @@ public class McRoleFunction extends BaseEntity{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+    
+    
 }

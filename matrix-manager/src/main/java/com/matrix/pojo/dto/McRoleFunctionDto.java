@@ -1,14 +1,14 @@
-package com.matrix.pojo.entity;
+package com.matrix.pojo.dto;
 
-import com.matrix.base.BaseEntity;
+import com.matrix.base.BaseDto;
 
-public class McRoleFunction extends BaseEntity{
-	private static final long serialVersionUID = -4522812598809666306L;
+public class McRoleFunctionDto extends BaseDto{
+
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
     private Long mcRoleId;
-    private Long mcSysFunctionId; 
-    private String remark;
-    
+    private Long mcSysFunctionId;
     
 	public Long getId() {
 		return id;
@@ -27,11 +27,5 @@ public class McRoleFunction extends BaseEntity{
 	}
 	public void setMcSysFunctionId(Long mcSysFunctionId) {
 		this.mcSysFunctionId = mcSysFunctionId;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+	} 
 }

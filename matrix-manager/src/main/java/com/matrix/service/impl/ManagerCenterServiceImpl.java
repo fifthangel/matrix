@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.dao.IMcRoleMapper;
-import com.matrix.dao.IMcRoleFunctionDao;
-import com.matrix.dao.IMcSellerCompanyDao;
+import com.matrix.dao.IMcRoleFunctionMapper;
+import com.matrix.dao.IMcSellerCompanyMapper;
 import com.matrix.dao.IMcSysFunctionDao;
 import com.matrix.dao.IMcUserInfoDao;
 import com.matrix.dao.IMcUserRoleDao;
@@ -31,9 +31,9 @@ public class ManagerCenterServiceImpl implements IManagerCenterService{
 	@Resource
 	private IMcRoleMapper mcRoleMapper;
 	@Resource
-	private IMcRoleFunctionDao mcRoleFunctionDao;
+	private IMcRoleFunctionMapper mcRoleFunctionMapper;
 	@Resource
-	private IMcSellerCompanyDao mcSellerCompanyDao; 
+	private IMcSellerCompanyMapper mcSellerCompanyMapper; 
 	@Resource
 	private IMcSysFunctionDao mcSysFunctionDao;
 	@Resource
@@ -52,8 +52,7 @@ public class ManagerCenterServiceImpl implements IManagerCenterService{
 	public JSONObject companyList() {
 		JSONObject result = new JSONObject();
 		McSellerCompany entity = new McSellerCompany();
-		entity.setFlag(1); 
-		List<McSellerCompany> list = mcSellerCompanyDao.findList(entity);
+		List<McSellerCompany> list = mcSellerCompanyMapper.findList(entity);
 		if(list != null && list.size() > 0){
 			result.put("status" , "success");
 			result.put("list" , list);

@@ -1,13 +1,11 @@
-package com.matrix.pojo.entity;
+package com.matrix.pojo.view;
 
-import java.util.Date;
+import com.matrix.base.BaseView;
 
-import com.matrix.base.BaseEntity;
+public class McSellerCompanyView extends BaseView{
 
-public class McSellerCompany extends BaseEntity{
-	
-	private static final long serialVersionUID = -8869116017964897410L;
-	
+	private static final long serialVersionUID = -2275629156971139686L;
+
 	private Long id;
     private String mcCompanyName;
     private String remark;

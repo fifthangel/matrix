@@ -23,7 +23,7 @@ import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcRoleMapper;
-import com.matrix.dao.IMcRoleFunctionDao;
+import com.matrix.dao.IMcRoleFunctionMapper;
 import com.matrix.dao.IMcSysFunctionDao;
 import com.matrix.dao.IMcUserInfoDao;
 import com.matrix.dao.IMcUserRoleDao;
@@ -54,7 +54,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	private IMcRoleMapper mcRoleMapper;
 	
 	@Resource
-	private IMcRoleFunctionDao roleFunctionDao;
+	private IMcRoleFunctionMapper mcRoleFunctionMapper;
 	
 	@Resource
 	private IMcUserRoleDao userRoleDao;
@@ -287,7 +287,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 					rf.setUpdateTime(createTime);
 					rf.setCreateUserId(userInfo.getId());
 					rf.setUpdateUserId(userInfo.getId());
-					roleFunctionDao.insertSelective(rf);
+					mcRoleFunctionMapper.insertSelective(rf);
 				}
 				result.put("status", "success");
 				d.setMcRoleId(role.getId()); 
@@ -334,7 +334,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			try {
 				mcRoleMapper.updateSelective(role);
 				
-				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
+				mcRoleFunctionMapper.deleteByMcRoleId(d.getMcRoleId()); 
 				if(StringUtils.isBlank(d.getRoleName()) && StringUtils.isBlank(d.getRoleDesc())){
 					McRoleCache o = JSONObject.parseObject(launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(d.getMcRoleId().toString()), McRoleCache.class);
 					d.setRoleName(o.getRoleName());
@@ -352,7 +352,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 					rf.setUpdateTime(currentTime);
 					rf.setCreateUserId(userInfo.getId());
 					rf.setUpdateUserId(userInfo.getId());
-					roleFunctionDao.insertSelective(rf);
+					mcRoleFunctionMapper.insertSelective(rf);
 				}
 				result.put("status", "success");
 				launch.loadDictCache(DCacheEnum.McRole , null).set(d.getMcRoleId().toString() , JSONObject.toJSONString(d));  
@@ -388,7 +388,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				result.put("msg", this.getInfo(400010009)); // 该角色已经关联了用户，如果想删除则必选先将用户与该角色解除绑定
 			}else{
 				mcRoleMapper.deleteById(d.getMcRoleId());
-				roleFunctionDao.deleteByMcRoleId(d.getMcRoleId()); 
+				mcRoleFunctionMapper.deleteByMcRoleId(d.getMcRoleId()); 
 				launch.loadDictCache(DCacheEnum.McRole , null).del(d.getMcRoleId().toString());  
 				result.put("status", "success");
 			}
