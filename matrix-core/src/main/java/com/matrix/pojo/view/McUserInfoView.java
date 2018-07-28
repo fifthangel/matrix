@@ -2,6 +2,8 @@ package com.matrix.pojo.view;
 
 import java.util.Date;
 
+import com.matrix.base.BaseView;
+
 
 /**
  * @description: 多表联合视图
@@ -11,19 +13,22 @@ import java.util.Date;
  * @date 2016年11月25日 下午3:05:01 
  * @version 1.0.0
  */
-public class McUserInfoView{
-//	McUserInfo实体数据
-	private Integer id; 
+public class McUserInfoView extends BaseView{
+	
+	private static final long serialVersionUID = 3770893646228836140L;
+	
+	//	McUserInfo实体数据
+	private Long id; 
     private String userName;
     private String password;
-    private Integer flag;
     private String idcard;
     private Integer sex;
     private Date birthday;
     private String mobile;
     private String email;
-    private Date createTime;
     private String remark;
+    private Date createTime;
+    private Integer deleteFlag;
     
 //    McUserInfoExt实体数据
     private String picUrl;
@@ -31,10 +36,10 @@ public class McUserInfoView{
     private String platform;
     
     
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUserName() {
@@ -48,12 +53,6 @@ public class McUserInfoView{
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public Integer getFlag() {
-		return flag;
-	}
-	public void setFlag(Integer flag) {
-		this.flag = flag;
 	}
 	public String getIdcard() {
 		return idcard;
@@ -85,17 +84,23 @@ public class McUserInfoView{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public String getRemark() {
-		return remark;
+	public Integer getDeleteFlag() {
+		return deleteFlag;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 	public String getPicUrl() {
 		return picUrl;
@@ -116,3 +121,30 @@ public class McUserInfoView{
 		this.platform = platform;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

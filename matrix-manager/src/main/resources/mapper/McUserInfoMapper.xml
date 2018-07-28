@@ -3,11 +3,10 @@
 <mapper namespace="com.matrix.dao.IMcUserInfoDao">
 
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.McUserInfo">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="mc_seller_company_id" property="mcSellerCompanyId" jdbcType="INTEGER" />
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="mc_seller_company_id" property="mcSellerCompanyId" jdbcType="BIGINT" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="flag" property="flag" jdbcType="INTEGER" />
 		<result column="idcard" property="idcard" jdbcType="VARCHAR" />
 		<result column="sex" property="sex" jdbcType="INTEGER" />
 		<result column="birthday" property="birthday" jdbcType="DATE" />
@@ -15,6 +14,14 @@
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+		
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+		<result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+		<result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
 	</resultMap>
 	
 	
@@ -25,7 +32,7 @@
 			i.id as id,
 			i.user_name as userName,
 			i.password as password,
-			i.flag as flag,
+			i.delete_flag as deleteFlag,
 			i.idcard as idcard,
 			i.sex as sex,
 			i.birthday as birthday,
@@ -39,19 +46,19 @@
 		from 
 			managercenter.mc_user_info i left join managercenter.mc_user_info_ext e on i.id = e.user_info_id
 		where 
-			i.user_name=#{userName} 
+			i.user_name = #{userName} 
 		and 
-			i.password=#{password} 
+			i.password = #{password} 
 		and
-			i.flag = 2
+			i.delete_flag = 1
 	</select>
 	
-	<select id="loadUserInfo" parameterType="java.lang.Integer" resultMap="McUserInfoViewMap">
+	<select id="loadUserInfo" parameterType="java.lang.Long" resultMap="McUserInfoViewMap">
 		select 
 			i.id as id,
 			i.user_name as userName,
 			i.password as password,
-			i.flag as flag,
+			i.delete_flag as deleteFlag,
 			i.idcard as idcard,
 			i.sex as sex,
 			i.birthday as birthday,
@@ -65,9 +72,9 @@
 		from 
 			managercenter.mc_user_info i left join managercenter.mc_user_info_ext e on i.id = e.user_info_id
 		where 
-			i.flag = 2 
+			i.delete_flag = 1 
 		and
-			i.id = #{id , jdbcType=INTEGER}  
+			i.id = #{id , jdbcType=BIGINT}  
 	</select>
 	
 	<select id="loadUserInfoList"  resultMap="McUserInfoViewMap">
@@ -75,7 +82,7 @@
 			i.id as id,
 			i.user_name as userName,
 			i.password as password,
-			i.flag as flag,
+			i.delete_flag as deleteFlag,
 			i.idcard as idcard,
 			i.sex as sex,
 			i.birthday as birthday,
@@ -89,16 +96,16 @@
 		from 
 			managercenter.mc_user_info i left join managercenter.mc_user_info_ext e on i.id = e.user_info_id
 		where 
-			i.flag = 2  
+			i.delete_flag = 1  
 	</select>
 	
-	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="find" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 			* 
 		from 
 			managercenter.mc_user_info
 		where 
-			id = #{id,jdbcType=INTEGER} and flag = 2 
+			id = #{id , jdbcType=BIGINT} and delete_flag = 1
 	</select>
 	
 	<select id="queryPage" parameterType="com.matrix.pojo.entity.McUserInfo" resultMap="BaseResultMap">
@@ -107,7 +114,7 @@
 		from 
 			managercenter.mc_user_info 
 		<where>
-			flag = 2  
+			delete_flag = 1  
 			<if test="userName != null and userName != ''  ">
 				and user_name = #{userName , jdbcType=VARCHAR}
 			</if>
@@ -128,8 +135,24 @@
 		from
 		  managercenter.`mc_user_info` info left join managercenter.`mc_user_role` ur on info.id = ur.mc_user_id 
 		where 
-			ur.id is null and info.flag = 2 
+			ur.id is null and info.delete_flag = 1
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<delete id="deleteById" parameterType="java.lang.Integer">

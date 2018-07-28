@@ -2,22 +2,27 @@ package com.matrix.pojo.dto;
 
 import java.util.Date;
 
-public class McUserInfoDto {
-    private Integer id;
-    private Integer mcSellerCompanyId;
+import com.matrix.base.BaseDto;
+
+public class McUserInfoDto extends BaseDto{
+	
+	private static final long serialVersionUID = 4629549271113492123L;
+	
+	private Long id;
+    private Long mcSellerCompanyId;
     private String userName;
     private Date createTime;
     
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getMcSellerCompanyId() {
+	public Long getMcSellerCompanyId() {
 		return mcSellerCompanyId;
 	}
-	public void setMcSellerCompanyId(Integer mcSellerCompanyId) {
+	public void setMcSellerCompanyId(Long mcSellerCompanyId) {
 		this.mcSellerCompanyId = mcSellerCompanyId;
 	}
 	public String getUserName() {

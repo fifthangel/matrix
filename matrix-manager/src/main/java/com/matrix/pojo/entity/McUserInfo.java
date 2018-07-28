@@ -2,30 +2,32 @@ package com.matrix.pojo.entity;
 
 import java.util.Date;
 
-public class McUserInfo {
-    private Integer id;
-    private Integer mcSellerCompanyId;
+import com.matrix.base.BaseEntity;
+
+public class McUserInfo extends BaseEntity{
+
+	private static final long serialVersionUID = 7497311251212822363L;
+	private Long id;
+    private Long mcSellerCompanyId;
     private String userName;
     private String password;
-    private Integer flag;
     private String idcard;
     private Integer sex;
     private Date birthday;
     private String mobile;
     private String email;
-    private Date createTime;
     private String remark;
     
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getMcSellerCompanyId() {
+	public Long getMcSellerCompanyId() {
 		return mcSellerCompanyId;
 	}
-	public void setMcSellerCompanyId(Integer mcSellerCompanyId) {
+	public void setMcSellerCompanyId(Long mcSellerCompanyId) {
 		this.mcSellerCompanyId = mcSellerCompanyId;
 	}
 	public String getUserName() {
@@ -39,12 +41,6 @@ public class McUserInfo {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public Integer getFlag() {
-		return flag;
-	}
-	public void setFlag(Integer flag) {
-		this.flag = flag;
 	}
 	public String getIdcard() {
 		return idcard;
@@ -76,12 +72,6 @@ public class McUserInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 	public String getRemark() {
 		return remark;
 	}
@@ -89,3 +79,27 @@ public class McUserInfo {
 		this.remark = remark;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

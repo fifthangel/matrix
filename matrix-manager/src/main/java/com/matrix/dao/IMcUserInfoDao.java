@@ -2,15 +2,17 @@ package com.matrix.dao;
 
 import java.util.List;
 
+import com.matrix.base.BaseView;
 import com.matrix.base.interfaces.IBaseDao;
+import com.matrix.pojo.dto.McUserInfoDto;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.view.McUserInfoView;
 
-public interface IMcUserInfoDao extends IBaseDao<McUserInfo, Integer>{ 
+public interface IMcUserInfoDao extends IBaseDao<Long , McUserInfo , McUserInfoDto , BaseView>{ 
 	
 	public McUserInfoView login(McUserInfo entity);
 	
-	public McUserInfoView loadUserInfo(Integer id); 
+	public McUserInfoView loadUserInfo(Long id); 
 	
 	public List<McUserInfoView> loadUserInfoList();
 
