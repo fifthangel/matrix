@@ -2,9 +2,14 @@ package com.matrix.pojo.entity;
 
 import java.util.Date;
 
-public class McSysFunction {
-    private Integer id;
-    private Integer mcSellerCompanyId;
+import com.matrix.base.BaseEntity;
+
+public class McSysFunction extends BaseEntity{
+	
+	private static final long serialVersionUID = 5229443632033099730L;
+	
+	private Long id;
+    private Long mcSellerCompanyId;
     private String name;
     private String parentId;
     private Integer seqnum;
@@ -12,13 +17,7 @@ public class McSysFunction {
     private String styleClass;
     private String styleKey;
     private String funcUrl;
-    private Integer flag;
-    private Date createTime;
-    private Date updateTime;
-    private Integer createUserId;
-    private Integer updateUserId;
     private String remark;
-    
     /**
      * 按钮节点所在页面的位置，只有只有导航树的最后一层：按钮节点才会有。
      * 	10001：功能区域(在查询区域上部。如：添加按钮、导出按钮等等)；
@@ -26,36 +25,23 @@ public class McSysFunction {
      * 	10003：数据区域 (即：页面列表所在区域。如：编辑、修改、删除、授权、弹出层等等，多数为a标签。)
      */
     private String btnArea; 
-    
     /**
      * 元素ID标识 配合btn_area使用。btnArea = 10003，则eleValue在页面表达为一个类(html class)
      * btnArea = 10001 或 btnArea = 10002 则eleValue在页面表达为一个id(html id)
      */
-    private String eleValue;   
+    private String eleValue;
     
     
-	public String getBtnArea() {
-		return btnArea;
-	}
-	public void setBtnArea(String btnArea) {
-		this.btnArea = btnArea;
-	}
-	public String getEleValue() {
-		return eleValue;
-	}
-	public void setEleValue(String eleValue) {
-		this.eleValue = eleValue;
-	}
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getMcSellerCompanyId() {
+	public Long getMcSellerCompanyId() {
 		return mcSellerCompanyId;
 	}
-	public void setMcSellerCompanyId(Integer mcSellerCompanyId) {
+	public void setMcSellerCompanyId(Long mcSellerCompanyId) {
 		this.mcSellerCompanyId = mcSellerCompanyId;
 	}
 	public String getName() {
@@ -100,40 +86,61 @@ public class McSysFunction {
 	public void setFuncUrl(String funcUrl) {
 		this.funcUrl = funcUrl;
 	}
-	public Integer getFlag() {
-		return flag;
-	}
-	public void setFlag(Integer flag) {
-		this.flag = flag;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	public Integer getCreateUserId() {
-		return createUserId;
-	}
-	public void setCreateUserId(Integer createUserId) {
-		this.createUserId = createUserId;
-	}
-	public Integer getUpdateUserId() {
-		return updateUserId;
-	}
-	public void setUpdateUserId(Integer updateUserId) {
-		this.updateUserId = updateUserId;
-	}
 	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	public String getBtnArea() {
+		return btnArea;
+	}
+	public void setBtnArea(String btnArea) {
+		this.btnArea = btnArea;
+	}
+	public String getEleValue() {
+		return eleValue;
+	}
+	public void setEleValue(String eleValue) {
+		this.eleValue = eleValue;
+	}   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
