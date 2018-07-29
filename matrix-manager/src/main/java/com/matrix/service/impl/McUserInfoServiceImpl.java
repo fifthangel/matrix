@@ -17,8 +17,8 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcUserInfoDao;
-import com.matrix.dao.IMcUserInfoExtDao;
+import com.matrix.dao.IMcUserInfoMapper;
+import com.matrix.dao.IMcUserInfoExtMapper;
 import com.matrix.dao.IMcUserRoleDao;
 import com.matrix.pojo.dto.McUserRoleDto;
 import com.matrix.pojo.entity.McUserInfo;
@@ -42,13 +42,13 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
 	@Resource
-	private IMcUserInfoDao mcUserInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	
 	@Resource
 	private IMcUserRoleDao mcUserRoleDao;
 	
 	@Resource
-	private IMcUserInfoExtDao mcUserInfoExtDao;
+	private IMcUserInfoExtMapper mcUserInfoExtMapper;
 	
 	/**
 	 * @description: 用户登录操作
@@ -150,13 +150,13 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		info.setRemark("admin create this user"); 
 		
 		try {
-			int count = mcUserInfoDao.insertSelectiveGetZid(info);
+			int count = mcUserInfoMapper.insertSelectiveGetZid(info);
 			if(count == 1){
 				McUserInfoExt e = new McUserInfoExt();
 				e.setUserInfoId(info.getId()); 
-				mcUserInfoExtDao.insertSelective(e);
+				mcUserInfoExtMapper.insertSelective(e);
 				
-				McUserInfoView view = mcUserInfoDao.loadUserInfo(info.getId());
+				McUserInfoView view = mcUserInfoMapper.loadUserInfo(info.getId());
 				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
 				
 				result.put("status", "success");
@@ -197,12 +197,12 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		info.setRemark("admin edit this user"); 
 		
 		try {
-			McUserInfoView view = mcUserInfoDao.loadUserInfo(info.getId());
+			McUserInfoView view = mcUserInfoMapper.loadUserInfo(info.getId());
 			launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
-			int count = mcUserInfoDao.updateSelective(info);
+			int count = mcUserInfoMapper.updateSelective(info);
 			if(count == 1){
 				// TODO 以后会更新mc_user_info_ext表
-				McUserInfoView view_ = mcUserInfoDao.loadUserInfo(info.getId());
+				McUserInfoView view_ = mcUserInfoMapper.loadUserInfo(info.getId());
 				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view_.getUserName()+view_.getPassword() , JSONObject.toJSONString(view_));
 				result.put("status", "success");
 				result.put("msg", "修改成功");
@@ -234,13 +234,13 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			return result;
 		}
 		try {
-			McUserInfoView view = mcUserInfoDao.loadUserInfo(id);
-			int count = mcUserInfoDao.deleteById(id);   
+			McUserInfoView view = mcUserInfoMapper.loadUserInfo(id);
+			int count = mcUserInfoMapper.deleteById(id);   
 			int count_ = 1;
 			if(StringUtils.isNotBlank(launch.loadDictCache(DCacheEnum.McUserRole , "InitMcUserRole").get(id.toString()))) {
 				count_ = mcUserRoleDao.deleteByUserId(id); // 确定该用户有角色被分配才去删除
 			}
-			int cout__ = mcUserInfoExtDao.deleteByUserId(id);  // 删除mc_user_info_ext表的用户扩展信息 
+			int cout__ = mcUserInfoExtMapper.deleteByUserId(id);  // 删除mc_user_info_ext表的用户扩展信息 
 			if(count == 1 && count_ == 1 && cout__ == 1){
 				launch.loadDictCache(DCacheEnum.McUserRole , null).del(id.toString());
 				launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
@@ -264,9 +264,9 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		McUserInfoExt e = new McUserInfoExt();
 		e.setUserInfoId(dto.getId());
 		e.setPageCss(dto.getPageCss()); 
-		mcUserInfoExtDao.updateSelectiveByUserId(e);
+		mcUserInfoExtMapper.updateSelectiveByUserId(e);
 		
-		McUserInfoView view = mcUserInfoDao.loadUserInfo(dto.getId());
+		McUserInfoView view = mcUserInfoMapper.loadUserInfo(dto.getId());
 		launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
 		
 		return null;

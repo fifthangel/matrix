@@ -8,7 +8,7 @@ import com.matrix.pojo.dto.McUserInfoDto;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.view.McUserInfoView;
 
-public interface IMcUserInfoDao extends IBaseDao<Long , McUserInfo , McUserInfoDto , BaseView>{ 
+public interface IMcUserInfoMapper extends IBaseDao<Long , McUserInfo , McUserInfoDto , BaseView>{ 
 	
 	public McUserInfoView login(McUserInfo entity);
 	

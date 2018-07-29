@@ -24,8 +24,8 @@ import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcRoleFunctionMapper;
-import com.matrix.dao.IMcSysFunctionDao;
-import com.matrix.dao.IMcUserInfoDao;
+import com.matrix.dao.IMcSysFunctionMapper;
+import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserRoleDao;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.cache.McUserRoleCache;
@@ -48,7 +48,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
 	@Resource
-	private IMcSysFunctionDao dao;
+	private IMcSysFunctionMapper mcSysFunctionMapper;
 	
 	@Resource
 	private IMcRoleMapper mcRoleMapper;
@@ -60,7 +60,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	private IMcUserRoleDao userRoleDao;
 	
 	@Resource
-	private IMcUserInfoDao mcUserInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	
 	/**
 	 * @description: 添加一个节点到数据库
@@ -85,7 +85,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 //				entity.setEleValue("btn-" + UuidUtil.uid()); 
 			}
 			
-			int count = dao.insertSelective(entity);
+			int count = mcSysFunctionMapper.insertSelective(entity);
 			if(count == 1){
 				result.put("status", "success");
 				result.put("msg", "添加成功!");
@@ -119,7 +119,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
 			entity.setUpdateTime(new Date());
 			entity.setUpdateUserId(userInfo.getId());
-			int count = dao.updateSelective(entity);
+			int count = mcSysFunctionMapper.updateSelective(entity);
 			if(count == 1){
 				result.put("status", "success");
 				result.put("msg", "修改成功!");
@@ -157,7 +157,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			e.setSeqnum( Integer.valueOf(arr[i].split("@")[1]) );
 			e.setUpdateTime(new Date());
 			e.setUpdateUserId(userInfo.getId());
-			dao.updateSelective(e);
+			mcSysFunctionMapper.updateSelective(e);
 			// 开始修改缓存
 			launch.loadDictCache(DCacheEnum.McSysFunc , null).set(e.getId().toString(), JSONObject.toJSONString(e)); 
 		}
@@ -177,7 +177,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		JSONObject result = new JSONObject();
 		McSysFunction e = new McSysFunction();	
 		e.setFlag(1);
-		List<McSysFunction> list = dao.findList(e);
+		List<McSysFunction> list = mcSysFunctionMapper.findList(e);
 		if (list != null && list.size() > 0) {
 			result.put("status", "success");
 			result.put("list", list);
@@ -231,7 +231,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			list.add(Integer.valueOf(s));
 		}
 		
-		Integer flag = dao.deleteByIds(list);
+		Integer flag = mcSysFunctionMapper.deleteByIds(list);
 		if(flag != 0){
 			result.put("status", "success");
 			result.put("msg", this.getInfo(400010001)); // 删除成功

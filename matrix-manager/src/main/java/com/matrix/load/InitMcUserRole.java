@@ -14,7 +14,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcUserInfoDao;
+import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserRoleDao;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.cache.McUserRoleCache;
@@ -33,7 +33,7 @@ public class InitMcUserRole extends BaseClass implements ILoadCache {
 	
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	@Inject
-	private IMcUserInfoDao userInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	@Inject
 	private IMcUserRoleDao userRoleDao;
 	
@@ -41,7 +41,7 @@ public class InitMcUserRole extends BaseClass implements ILoadCache {
 	@Override
 	public String load(String key, String field) {
 		// 这里偷懒，沿用LoadCacheUserRole.java中的方法。
-		List<McUserInfo> list = userInfoDao.queryPage(null);
+		List<McUserInfo> list = mcUserInfoMapper.queryPage(null);
 		if(list != null && list.size() != 0){
 			for(McUserInfo u : list){
 				if(u.getId().toString().equals(key)) {

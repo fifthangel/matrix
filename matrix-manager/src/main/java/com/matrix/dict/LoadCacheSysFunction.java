@@ -10,7 +10,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcSysFunctionDao;
+import com.matrix.dao.IMcSysFunctionMapper;
 import com.matrix.pojo.entity.McSysFunction;
 
 /**
@@ -49,13 +49,12 @@ public class LoadCacheSysFunction extends BaseClass implements IBaseCache {
 	private List<McSysFunction> list;
 	
 	@Inject
-	private IMcSysFunctionDao sysFunctionDao; 
+	private IMcSysFunctionMapper mcSysFunctionMapper; 
 	
 	public void refresh() {
 		try {
 			McSysFunction e = new McSysFunction();
-			e.setFlag(1); 
-			list = sysFunctionDao.getSysFuncList(e); 
+			list = mcSysFunctionMapper.getSysFuncList(e); 
 			if(list != null && list.size() != 0){
 				for(McSysFunction f : list){
 					launch.loadDictCache(DCacheEnum.McSysFunc , null).set(f.getId().toString(), JSONObject.toJSONString(f));
@@ -70,8 +69,8 @@ public class LoadCacheSysFunction extends BaseClass implements IBaseCache {
 	public void removeAll() {
 		try {
 			McSysFunction e = new McSysFunction();
-			e.setFlag(1); 
-			list = sysFunctionDao.getSysFuncList(e); 
+//			e.setFlag(1); 
+			list = mcSysFunctionMapper.getSysFuncList(e); 
 			if(list != null && list.size() != 0){
 				for(McSysFunction f : list){
 					launch.loadDictCache(DCacheEnum.McSysFunc , null).del(f.getId().toString());  

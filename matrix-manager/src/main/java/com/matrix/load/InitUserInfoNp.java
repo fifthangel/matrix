@@ -10,7 +10,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcUserInfoDao;
+import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.pojo.view.McUserInfoView;
 /**
  * @description: 如果缓存取值为空则此处做处理
@@ -39,12 +39,12 @@ import com.matrix.pojo.view.McUserInfoView;
 public class InitUserInfoNp extends BaseClass implements ILoadCache {
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	@Inject
-	private IMcUserInfoDao mcUserInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	
 	@Override
 	public String load(String key, String field) {
 		// 这里偷懒，沿用LoadCacheMcUserInfo.java中的方法。
-		List<McUserInfoView> list = mcUserInfoDao.loadUserInfoList();
+		List<McUserInfoView> list = mcUserInfoMapper.loadUserInfoList();
 		if(list != null && list.size() != 0){
 			for(McUserInfoView view :list){
 				if( (view.getUserName()+view.getPassword()).equals(key) ) {

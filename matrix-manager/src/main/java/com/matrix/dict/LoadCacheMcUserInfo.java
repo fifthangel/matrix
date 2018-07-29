@@ -10,7 +10,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcUserInfoDao;
+import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.pojo.view.McUserInfoView;
 
 /**
@@ -44,12 +44,12 @@ public class LoadCacheMcUserInfo  extends BaseClass implements IBaseCache{
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
 	@Inject
-	private IMcUserInfoDao mcUserInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	
 	
 	@Override
 	public void refresh() {
-		List<McUserInfoView> list = mcUserInfoDao.loadUserInfoList();
+		List<McUserInfoView> list = mcUserInfoMapper.loadUserInfoList();
 		if(list != null && list.size() != 0){
 			for(McUserInfoView view :list){
 				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));

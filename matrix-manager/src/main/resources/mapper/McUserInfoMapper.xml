@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.matrix.dao.IMcUserInfoDao">
+<mapper namespace="com.matrix.dao.IMcUserInfoMapper">
 
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.McUserInfo">
 		<id column="id" property="id" jdbcType="BIGINT" />
@@ -139,24 +139,8 @@
 	</select>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from managercenter.mc_user_info where id = #{id , jdbcType=INTEGER}
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from managercenter.mc_user_info where id = #{id , jdbcType=BIGINT}
 	</delete>
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.McUserInfo">
@@ -174,9 +158,6 @@
 			<if test="password != null">
 				password,
 			</if>
-			<if test="flag != null">
-				flag,
-			</if>
 			<if test="idcard != null">
 				idcard,
 			</if>
@@ -192,28 +173,44 @@
 			<if test="email != null">
 				email,
 			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			
 			<if test="createTime != null">
 				create_time,
 			</if>
-			<if test="remark != null">
-				remark,
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
-				#{id,jdbcType=INTEGER},
+				#{id , jdbcType=BIGINT},
 			</if>
 			<if test="mcSellerCompanyId != null">
-				#{mcSellerCompanyId,jdbcType=INTEGER},
+				#{mcSellerCompanyId , jdbcType=BIGINT},
 			</if>
 			<if test="userName != null">
 				#{userName,jdbcType=VARCHAR},
 			</if>
 			<if test="password != null">
 				#{password,jdbcType=VARCHAR},
-			</if>
-			<if test="flag != null">
-				#{flag,jdbcType=INTEGER},
 			</if>
 			<if test="idcard != null">
 				#{idcard,jdbcType=VARCHAR},
@@ -230,11 +227,30 @@
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="remark != null">
 				#{remark,jdbcType=LONGVARCHAR},
+			</if>
+			
+			<if test="createTime != null">
+				#{createTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId , jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId , jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag != null">
+				#{deleteFlag , jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>
@@ -254,9 +270,6 @@
 			<if test="password != null">
 				password,
 			</if>
-			<if test="flag != null">
-				flag,
-			</if>
 			<if test="idcard != null">
 				idcard,
 			</if>
@@ -272,28 +285,44 @@
 			<if test="email != null">
 				email,
 			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			
 			<if test="createTime != null">
 				create_time,
 			</if>
-			<if test="remark != null">
-				remark,
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
-				#{id,jdbcType=INTEGER},
+				#{id , jdbcType=BIGINT},
 			</if>
 			<if test="mcSellerCompanyId != null">
-				#{mcSellerCompanyId,jdbcType=INTEGER},
+				#{mcSellerCompanyId , jdbcType=BIGINT},
 			</if>
 			<if test="userName != null">
 				#{userName,jdbcType=VARCHAR},
 			</if>
 			<if test="password != null">
 				#{password,jdbcType=VARCHAR},
-			</if>
-			<if test="flag != null">
-				#{flag,jdbcType=INTEGER},
 			</if>
 			<if test="idcard != null">
 				#{idcard,jdbcType=VARCHAR},
@@ -310,11 +339,30 @@
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="remark != null">
 				#{remark,jdbcType=LONGVARCHAR},
+			</if>
+			
+			<if test="createTime != null">
+				#{createTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId , jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId , jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag != null">
+				#{deleteFlag , jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>
@@ -323,18 +371,14 @@
 		update managercenter.mc_user_info
 		<set>
 			<if test="mcSellerCompanyId != null">
-				mc_seller_company_id =
-				#{mcSellerCompanyId,jdbcType=INTEGER},
+				mc_seller_company_id = #{mcSellerCompanyId , jdbcType=BIGINT},
 			</if>
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},
 			</if>
 			<if test="password != null">
 				password = #{password,jdbcType=VARCHAR},
-			</if>
-			<if test="flag != null">
-				flag = #{flag,jdbcType=INTEGER},
-			</if>
+			</if> 
 			<if test="idcard != null">
 				idcard = #{idcard,jdbcType=VARCHAR},
 			</if>
@@ -350,14 +394,25 @@
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
 			<if test="remark != null">
 				remark = #{remark,jdbcType=LONGVARCHAR},
 			</if>
+			
+			<if test="updateTime != null">
+				update_time = #{updateTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				update_user_id = #{updateUserId , jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				update_user_name = #{updateUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag , jdbcType=INTEGER},
+			</if>
+			
 		</set>
-		where id = #{id,jdbcType=INTEGER}
+		where id = #{id , jdbcType=BIGINT}
 	</update>
 </mapper>
 

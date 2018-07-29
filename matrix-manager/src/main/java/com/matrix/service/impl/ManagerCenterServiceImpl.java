@@ -10,8 +10,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcRoleFunctionMapper;
 import com.matrix.dao.IMcSellerCompanyMapper;
-import com.matrix.dao.IMcSysFunctionDao;
-import com.matrix.dao.IMcUserInfoDao;
+import com.matrix.dao.IMcSysFunctionMapper;
+import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserRoleDao;
 import com.matrix.pojo.entity.McSellerCompany;
 import com.matrix.service.IManagerCenterService;
@@ -27,7 +27,7 @@ import com.matrix.service.IManagerCenterService;
 @Service("managerCenterService")
 public class ManagerCenterServiceImpl implements IManagerCenterService{
 	@Resource
-	private IMcUserInfoDao mcUserInfoDao;
+	private IMcUserInfoMapper mcUserInfoMapper;
 	@Resource
 	private IMcRoleMapper mcRoleMapper;
 	@Resource
@@ -35,7 +35,7 @@ public class ManagerCenterServiceImpl implements IManagerCenterService{
 	@Resource
 	private IMcSellerCompanyMapper mcSellerCompanyMapper; 
 	@Resource
-	private IMcSysFunctionDao mcSysFunctionDao;
+	private IMcSysFunctionMapper mcSysFunctionMapper;
 	@Resource
 	private IMcUserRoleDao mcUserRoleDao ;
 	

@@ -10,7 +10,7 @@ import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
-import com.matrix.dao.IMcSysFunctionDao;
+import com.matrix.dao.IMcSysFunctionMapper;
 import com.matrix.pojo.entity.McSysFunction;
 /**
  * @description: 如果缓存取值为空则此处做处理
@@ -44,7 +44,7 @@ public class InitMcSysFunc extends BaseClass implements ILoadCache {
 
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	@Inject
-	private IMcSysFunctionDao sysFunctionDao; 
+	private IMcSysFunctionMapper mcSysFunctionMapper; 
 	
 	private List<McSysFunction> list;
 	
@@ -53,8 +53,8 @@ public class InitMcSysFunc extends BaseClass implements ILoadCache {
 		// 这里偷懒，沿用LoadCacheSysFunction.java中的方法。
 		try{
 			McSysFunction e = new McSysFunction();
-			e.setFlag(1); 
-			list = sysFunctionDao.getSysFuncList(e); 
+//			e.setFlag(1); 
+			list = mcSysFunctionMapper.getSysFuncList(e); 
 			if(list != null && list.size() != 0){
 				for(McSysFunction f : list){
 					if(f.getId().toString().equals(key)) {

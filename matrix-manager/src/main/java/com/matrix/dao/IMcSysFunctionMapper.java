@@ -7,7 +7,7 @@ import com.matrix.pojo.dto.McSysFunctionDto;
 import com.matrix.pojo.entity.McSysFunction;
 import com.matrix.pojo.view.McSysFunctionView;
 
-public interface IMcSysFunctionDao extends IBaseDao<Long , McSysFunction , McSysFunctionDto , McSysFunctionView>{
+public interface IMcSysFunctionMapper extends IBaseDao<Long , McSysFunction , McSysFunctionDto , McSysFunctionView>{
 	
 	
 	
