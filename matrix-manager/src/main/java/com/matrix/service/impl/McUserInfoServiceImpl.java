@@ -19,7 +19,7 @@ import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserInfoExtMapper;
-import com.matrix.dao.IMcUserRoleDao;
+import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.dto.McUserRoleDto;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserInfoExt;
@@ -45,7 +45,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 	private IMcUserInfoMapper mcUserInfoMapper;
 	
 	@Resource
-	private IMcUserRoleDao mcUserRoleDao;
+	private IMcUserRoleMapper mcUserRoleMapper;
 	
 	@Resource
 	private IMcUserInfoExtMapper mcUserInfoExtMapper;
@@ -238,7 +238,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			int count = mcUserInfoMapper.deleteById(id);   
 			int count_ = 1;
 			if(StringUtils.isNotBlank(launch.loadDictCache(DCacheEnum.McUserRole , "InitMcUserRole").get(id.toString()))) {
-				count_ = mcUserRoleDao.deleteByUserId(id); // 确定该用户有角色被分配才去删除
+				count_ = mcUserRoleMapper.deleteByUserId(id); // 确定该用户有角色被分配才去删除
 			}
 			int cout__ = mcUserInfoExtMapper.deleteByUserId(id);  // 删除mc_user_info_ext表的用户扩展信息 
 			if(count == 1 && count_ == 1 && cout__ == 1){

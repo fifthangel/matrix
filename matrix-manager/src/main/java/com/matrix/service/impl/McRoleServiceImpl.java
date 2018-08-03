@@ -22,7 +22,7 @@ import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcRoleMapper;
-import com.matrix.dao.IMcUserRoleDao;
+import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.dto.McRoleDto;
 import com.matrix.pojo.entity.McRole;
@@ -41,7 +41,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 	private IMcRoleMapper mcRoleMapper;
 	
 	@Resource
-	private IMcUserRoleDao mcUserRoleDao;
+	private IMcUserRoleMapper mcUserRoleMapper;
 	
 	/**
 	 * @description:返回列表数据，格式化时间 
@@ -190,7 +190,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 		PageHelper.startPage(num, size);
 		List<McRoleView> list = mcRoleMapper.queryPageView(role);
 		if (list != null && list.size() > 0) {
-			List<McUserRole> urList = mcUserRoleDao.selectByMcUserId(dto.getUserId());  
+			List<McUserRole> urList = mcUserRoleMapper.selectByMcUserId(dto.getUserId());  
 			if(urList != null && urList.size() != 0){
 				for(int i = 0 ; i < list.size() ; i ++){
 					for(McUserRole ur : urList){

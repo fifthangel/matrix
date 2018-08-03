@@ -2,65 +2,34 @@ package com.matrix.pojo.entity;
 
 import java.util.Date;
 
-public class McUserRole {
-    private Integer id;
-    private Integer mcUserId;
-    private Integer mcRoleId;
-    private Integer flag;
-    private Date createTime;
-    private Date updateTime;
-    private Integer createUserId;
-    private Integer updateUserId;
+import com.matrix.base.BaseEntity;
+
+public class McUserRole extends BaseEntity{
+	
+	private static final long serialVersionUID = 7648418132780885394L;
+	
+	private Long id;
+    private Long mcUserId;
+    private Long mcRoleId; 
     private String remark;
     
-    
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getMcUserId() {
+	public Long getMcUserId() {
 		return mcUserId;
 	}
-	public void setMcUserId(Integer mcUserId) {
+	public void setMcUserId(Long mcUserId) {
 		this.mcUserId = mcUserId;
 	}
-	public Integer getMcRoleId() {
+	public Long getMcRoleId() {
 		return mcRoleId;
 	}
-	public void setMcRoleId(Integer mcRoleId) {
+	public void setMcRoleId(Long mcRoleId) {
 		this.mcRoleId = mcRoleId;
-	}
-	public Integer getFlag() {
-		return flag;
-	}
-	public void setFlag(Integer flag) {
-		this.flag = flag;
-	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	public Integer getCreateUserId() {
-		return createUserId;
-	}
-	public void setCreateUserId(Integer createUserId) {
-		this.createUserId = createUserId;
-	}
-	public Integer getUpdateUserId() {
-		return updateUserId;
-	}
-	public void setUpdateUserId(Integer updateUserId) {
-		this.updateUserId = updateUserId;
 	}
 	public String getRemark() {
 		return remark;

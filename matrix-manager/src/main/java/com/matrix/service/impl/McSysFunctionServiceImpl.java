@@ -26,7 +26,7 @@ import com.matrix.dao.IMcRoleMapper;
 import com.matrix.dao.IMcRoleFunctionMapper;
 import com.matrix.dao.IMcSysFunctionMapper;
 import com.matrix.dao.IMcUserInfoMapper;
-import com.matrix.dao.IMcUserRoleDao;
+import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.cache.McUserRoleCache;
 import com.matrix.pojo.dto.McUserRoleDto;
@@ -57,7 +57,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	private IMcRoleFunctionMapper mcRoleFunctionMapper;
 	
 	@Resource
-	private IMcUserRoleDao userRoleDao;
+	private IMcUserRoleMapper mcUserRoleMapper;
 	
 	@Resource
 	private IMcUserInfoMapper mcUserInfoMapper;
@@ -383,7 +383,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	public JSONObject deleteMcRole(McRoleCache d, HttpSession session) {
 		JSONObject result = new JSONObject();
 		try {
-			if(userRoleDao.selectByMcRoleId(d.getMcRoleId()).size() != 0){ 
+			if(mcUserRoleMapper.selectByMcRoleId(d.getMcRoleId()).size() != 0){ 
 				result.put("status", "error");
 				result.put("msg", this.getInfo(400010009)); // 该角色已经关联了用户，如果想删除则必选先将用户与该角色解除绑定
 			}else{
@@ -459,7 +459,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		e.setCreateUserId(userInfo.getId());
 		e.setUpdateUserId(userInfo.getId());
 		try {
-			Integer count = userRoleDao.insertSelective(e);
+			Integer count = mcUserRoleMapper.insertSelective(e);
 			if(count != 0){
 				result.put("status", "success");
 				// 实例化缓存   
@@ -491,7 +491,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				return result;
 			}
 			
-			userRoleDao.deleteByCondition(d); 
+			mcUserRoleMapper.deleteByDto(d);   
 			this.reloadUserFunction(d.getUserId()); 
 			
 			result.put("status", "success");
@@ -516,7 +516,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		launch.loadDictCache(DCacheEnum.McUserRole , null).del(userId.toString()); 
 		McUserRoleCache cache = new McUserRoleCache();
 		cache.setMcUserId(userId);
-		List<McUserRole> list = userRoleDao.selectByMcUserId(userId);
+		List<McUserRole> list = mcUserRoleMapper.selectByMcUserId(userId);
 		if(list != null && list.size() != 0){
 			Set<Integer> set = new TreeSet<Integer>();  
 			for(McUserRole r : list){

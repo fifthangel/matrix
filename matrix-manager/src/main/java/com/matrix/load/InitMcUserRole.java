@@ -15,7 +15,7 @@ import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
 import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcUserInfoMapper;
-import com.matrix.dao.IMcUserRoleDao;
+import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.cache.McUserRoleCache;
 import com.matrix.pojo.entity.McSysFunction;
@@ -35,7 +35,7 @@ public class InitMcUserRole extends BaseClass implements ILoadCache {
 	@Inject
 	private IMcUserInfoMapper mcUserInfoMapper;
 	@Inject
-	private IMcUserRoleDao userRoleDao;
+	private IMcUserRoleMapper mcUserRoleMapper;
 	
 	
 	@Override
@@ -52,12 +52,12 @@ public class InitMcUserRole extends BaseClass implements ILoadCache {
 		return "";
 	}
 	
-	private String reloadUserFunction(Integer userId){
+	private String reloadUserFunction(Long userId){
 		McUserRoleCache cache = new McUserRoleCache();
 		cache.setMcUserId(userId);
-		List<McUserRole> list = userRoleDao.selectByMcUserId(userId);
+		List<McUserRole> list = mcUserRoleMapper.selectByMcUserId(userId);
 		if(list != null && list.size() != 0){
-			Set<Integer> set = new TreeSet<Integer>();  
+			Set<Long> set = new TreeSet<Long>();  
 			for(McUserRole r : list){
 				String roleJson = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(r.getMcRoleId().toString());
 				if(StringUtils.isNotBlank(roleJson)){
@@ -68,13 +68,13 @@ public class InitMcUserRole extends BaseClass implements ILoadCache {
 					if(StringUtils.isNotBlank(role.getIds())){
 						String [] arr = role.getIds().split(",");
 						for(String s : arr){
-							set.add(Integer.valueOf(s)); 
+							set.add(Long.valueOf(s)); 
 						}
 					}
 				}
 			}
 			if(set != null && set.size() != 0){
-				for(Integer id : set){
+				for(Long id : set){
 					String rfJson = launch.loadDictCache(DCacheEnum.McSysFunc , "InitMcSysFunc").get(id.toString());
 					if(StringUtils.isNotBlank(rfJson)){
 						McSysFunction rf = JSONObject.parseObject(rfJson, McSysFunction.class);

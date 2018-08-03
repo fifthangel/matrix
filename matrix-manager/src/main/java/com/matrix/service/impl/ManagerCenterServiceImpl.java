@@ -12,7 +12,7 @@ import com.matrix.dao.IMcRoleFunctionMapper;
 import com.matrix.dao.IMcSellerCompanyMapper;
 import com.matrix.dao.IMcSysFunctionMapper;
 import com.matrix.dao.IMcUserInfoMapper;
-import com.matrix.dao.IMcUserRoleDao;
+import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.entity.McSellerCompany;
 import com.matrix.service.IManagerCenterService;
 
@@ -37,7 +37,7 @@ public class ManagerCenterServiceImpl implements IManagerCenterService{
 	@Resource
 	private IMcSysFunctionMapper mcSysFunctionMapper;
 	@Resource
-	private IMcUserRoleDao mcUserRoleDao ;
+	private IMcUserRoleMapper mcUserRoleMapper ;
 	
 	
 	/**

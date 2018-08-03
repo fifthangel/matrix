@@ -7,6 +7,6 @@ import com.matrix.pojo.view.McRoleFunctionView;
 
 public interface IMcRoleFunctionMapper extends IBaseDao<Long , McRoleFunction , McRoleFunctionDto , McRoleFunctionView>{
 	
-	public Integer deleteByMcRoleId(Integer mcRoleId);
+	public Integer deleteByMcRoleId(Long mcRoleId);
 	
 }
