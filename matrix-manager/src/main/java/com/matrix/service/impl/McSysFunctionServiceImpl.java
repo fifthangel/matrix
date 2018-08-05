@@ -29,12 +29,14 @@ import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.cache.McUserRoleCache;
+import com.matrix.pojo.dto.McSysFunctionDto;
 import com.matrix.pojo.dto.McUserRoleDto;
 import com.matrix.pojo.entity.McRole;
 import com.matrix.pojo.entity.McRoleFunction;
 import com.matrix.pojo.entity.McSysFunction;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserRole;
+import com.matrix.pojo.view.McSysFunctionView;
 import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.pojo.view.McUserRoleView;
 import com.matrix.service.IMcSysFunctionService;
@@ -43,7 +45,7 @@ import com.matrix.util.NetUtil;
 import com.matrix.util.UuidUtil;
 
 @Service("mcSysFunctionService") 
-public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Integer> implements IMcSysFunctionService {
+public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFunction , McSysFunctionDto , McSysFunctionView> implements IMcSysFunctionService {
 
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
@@ -75,10 +77,10 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		JSONObject result = new JSONObject();
 		if(StringUtils.isNotBlank(entity.getName()) && StringUtils.isNotBlank(entity.getParentId()) ){
 			McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
-			entity.setCreateTime(new Date());
-			entity.setUpdateTime(new Date());
 			entity.setCreateUserId(userInfo.getId());
+			entity.setCreateUserName(userInfo.getUserName()); 
 			entity.setUpdateUserId(userInfo.getId());
+			entity.setUpdateUserName(userInfo.getUserName());
 			if(entity.getNavType() == 2){
 				entity.setStyleKey(UuidUtil.uid());
 			}else if(entity.getNavType() == 4 || entity.getNavType() == 5){  // 4: 页面按钮 5: 内部跳转页面 
@@ -119,6 +121,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
 			entity.setUpdateTime(new Date());
 			entity.setUpdateUserId(userInfo.getId());
+			entity.setUpdateUserName(userInfo.getUserName()); 
 			int count = mcSysFunctionMapper.updateSelective(entity);
 			if(count == 1){
 				result.put("status", "success");
@@ -153,13 +156,14 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		String [] arr = ustring.split(",");
 		for(int i = 0 ; i < arr.length ; i ++){
 			McSysFunction e = new McSysFunction();
-			e.setId( Integer.valueOf(arr[i].split("@")[0]) );
+			e.setId( Long.valueOf(arr[i].split("@")[0]) );
 			e.setSeqnum( Integer.valueOf(arr[i].split("@")[1]) );
 			e.setUpdateTime(new Date());
 			e.setUpdateUserId(userInfo.getId());
+			e.setUpdateUserName(userInfo.getUserName());
 			mcSysFunctionMapper.updateSelective(e);
 			// 开始修改缓存
-			launch.loadDictCache(DCacheEnum.McSysFunc , null).set(e.getId().toString(), JSONObject.toJSONString(e)); 
+			launch.loadDictCache(DCacheEnum.McSysFunc , null).set(e.getId().toString() , JSONObject.toJSONString(e)); 
 		}
 		return null;
 	}
@@ -168,28 +172,27 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 	/**
 	 * @description:系统权限分配 如果type=role则同时获得角色列表
 	 * 
-	 * @return
 	 * @author Yangcl 
 	 * @date 2017年4月13日 下午5:30:03 
 	 * @version 1.0.0.1
 	 */
 	public JSONObject treeList(HttpServletRequest request) {
 		JSONObject result = new JSONObject();
-		McSysFunction e = new McSysFunction();	
-		e.setFlag(1);
-		List<McSysFunction> list = mcSysFunctionMapper.findList(e);
+//		McSysFunction e = new McSysFunction();	
+//		e.setFlag(1);
+		List<McSysFunction> list = mcSysFunctionMapper.findList(new McSysFunction());
 		if (list != null && list.size() > 0) {
 			result.put("status", "success");
 			result.put("list", list);
 			if(request.getParameter("type").equals("role")){
 				List<McRoleCache> roles = new ArrayList<McRoleCache>(); 
 				McRole role = new McRole();
-				role.setFlag(1); 
+//				role.setFlag(1); 
 				if(StringUtils.isNotBlank(request.getParameter("id"))){
-					role.setId(Integer.valueOf(request.getParameter("id")));  
+					role.setId(Long.valueOf(request.getParameter("id")));  
 				}
 				List<McRole> roleList = mcRoleMapper.findList(role);
-				if(roleList.size() != 0){
+				if(roleList != null && roleList.size() != 0){
 					for(McRole m : roleList){
 						String json = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(m.getId().toString());
 						if(StringUtils.isBlank(json)){
@@ -226,9 +229,9 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			return result; 
 		}
 		String [] arr = ids.split(",");
-		List<Integer> list = new ArrayList<>();
+		List<Long> list = new ArrayList<Long>();
 		for(String s : arr){
-			list.add(Integer.valueOf(s));
+			list.add(Long.valueOf(s));
 		}
 		
 		Integer flag = mcSysFunctionMapper.deleteByIds(list);
@@ -267,12 +270,14 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 			McRole role = new McRole();
 			role.setRoleName(d.getRoleName());
 			role.setRoleDesc(d.getRoleDesc());
-			role.setFlag(1);
-			role.setCreateTime(createTime);
-			role.setUpdateTime(createTime);
 			role.setRemark("");
+			
+			role.setCreateTime(createTime);
 			role.setCreateUserId(userInfo.getId());
+			role.setCreateUserName(userInfo.getUserName()); 
+			role.setUpdateTime(createTime);
 			role.setUpdateUserId(userInfo.getId());
+			role.setUpdateUserName(userInfo.getUserName()); 
 			try {
 				mcRoleMapper.insertGotEntityId(role);
 				
@@ -280,13 +285,15 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 				for(int i = 0 ; i < arr.length ; i ++){
 					McRoleFunction rf = new McRoleFunction();
 					rf.setMcRoleId(role.getId());
-					rf.setMcSysFunctionId(Integer.valueOf(arr[i])); 
-					rf.setFlag(1);
+					rf.setMcSysFunctionId(Long.valueOf(arr[i])); 
 					rf.setRemark("");
+					
 					rf.setCreateTime(createTime);
-					rf.setUpdateTime(createTime);
 					rf.setCreateUserId(userInfo.getId());
+					rf.setCreateUserName(userInfo.getUserName()); 
+					rf.setUpdateTime(createTime);
 					rf.setUpdateUserId(userInfo.getId());
+					rf.setUpdateUserName(userInfo.getUserName()); 
 					mcRoleFunctionMapper.insertSelective(rf);
 				}
 				result.put("status", "success");
@@ -305,9 +312,16 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<McSysFunction, Int
 		return result;
 	}
 
+	
+	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+	
 
 	/**
-	 * @deprecated 方法废弃 
+	 * @deprecated 方法废弃 										TODO     FUCK 这个方法貌似他妈的没有被废弃
 	 * @description: 修改系统角色
 	 * 
 	 * @param d
