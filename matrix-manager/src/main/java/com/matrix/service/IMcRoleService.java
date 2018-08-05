@@ -7,8 +7,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.interfaces.IBaseService;
 import com.matrix.pojo.dto.McRoleDto;
 import com.matrix.pojo.entity.McRole;
+import com.matrix.pojo.view.McRoleView;
 
-public interface IMcRoleService extends IBaseService<McRole, Integer> {
+public interface IMcRoleService extends IBaseService<Long , McRole , McRoleDto , McRoleView> {
 
 	public JSONObject addMcRole(McRole info , HttpSession session);
 

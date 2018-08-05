@@ -33,7 +33,7 @@ import com.matrix.pojo.view.McUserInfoView;
 import com.matrix.service.IMcRoleService;
 
 @Service("mcRoleService") 
-public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implements IMcRoleService {
+public class McRoleServiceImpl extends BaseServiceImpl<Long , McRole , McRoleDto , McRoleView> implements IMcRoleService {
 	
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
@@ -55,20 +55,20 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 	 */
 	public JSONObject ajaxPageData(McRole e , HttpServletRequest request){
 		JSONObject r = super.ajaxPageData(e, request);
-		if(r.getString("status").equals("success")){
-			JSONObject data = r.getJSONObject("data");
-			JSONArray list = new JSONArray();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			for(int i = 0 ; i < data.getJSONArray("list").size() ; i ++){
-				Date ctime = data.getJSONArray("list").getJSONObject(i).getDate("createTime");
-				String date = sdf.format(ctime); 
-				JSONObject o = data.getJSONArray("list").getJSONObject(i);
-				o.put("createTime", date);
-				list.add(o);
-			}  
-			data.put("list", list); 
-			r.put("data", data); 
-		}
+//		if(r.getString("status").equals("success")){											dev_standardisation_refactor_180724	此版本删除这段代码
+//			JSONObject data = r.getJSONObject("data");					
+//			JSONArray list = new JSONArray();
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			for(int i = 0 ; i < data.getJSONArray("list").size() ; i ++){
+//				Date ctime = data.getJSONArray("list").getJSONObject(i).getDate("createTime");
+//				String date = sdf.format(ctime); 
+//				JSONObject o = data.getJSONArray("list").getJSONObject(i);
+//				o.put("createTime", date);
+//				list.add(o);
+//			}  
+//			data.put("list", list); 
+//			r.put("data", data); 
+//		}
 		return r;
 	}
 
@@ -81,14 +81,16 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 			result.put("msg", "角色名称不得为空");
 			return result;
 		}
-		Date createTime = new Date();
+//		Date createTime = new Date();
 		McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
-		role.setFlag(1);
-		role.setCreateTime(createTime);
-		role.setUpdateTime(createTime);
+//		role.setFlag(1);
+//		role.setCreateTime(createTime);
+//		role.setUpdateTime(createTime);
 		role.setRemark("");
 		role.setCreateUserId(userInfo.getId());
+		role.setCreateUserName(userInfo.getUserName());
 		role.setUpdateUserId(userInfo.getId());
+		role.setUpdateUserName(userInfo.getUserName()); 
 		try {
 			int count = mcRoleMapper.insertGotEntityId(role); 
 			if(count == 1){
@@ -185,7 +187,6 @@ public class McRoleServiceImpl extends BaseServiceImpl<McRole, Integer> implemen
 			size = Integer.parseInt(pageSize);
 		}
 		McRole role = new McRole();
-		role.setFlag(1); 
 		role.setRoleName(dto.getRoleName()); 
 		PageHelper.startPage(num, size);
 		List<McRoleView> list = mcRoleMapper.queryPageView(role);
