@@ -345,6 +345,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 			role.setRoleDesc(d.getRoleDesc()); 
 			role.setUpdateTime(currentTime); 
 			role.setUpdateUserId(userInfo.getId());
+			role.setUpdateUserName(userInfo.getUserName()); 
 			try {
 				mcRoleMapper.updateSelective(role);
 				
@@ -359,13 +360,15 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 				for(int i = 0 ; i < arr.length ; i ++){
 					McRoleFunction rf = new McRoleFunction();
 					rf.setMcRoleId(role.getId());
-					rf.setMcSysFunctionId(Integer.valueOf(arr[i])); 
-					rf.setFlag(1);
+					rf.setMcSysFunctionId(Long.valueOf(arr[i])); 
+					rf.setDeleteFlag(1);
 					rf.setRemark("");
 					rf.setCreateTime(currentTime);
-					rf.setUpdateTime(currentTime);
 					rf.setCreateUserId(userInfo.getId());
+					rf.setCreateUserName(userInfo.getUserName());
+					rf.setUpdateTime(currentTime);
 					rf.setUpdateUserId(userInfo.getId());
+					rf.setUpdateUserName(userInfo.getUserName());
 					mcRoleFunctionMapper.insertSelective(rf);
 				}
 				result.put("status", "success");
@@ -389,7 +392,6 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 	 *
 	 * @param d
 	 * @param session
-	 * @return
 	 * @date 2017年4月23日 下午2:50:56
 	 * @author Yangcl 
 	 * @version 1.0.0.1
@@ -466,12 +468,13 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 		JSONObject result = new JSONObject();
 		Date createTime = new Date();
 		McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
-		e.setFlag(1);
 		e.setRemark("");
 		e.setCreateTime(createTime);
-		e.setUpdateTime(createTime);
 		e.setCreateUserId(userInfo.getId());
+		e.setCreateUserName(userInfo.getUserName());
+		e.setUpdateTime(createTime);
 		e.setUpdateUserId(userInfo.getId());
+		e.setUpdateUserName(userInfo.getUserName());
 		try {
 			Integer count = mcUserRoleMapper.insertSelective(e);
 			if(count != 0){
@@ -526,13 +529,13 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 	 * @date 2017年5月24日 下午3:05:35 
 	 * @version 1.0.0.1
 	 */
-	private void reloadUserFunction(Integer userId){
+	private void reloadUserFunction(Long userId){
 		launch.loadDictCache(DCacheEnum.McUserRole , null).del(userId.toString()); 
 		McUserRoleCache cache = new McUserRoleCache();
 		cache.setMcUserId(userId);
 		List<McUserRole> list = mcUserRoleMapper.selectByMcUserId(userId);
 		if(list != null && list.size() != 0){
-			Set<Integer> set = new TreeSet<Integer>();  
+			Set<Long> set = new TreeSet<Long>();  
 			for(McUserRole r : list){
 				String roleJson = launch.loadDictCache(DCacheEnum.McRole , "InitMcRole").get(r.getMcRoleId().toString());
 				if(StringUtils.isNotBlank(roleJson)){
@@ -543,13 +546,13 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 					if(StringUtils.isNotBlank(role.getIds())){
 						String [] arr = role.getIds().split(",");
 						for(String s : arr){
-							set.add(Integer.valueOf(s)); 
+							set.add(Long.valueOf(s)); 
 						}
 					}
 				}
 			}
 			if(set != null && set.size() != 0){
-				for(Integer id : set){
+				for(Long id : set){
 					String rfJson = launch.loadDictCache(DCacheEnum.McSysFunc , "InitMcSysFunc").get(id.toString());
 					if(StringUtils.isNotBlank(rfJson)){
 						McSysFunction rf = JSONObject.parseObject(rfJson, McSysFunction.class);
@@ -560,7 +563,7 @@ public class McSysFunctionServiceImpl extends BaseServiceImpl<Long , McSysFuncti
 					}
 				}
 			}
-			launch.loadDictCache(DCacheEnum.McUserRole , null).set(userId.toString(), JSONObject.toJSONString(cache)); 
+			launch.loadDictCache(DCacheEnum.McUserRole , null).set(userId.toString() , JSONObject.toJSONString(cache)); 
 		}
 	}
 

@@ -98,7 +98,6 @@ public class ManagerCenterController extends BaseController{
 	@RequestMapping(value = "sys_user_list", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject sysUserList(McUserInfo info , HttpSession session , HttpServletRequest request) {
-		info.setFlag(2); 
 		super.userBehavior(session, logger, "sys_user_list", "获取用户列表");
 		return mcUserInfoService.ajaxPageData(info, request);
 	}
@@ -133,7 +132,7 @@ public class ManagerCenterController extends BaseController{
 	 * @version 1.0.0.1
 	 */
 	@RequestMapping("show_user_edit_page")
-	public String showUserEditPage(Integer id , ModelMap model , HttpSession session){
+	public String showUserEditPage(Long id , ModelMap model , HttpSession session){
 		super.userBehavior(session, logger, "show_user_edit_page", "页面内部跳转，前往修改用户界面sysUserEdit.jsp");
 		McUserInfo entity = mcUserInfoService.find(id);
 		if(entity != null){
@@ -146,14 +145,14 @@ public class ManagerCenterController extends BaseController{
 	@ResponseBody
 	public JSONObject editSysUser(McUserInfo info , HttpSession session) {
 		super.userBehavior(session, logger, "edit_sys_user", "修改用户");
-		return mcUserInfoService.editSysUser(info);
+		return mcUserInfoService.editSysUser(info , session);
 	}
 	
 	@RequestMapping(value = "ajax_manager_delete_user", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
-	public JSONObject ajaxManagerDeleteUser(Integer id , HttpSession session) {
+	public JSONObject ajaxManagerDeleteUser(Long id , HttpSession session) {
 		super.userBehavior(session, logger, "ajax_manager_delete_user", "系统用户列表-删除用户");
-		return mcUserInfoService.deleteUser(id);
+		return mcUserInfoService.deleteUser(id , session);
 	}
 	
 	

@@ -15,9 +15,9 @@ public interface IMcUserInfoService extends IBaseService<Long , McUserInfo , McU
 
 	public JSONObject addSysUser(McUserInfo info);
 
-	public JSONObject editSysUser(McUserInfo info);
+	public JSONObject editSysUser(McUserInfo info , HttpSession session);
 
-	public JSONObject deleteUser(Integer id);
+	public JSONObject deleteUser(Long id , HttpSession session);
 
 	public JSONObject logout(HttpSession session);
 

@@ -91,7 +91,6 @@ public class SystemRoleController  extends BaseController{
 	@RequestMapping(value = "sys_role_list", produces = { "application/json;charset=utf-8" })
 	@ResponseBody
 	public JSONObject sysRoleList(McRole role , HttpSession session , HttpServletRequest request) {
-		role.setFlag(1); 
 		super.userBehavior(session, logger, "sys_role_list", "获取权限列表页面数据");
 		return mcRoleService.ajaxPageData(role, request);
 	}
@@ -148,7 +147,7 @@ public class SystemRoleController  extends BaseController{
 	 * @version 1.0.0.1
 	 */
 	@RequestMapping("show_role_edit_page") 
-	public String sysMcRoleEditPage(Integer id , ModelMap model , HttpSession session){ 
+	public String sysMcRoleEditPage(Long id , ModelMap model , HttpSession session){ 
 		super.userBehavior(session, logger, "show_role_edit_page", "前往修改权限页面sysMcRoleEdit.jsp");
 		McRole entity = mcRoleService.find(id);
 		if(entity != null){

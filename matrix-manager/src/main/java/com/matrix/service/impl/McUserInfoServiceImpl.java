@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseServiceImpl;
+import com.matrix.base.BaseView;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
 import com.matrix.cache.inf.IBaseLaunch;
@@ -20,6 +21,7 @@ import com.matrix.cache.inf.ICacheFactory;
 import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserInfoExtMapper;
 import com.matrix.dao.IMcUserRoleMapper;
+import com.matrix.pojo.dto.McUserInfoDto;
 import com.matrix.pojo.dto.McUserRoleDto;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserInfoExt;
@@ -37,7 +39,7 @@ import com.matrix.util.SignUtil;
  * @version 1.0.0
  */
 @Service("mcUserInfo") 
-public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> implements IMcUserInfoService{
+public class McUserInfoServiceImpl extends BaseServiceImpl<Long , McUserInfo , McUserInfoDto , BaseView> implements IMcUserInfoService{
 	
 	private IBaseLaunch<ICacheFactory> launch = CacheLaunch.getInstance().Launch();
 	
@@ -176,7 +178,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 	}
 
 
-	public JSONObject editSysUser(McUserInfo info) {
+	public JSONObject editSysUser(McUserInfo info , HttpSession session) {
 		JSONObject result = new JSONObject();
 		if (StringUtils.isBlank(info.getUserName()) || StringUtils.isBlank(info.getPassword())) {
 			result.put("status", "error");
@@ -197,13 +199,18 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		info.setRemark("admin edit this user"); 
 		
 		try {
-			McUserInfoView view = mcUserInfoMapper.loadUserInfo(info.getId());
-			launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
+			McUserInfoView userInfo = (McUserInfoView) session.getAttribute("userInfo");
+			info.setUpdateTime(new Date());
+			info.setUpdateUserId(userInfo.getId());
+			info.setUpdateUserName(userInfo.getUserName()); 
+//			McUserInfoView view = mcUserInfoMapper.loadUserInfo(info.getId());
+			
+			launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(userInfo.getUserName() + userInfo.getPassword());
 			int count = mcUserInfoMapper.updateSelective(info);
 			if(count == 1){
 				// TODO 以后会更新mc_user_info_ext表
-				McUserInfoView view_ = mcUserInfoMapper.loadUserInfo(info.getId());
-				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view_.getUserName()+view_.getPassword() , JSONObject.toJSONString(view_));
+				McUserInfoView view = mcUserInfoMapper.loadUserInfo(info.getId());
+				launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName() + view.getPassword() , JSONObject.toJSONString(view));
 				result.put("status", "success");
 				result.put("msg", "修改成功");
 			}else{
@@ -226,7 +233,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 	 * @author Yangcl 
 	 * @version 1.0.0.1
 	 */
-	public JSONObject deleteUser(Integer id) {
+	public JSONObject deleteUser(Long id , HttpSession session) {
 		JSONObject result = new JSONObject();
 		if(StringUtils.isBlank(id.toString())){
 			result.put("status", "error");
@@ -234,7 +241,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			return result;
 		}
 		try {
-			McUserInfoView view = mcUserInfoMapper.loadUserInfo(id);
+			McUserInfoView view = (McUserInfoView) session.getAttribute("userInfo");  // mcUserInfoMapper.loadUserInfo(id);
 			int count = mcUserInfoMapper.deleteById(id);   
 			int count_ = 1;
 			if(StringUtils.isNotBlank(launch.loadDictCache(DCacheEnum.McUserRole , "InitMcUserRole").get(id.toString()))) {
@@ -243,7 +250,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 			int cout__ = mcUserInfoExtMapper.deleteByUserId(id);  // 删除mc_user_info_ext表的用户扩展信息 
 			if(count == 1 && count_ == 1 && cout__ == 1){
 				launch.loadDictCache(DCacheEnum.McUserRole , null).del(id.toString());
-				launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName()+view.getPassword());
+				launch.loadDictCache(DCacheEnum.UserInfoNp , null).del(view.getUserName() + view.getPassword());
 				result.put("status", "success");
 				result.put("msg", "删除成功");
 			}else{
@@ -267,7 +274,7 @@ public class McUserInfoServiceImpl extends BaseServiceImpl<McUserInfo, Integer> 
 		mcUserInfoExtMapper.updateSelectiveByUserId(e);
 		
 		McUserInfoView view = mcUserInfoMapper.loadUserInfo(dto.getId());
-		launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName()+view.getPassword() , JSONObject.toJSONString(view));
+		launch.loadDictCache(DCacheEnum.UserInfoNp , null).set(view.getUserName() + view.getPassword() , JSONObject.toJSONString(view));
 		
 		return null;
 	}
