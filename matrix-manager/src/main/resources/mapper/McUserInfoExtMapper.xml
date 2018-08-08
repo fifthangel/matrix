@@ -2,7 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.matrix.dao.IMcUserInfoExtMapper">
 
-	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.McUserInfoExt">
+	<!-- 基类字段映射 -->
+	<resultMap id="BaseMap" type="com.matrix.base.BaseEntity"> 
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+		<result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+		<result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.McUserInfoExt" extends="BaseMap">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="user_info_id" property="userInfoId" jdbcType="BIGINT" />
 		<result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
@@ -29,14 +40,6 @@
 		<result column="paramr" property="paramr" jdbcType="VARCHAR" />
 		<result column="params" property="params" jdbcType="VARCHAR" />
 		<result column="paramt" property="paramt" jdbcType="VARCHAR" />
-		
-		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
-		<result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
-		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-		<result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
-		<result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
-		<result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
 	</resultMap>
 	
 	

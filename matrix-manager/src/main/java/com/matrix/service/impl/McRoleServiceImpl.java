@@ -186,10 +186,9 @@ public class McRoleServiceImpl extends BaseServiceImpl<Long , McRole , McRoleDto
 		if (StringUtils.isNotBlank(pageSize)) {
 			size = Integer.parseInt(pageSize);
 		}
-		McRole role = new McRole();
-		role.setRoleName(dto.getRoleName()); 
+		
 		PageHelper.startPage(num, size);
-		List<McRoleView> list = mcRoleMapper.queryPageView(role);
+		List<McRoleView> list = mcRoleMapper.queryPageView(null);
 		if (list != null && list.size() > 0) {
 			List<McUserRole> urList = mcUserRoleMapper.selectByMcUserId(dto.getUserId());  
 			if(urList != null && urList.size() != 0){
@@ -208,7 +207,7 @@ public class McRoleServiceImpl extends BaseServiceImpl<Long , McRole , McRoleDto
 		}
 		PageInfo<McRoleView> pageList = new PageInfo<McRoleView>(list);
 		result.put("data", pageList);
-		result.put("entity", role);
+		result.put("entity", dto);
 		return result;
 	}
 	
