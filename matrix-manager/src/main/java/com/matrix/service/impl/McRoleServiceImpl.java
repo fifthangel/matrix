@@ -1,7 +1,5 @@
 package com.matrix.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,7 +23,6 @@ import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 import com.matrix.pojo.dto.McRoleDto;
 import com.matrix.pojo.entity.McRole;
-import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserRole;
 import com.matrix.pojo.view.McRoleView;
 import com.matrix.pojo.view.McUserInfoView;

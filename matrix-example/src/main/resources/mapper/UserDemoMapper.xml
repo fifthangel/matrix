@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.matrix.dao.IUserDemoDao">
+<mapper namespace="com.matrix.dao.IUserDemoMapper">
 
-	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.UserDemo">
-		<id column="id" property="id" jdbcType="INTEGER" />
+	<!-- 基类字段映射 -->
+	<resultMap id="BaseMap" type="com.matrix.base.BaseEntity"> 
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+		<result column="create_user_name" property="createUserName" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_user_id" property="updateUserId" jdbcType="BIGINT" />
+		<result column="update_user_name" property="updateUserName" jdbcType="VARCHAR" />
+		<result column="delete_flag" property="deleteFlag" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.UserDemo" extends="BaseMap">
+		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="id_number" property="idNumber" jdbcType="VARCHAR" />
 		<result column="sex" property="sex" jdbcType="INTEGER" />
-		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
 		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
-		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
 	</resultMap>
 	
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	
+	
+	
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 			*
 		from 
 			test.user_demo
 		where 
-			id = #{id,jdbcType=INTEGER}
+			id = #{id , jdbcType=BIGINT}
+		and
+			delete_flag = 1
+		order by create_time desc
 	</select>
 	
 	
@@ -29,8 +46,8 @@
 			* 
 		from 
 			test.user_demo 
-		<where>
-			1 = 1 
+		where
+			delete_flag = 1 
 			<if test="userName != null and userName != ''  ">
 				and user_name = #{userName , jdbcType=VARCHAR}
 			</if>
@@ -40,12 +57,16 @@
 			<if test="sex != null and sex != ''  ">
 				and sex = #{sex , jdbcType=INTEGER}
 			</if>
-		</where>
 	</select>
 	
 	
-	<delete id="deleteById" parameterType="java.lang.Integer">
-		delete from test.user_demo where id = #{id,jdbcType=INTEGER}
+	<delete id="deleteById" parameterType="java.lang.Long">
+		update 
+			test.user_demo 
+		set
+			delete_flag = 0
+		where 
+			id = #{id , jdbcType=BIGINT}
 	</delete>
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.UserDemo">
@@ -66,22 +87,41 @@
 			<if test="sex != null">
 				sex,
 			</if>
-			<if test="birthday != null">
-				birthday,
-			</if>
 			<if test="mobile != null">
 				mobile,
 			</if>
 			<if test="email != null">
 				email,
+			</if> 
+			<if test="birthday != null">
+				birthday,
 			</if>
+			
 			<if test="createTime != null">
 				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="createUserName != null">
+				create_user_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_user_id,
+			</if>
+			<if test="updateUserName != null">
+				update_user_name,
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
-				#{id,jdbcType=INTEGER},
+				#{id , jdbcType=BIGINT},
 			</if>
 			<if test="userName != null">
 				#{userName,jdbcType=VARCHAR},
@@ -95,17 +135,36 @@
 			<if test="sex != null">
 				#{sex,jdbcType=INTEGER},
 			</if>
-			<if test="birthday != null">
-				#{birthday,jdbcType=DATE},
-			</if>
 			<if test="mobile != null">
 				#{mobile,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
 			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			
 			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
+				#{createTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId , jdbcType=BIGINT},
+			</if>
+			<if test="createUserName != null">
+				#{createUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId , jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				#{updateUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag != null">
+				#{deleteFlag , jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>
@@ -126,20 +185,30 @@
 			<if test="sex != null">
 				sex = #{sex,jdbcType=INTEGER},
 			</if>
-			<if test="birthday != null">
-				birthday = #{birthday,jdbcType=DATE},
-			</if>
 			<if test="mobile != null">
 				mobile = #{mobile,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			
+			<if test="updateTime != null">
+				update_time = #{updateTime , jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUserId != null">
+				update_user_id = #{updateUserId , jdbcType=BIGINT},
+			</if>
+			<if test="updateUserName != null">
+				update_user_name = #{updateUserName , jdbcType=VARCHAR},
+			</if>
+			<if test="deleteFlag != null">
+				delete_flag = #{deleteFlag , jdbcType=INTEGER},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
+		where id = #{id , jdbcType=BIGINT}
 	</update>
 	
 	<!-- 一个测试api取值的类 -->
@@ -149,9 +218,9 @@
 		from 
 			test.user_demo
 		where 
-			1 = 1
+			delete_flag = 1
 			<if test="id != null">
-				and id = #{id , jdbcType=INTEGER},
+				and id = #{id , jdbcType=BIGINT},
 			</if>
 			<if test="userName != null and userName != '' ">
 				and user_name = #{userName,jdbcType=VARCHAR}

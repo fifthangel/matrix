@@ -17,24 +17,27 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseServiceImpl;
-import com.matrix.dao.IUserDemoDao;
+import com.matrix.dao.IUserDemoMapper;
 import com.matrix.pojo.dto.ApiExampleDto;
+import com.matrix.pojo.dto.UserDemoDto;
 import com.matrix.pojo.entity.UserDemo;
+import com.matrix.pojo.view.UserDemoView;
 import com.matrix.service.IExampleService;
 //import com.matrix.support.FileUploadSupport;
 import com.matrix.util.SignUtil;
 
 @Service("exampleService")
-public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> implements IExampleService {
+public class ExampleServiceImpl  extends BaseServiceImpl<Long , UserDemo, UserDemoDto , UserDemoView> implements IExampleService {
+	
 	@Resource
-	private IUserDemoDao userDemoDao;
+	private IUserDemoMapper userDemoMapper;
 
 	public JSONObject addInfo(UserDemo entity, HttpSession session) {
 		JSONObject result = new JSONObject();
 		String pass = SignUtil.md5Sign(entity.getPassword());
 		entity.setPassword(pass); 
 		entity.setCreateTime(new Date());
-		Integer count = userDemoDao.insertSelective(entity);
+		Integer count = userDemoMapper.insertSelective(entity);
 		if(count == 1){
 			result.put("status", true);
 			result.put("msg", "数据插入成功！");
@@ -48,7 +51,7 @@ public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> impl
 	public JSONObject deleteOne(UserDemo entity) {
 		JSONObject result = new JSONObject();
 		if(StringUtils.isNotBlank(entity.getId().toString())){
-			Integer count = userDemoDao.deleteById(entity.getId());
+			Integer count = userDemoMapper.deleteById(entity.getId());
 			if(count == 1){
 				result.put("status", "success");
 				result.put("msg", "删除成功");
@@ -138,7 +141,7 @@ public class ExampleServiceImpl  extends BaseServiceImpl<UserDemo, Integer> impl
 	 */
 	public JSONObject apiProcessorTest(ApiExampleDto dto) {
 		JSONObject r = new JSONObject();
-		List<UserDemo> list = userDemoDao.findEntityByApiDto(dto);
+		List<UserDemo> list = userDemoMapper.findEntityByApiDto(dto);
 		if(list != null && list.size() != 0) { 
 			r.put("status", "success");
 			r.put("msg", "测试成功!");

@@ -1,7 +1,5 @@
 package com.matrix.pojo.entity;
 
-import java.util.Date;
-
 import com.matrix.base.BaseEntity;
 
 public class McSysFunction extends BaseEntity{

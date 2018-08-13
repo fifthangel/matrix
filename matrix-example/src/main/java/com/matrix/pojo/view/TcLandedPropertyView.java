@@ -1,11 +1,11 @@
-package com.matrix.pojo.entity;
+package com.matrix.pojo.view;
 
-import com.matrix.base.BaseEntity;
+import com.matrix.base.BaseView;
 
-public class TcLandedProperty extends BaseEntity{
-	
-	private static final long serialVersionUID = 130356470618481309L;
-	
+public class TcLandedPropertyView extends BaseView{
+
+	private static final long serialVersionUID = -8637979799801923661L;
+
 	private Long id;
     private String uuid;
     private String code;
@@ -169,21 +169,3 @@ public class TcLandedProperty extends BaseEntity{
 		this.overview = overview;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

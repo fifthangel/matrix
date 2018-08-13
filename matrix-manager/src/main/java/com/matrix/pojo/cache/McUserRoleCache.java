@@ -3,7 +3,6 @@ package com.matrix.pojo.cache;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.matrix.pojo.entity.McRoleFunction;
 import com.matrix.pojo.entity.McSysFunction;
 
 public class McUserRoleCache {

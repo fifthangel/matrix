@@ -22,7 +22,6 @@ import com.matrix.pojo.entity.McUserRole;
 import com.matrix.service.IManagerCenterService;
 import com.matrix.service.IMcRoleService;
 import com.matrix.service.IMcSysFunctionService;
-import com.matrix.service.IMcUserInfoService;
 
 /**
  * @description: 系统权限控制器

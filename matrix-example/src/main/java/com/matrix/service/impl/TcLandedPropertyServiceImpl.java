@@ -9,15 +9,17 @@ import org.springframework.ui.ModelMap;
 
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.BaseServiceImpl;
-import com.matrix.dao.ITcLandedPropertyDao;
+import com.matrix.dao.ITcLandedPropertyMapper;
+import com.matrix.pojo.dto.TcLandedPropertyDto;
 import com.matrix.pojo.entity.TcLandedProperty;
+import com.matrix.pojo.view.TcLandedPropertyView;
 import com.matrix.service.ITcLandedPropertyService;
 
 @Service("tcLandedPropertyService")
-public class TcLandedPropertyServiceImpl extends BaseServiceImpl<TcLandedProperty , Integer> implements ITcLandedPropertyService {
+public class TcLandedPropertyServiceImpl extends BaseServiceImpl<Long , TcLandedProperty, TcLandedPropertyDto , TcLandedPropertyView> implements ITcLandedPropertyService {
 
 	@Resource
-	private ITcLandedPropertyDao dao;
+	private ITcLandedPropertyMapper tcLandedPropertyMapper;
 
 	@Override
 	public String pageDemoLandedProperty(ModelMap model) {  

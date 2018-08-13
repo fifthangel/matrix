@@ -1,10 +1,11 @@
-package com.matrix.pojo.entity;
+package com.matrix.pojo.view;
 
-import com.matrix.base.BaseEntity;
+import com.matrix.base.BaseView;
 
-public class UserDemo extends BaseEntity{
+public class UserDemoView extends BaseView{
+
+	private static final long serialVersionUID = -1402126459729133720L;
 	
-	private static final long serialVersionUID = -1858440711882179611L;
 	private Long id;
     private String userName;
     private String password;
@@ -64,5 +65,26 @@ public class UserDemo extends BaseEntity{
 	}
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
-	}  
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

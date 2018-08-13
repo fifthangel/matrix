@@ -22,7 +22,6 @@ import com.matrix.dao.IMcUserInfoMapper;
 import com.matrix.dao.IMcUserInfoExtMapper;
 import com.matrix.dao.IMcUserRoleMapper;
 import com.matrix.pojo.dto.McUserInfoDto;
-import com.matrix.pojo.dto.McUserRoleDto;
 import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserInfoExt;
 import com.matrix.pojo.view.McUserInfoView;

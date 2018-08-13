@@ -2,7 +2,6 @@ package com.matrix.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,8 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.matrix.base.BaseServiceImpl;
 import com.matrix.cache.CacheLaunch;
 import com.matrix.cache.enums.DCacheEnum;
@@ -38,7 +35,6 @@ import com.matrix.pojo.entity.McUserInfo;
 import com.matrix.pojo.entity.McUserRole;
 import com.matrix.pojo.view.McSysFunctionView;
 import com.matrix.pojo.view.McUserInfoView;
-import com.matrix.pojo.view.McUserRoleView;
 import com.matrix.service.IMcSysFunctionService;
 import com.matrix.system.init.DictionaryTableCacheInit;
 import com.matrix.util.NetUtil;

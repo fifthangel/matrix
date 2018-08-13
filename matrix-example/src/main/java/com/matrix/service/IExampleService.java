@@ -7,9 +7,11 @@ import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSONObject;
 import com.matrix.base.interfaces.IBaseService;
 import com.matrix.pojo.dto.ApiExampleDto;
+import com.matrix.pojo.dto.UserDemoDto;
 import com.matrix.pojo.entity.UserDemo;
+import com.matrix.pojo.view.UserDemoView;
 
-public interface IExampleService  extends IBaseService<UserDemo, Integer> {
+public interface IExampleService  extends IBaseService<Long , UserDemo, UserDemoDto , UserDemoView> {
 
 	public JSONObject addInfo(UserDemo entity , HttpSession session);
 	
