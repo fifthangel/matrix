@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.matrix.base.BaseServiceImpl;
 import com.matrix.dao.ISysJobExectimerDao;
-import com.matrix.dao.ISysJobDao;
+import com.matrix.dao.ISysJobMapper;
 import com.matrix.pojo.dto.SysJobDto;
 import com.matrix.pojo.entity.SysJob;
 import com.matrix.pojo.entity.SysJobExectimer;
@@ -19,7 +19,7 @@ public class JobServiceImpl extends BaseServiceImpl<SysJobExectimer, Integer> im
 	@Resource
 	private ISysJobExectimerDao jobExectimerDao;
 	@Resource
-	private ISysJobDao sysJobDao;
+	private ISysJobMapper sysJobMapper;
 
 	public List<SysJobExectimer> listJobExectimer(SysJobExectimer entity) {
 		return jobExectimerDao.findList(entity); 
@@ -30,11 +30,11 @@ public class JobServiceImpl extends BaseServiceImpl<SysJobExectimer, Integer> im
 	}
 
 	public Integer updateSysJobByUuid(SysJob entity) {
-		return sysJobDao.updateSelectiveByUuid(entity); 
+		return sysJobMapper.updateSelectiveByUuid(entity); 
 	}
 
 	public List<SysJob> findSysJobList(SysJobDto entity) {
-		return sysJobDao.findListByDto(entity);
+		return sysJobMapper.findListByDto(entity);
 	}
 }
 
