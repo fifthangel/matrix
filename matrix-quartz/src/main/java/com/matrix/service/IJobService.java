@@ -7,7 +7,7 @@ import com.matrix.pojo.dto.SysJobDto;
 import com.matrix.pojo.entity.SysJob;
 import com.matrix.pojo.entity.SysJobExectimer;
 
-public interface IJobService  extends IBaseService<SysJobExectimer , Integer> {
+public interface IJobService {                                  //  extends IBaseService<SysJobExectimer , Integer> {
 	
 	public List<SysJobExectimer> listJobExectimer(SysJobExectimer entity);
 	

@@ -53,7 +53,7 @@
 		select
 			<include refid="table_column_list" />
 		from 
-			sys_job
+			jobcenter.sys_job
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	
@@ -62,11 +62,11 @@
 		select 
 			<include refid="table_column_list" /> 
 		from 
-			sys_job  
+			jobcenter.sys_job  
 		where
 			delete_flag = 1
 		and 	
-			run_group_did in 
+			run_group_id in 
 			<foreach item="item" index="index" collection="rglist"  open="(" separator="," close=")">
                    #{item} 
             </foreach>
@@ -78,14 +78,14 @@
 	
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from 
-			sys_job
+			jobcenter.sys_job
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</delete>
 	
 
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.SysJob">
-		insert into sys_job
+		insert into jobcenter.sys_job
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -201,7 +201,7 @@
 	</insert>
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.SysJob">
-		update sys_job
+		update jobcenter.sys_job
 		<set>
 			<if test="jobTitle != null">
 				job_title = #{jobTitle,jdbcType=VARCHAR},

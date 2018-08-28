@@ -36,7 +36,7 @@
 		select
 			<include refid="table_column_list" /> 
 		from 
-			sys_job_group
+			jobcenter.sys_job_group
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</select>
@@ -44,14 +44,14 @@
 	
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from 
-			sys_job_group
+			jobcenter.sys_job_group
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</delete>
 	
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.SysJobGroup">
-		insert into sys_job_group
+		insert into jobcenter.sys_job_group
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -120,7 +120,7 @@
 	
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.SysJobGroup">
-		update sys_job_group
+		update jobcenter.sys_job_group
 		<set>
 			<if test="groupName != null">
 				group_name = #{groupName,jdbcType=VARCHAR},

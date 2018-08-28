@@ -6,5 +6,4 @@ import com.matrix.pojo.entity.SysJobGroup;
 import com.matrix.pojo.view.SysJobGroupView;
 
 public interface ISysJobGroupMapper extends IBaseDao<Long , SysJobGroup , SysJobGroupDto , SysJobGroupView>{
-
 }

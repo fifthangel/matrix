@@ -15,11 +15,13 @@ import com.matrix.service.IJobService;
 
 
 @Service("jobService")
-public class JobServiceImpl extends BaseServiceImpl<SysJobExectimer, Integer> implements IJobService {
+public class JobServiceImpl implements IJobService {                      // extends BaseServiceImpl<SysJobExectimer, Integer> implements IJobService 
+	
 	@Resource
 	private ISysJobExectimerDao jobExectimerDao;
 	@Resource
 	private ISysJobMapper sysJobMapper;
+	
 
 	public List<SysJobExectimer> listJobExectimer(SysJobExectimer entity) {
 		return jobExectimerDao.findList(entity); 
