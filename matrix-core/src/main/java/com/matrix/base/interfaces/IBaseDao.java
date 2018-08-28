@@ -339,6 +339,27 @@ public interface IBaseDao<PK extends Serializable , E extends BaseEntity , D ext
     public List<E> selectByPrimaryKey(PK id);
     
     /**
+     * @description: 根据实体条件，返回View视图列表
+     *
+     * @param entity
+     * @author Yangcl
+     * @date 2018年8月28日 下午8:55:18 
+     * @version 1.0.0.1
+     */
+    public List<V> findViewListByEntity(E entity);
+    
+    /**
+     * @description: 根据数据传输模型，返回View视图列表
+     *
+     * @param dto
+     * @author Yangcl
+     * @date 2018年8月28日 下午8:57:31 
+     * @version 1.0.0.1
+     */
+    public List<V> findViewListByDto(D dto);
+    
+    
+    /**
      * @descriptions 根据数据传输对象中的条件进行查询。此方法常用于分组查询：group by 
      * 	Dto 不同于Entity。
      * 	注意！此方法需要你自己在*****Mapper.xml 文件中重写脚本

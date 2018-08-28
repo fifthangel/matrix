@@ -310,6 +310,26 @@ public interface IBaseService<PK extends Serializable , E extends BaseEntity , D
     public List<E> selectByPrimaryKey(PK id);
     
     /**
+     * @description: 根据实体条件，返回View视图列表
+     *
+     * @param entity
+     * @author Yangcl
+     * @date 2018年8月28日 下午8:55:18 
+     * @version 1.0.0.1
+     */
+    public List<V> findViewListByEntity(E entity);
+    
+    /**
+     * @description: 根据数据传输模型，返回View视图列表
+     *
+     * @param dto
+     * @author Yangcl
+     * @date 2018年8月28日 下午8:57:31 
+     * @version 1.0.0.1
+     */
+    public List<V> findViewListByDto(D dto);
+    
+    /**
      * @descriptions 根据条件进行数量的查询
      * 	注意！此方法需要你自己在*****Mapper.xml 文件中重写查询条件
      * 
