@@ -6,4 +6,5 @@ import com.matrix.pojo.entity.SysJob;
 import com.matrix.pojo.view.SysJobView;
 
 public interface ISysJobMapper extends IBaseDao<Long , SysJob, SysJobDto , SysJobView> {
+	
 }
