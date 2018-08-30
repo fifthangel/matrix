@@ -49,7 +49,7 @@
 		select
 			<include refid="table_column_list" /> 
 		from 
-			sys_job_exec_log
+			jobcenter.sys_job_exec_log
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</select>
@@ -57,14 +57,14 @@
 	
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from 
-			sys_job_exec_log
+			jobcenter.sys_job_exec_log
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</delete>
 	
 	
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.SysJobExecLog">
-		insert into sys_job_exec_log
+		insert into jobcenter.sys_job_exec_log
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -169,7 +169,7 @@
 	
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.SysJobExecLog">
-		update sys_job_exec_log
+		update jobcenter.sys_job_exec_log
 		<set>
 			<if test="sysJobId != null">
 				sys_job_id = #{sysJobId,jdbcType=BIGINT},

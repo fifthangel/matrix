@@ -37,7 +37,7 @@
 		select
 			<include refid="table_column_list" />
 		from 
-			sys_job_host
+			jobcenter.sys_job_host
 		where 
 			id = #{id,jdbcType=BIGINT}
 	</select>
@@ -45,14 +45,14 @@
 	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from 
-			sys_job_host
+			jobcenter.sys_job_host
 		where 
 			id = #{id , jdbcType=BIGINT}
 	</delete>
 	
 
 	<insert id="insertSelective" parameterType="com.matrix.pojo.entity.SysJobHost">
-		insert into sys_job_host
+		insert into jobcenter.sys_job_host
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -120,7 +120,7 @@
 	</insert>
 	
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.SysJobHost">
-		update sys_job_host
+		update jobcenter.sys_job_host
 		<set>
 			<if test="sysJobId != null">
 				sys_job_id = #{sysJobId,jdbcType=BIGINT},
