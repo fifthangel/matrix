@@ -28,8 +28,15 @@ public enum DCacheEnum {
 	
 	ApiInfo,               // ac_api_info 与ac_include_domain 的复合缓存。
 	
+	SysJob,				// 系统定时任务
+	
+	SysJobGroup, 	// 系统定时任务分组
 	
 	SysJobHost ,     // sys_job_host表缓存对象
+	
+	
+	
+	
 }
 
 

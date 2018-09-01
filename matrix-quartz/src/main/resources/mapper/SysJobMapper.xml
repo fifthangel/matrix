@@ -54,7 +54,10 @@
 			<include refid="table_column_list" />
 		from 
 			jobcenter.sys_job
-		where id = #{id,jdbcType=BIGINT}
+		where 
+			id = #{id , jdbcType=BIGINT} 
+		and
+			delete_flag = 1
 	</select>
 	
 	<!-- 根据 run_group_id 找到可运行的定时任务列表 - Yangcl -->
