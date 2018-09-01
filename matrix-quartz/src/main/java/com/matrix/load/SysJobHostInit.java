@@ -17,7 +17,7 @@ import com.matrix.pojo.entity.SysJobHost;
 /**
  * @description: 获取分布式定时任务主机地址信息，从缓存。
  *	key: xd-SysJobHost-96346234565766518    |   sys_job_group 表主键 Long型
- *
+ * value:
  *
  *
  *
