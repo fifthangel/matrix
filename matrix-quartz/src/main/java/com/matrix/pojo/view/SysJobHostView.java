@@ -7,7 +7,7 @@ public class SysJobHostView extends BaseView {
 	private static final long serialVersionUID = 9684847366770760L;
 	
 	private Long id;
-    private Long sysJobId;
+    private Long sysJobGroupId;
     private String ip;
     
 	public Long getId() {
@@ -16,11 +16,11 @@ public class SysJobHostView extends BaseView {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getSysJobId() {
-		return sysJobId;
+	public Long getSysJobGroupId() {
+		return sysJobGroupId;
 	}
-	public void setSysJobId(Long sysJobId) {
-		this.sysJobId = sysJobId;
+	public void setSysJobGroupId(Long sysJobGroupId) {
+		this.sysJobGroupId = sysJobGroupId;
 	}
 	public String getIp() {
 		return ip;

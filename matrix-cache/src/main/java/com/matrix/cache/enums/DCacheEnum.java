@@ -26,7 +26,10 @@ public enum DCacheEnum {
 	
 	ApiDomain  ,       //  ac_include_domain 表字典缓存，白名单标识
 	
-	ApiInfo               // ac_api_info 与ac_include_domain 的复合缓存。
+	ApiInfo,               // ac_api_info 与ac_include_domain 的复合缓存。
+	
+	
+	SysJobHost ,     // sys_job_host表缓存对象
 }
 
 

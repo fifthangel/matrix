@@ -15,14 +15,14 @@
 
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.SysJobHost" extends="BaseMap">
 		<id column="id" property="id" jdbcType="BIGINT" />
-		<result column="sys_job_id" property="sysJobId" jdbcType="BIGINT" />
+		<result column="sys_job_group_id" property="sysJobGroupId" jdbcType="BIGINT" />
 		<result column="ip" property="ip" jdbcType="VARCHAR" />
 	</resultMap>
 	
 	
 	<sql id="table_column_list">
 		id, 
-		sys_job_id, 
+		sys_job_group_id, 
 		ip, 
 		create_time, 
 		create_user_id, 
@@ -42,8 +42,19 @@
 			id = #{id,jdbcType=BIGINT}
 	</select>
 	
+	<select id="findListByForeignKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+			<include refid="table_column_list" />
+		from 
+			jobcenter.sys_job_host
+		where 
+			sys_job_group_id = #{sysJobGroupId , jdbcType=BIGINT}
+		and
+			delete_flag = 1
+	</select>
 	
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from 
 			jobcenter.sys_job_host
 		where 
@@ -57,8 +68,8 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="sysJobId != null">
-				sys_job_id,
+			<if test="sysJobGroupId != null">
+				sys_job_group_id,
 			</if>
 			<if test="ip != null">
 				ip,
@@ -89,8 +100,8 @@
 			<if test="id != null">
 				#{id,jdbcType=BIGINT},
 			</if>
-			<if test="sysJobId != null">
-				#{sysJobId,jdbcType=BIGINT},
+			<if test="sysJobGroupId != null">
+				#{sysJobGroupId,jdbcType=BIGINT},
 			</if>
 			<if test="ip != null">
 				#{ip,jdbcType=VARCHAR},
@@ -122,8 +133,8 @@
 	<update id="updateSelective" parameterType="com.matrix.pojo.entity.SysJobHost">
 		update jobcenter.sys_job_host
 		<set>
-			<if test="sysJobId != null">
-				sys_job_id = #{sysJobId,jdbcType=BIGINT},
+			<if test="sysJobGroupId != null">
+				sys_job_group_id = #{sysJobGroupId,jdbcType=BIGINT},
 			</if>
 			<if test="ip != null">
 				ip = #{ip,jdbcType=VARCHAR},

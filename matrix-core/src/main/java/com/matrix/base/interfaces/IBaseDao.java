@@ -329,14 +329,14 @@ public interface IBaseDao<PK extends Serializable , E extends BaseEntity , D ext
     public List<E> findListByDto(D dto); 
     
     /**
-     * @description: 该方法不提倡使用
+     * @description: 根据主表的外键返回实体集合
      *
      * @param id
      * @author Yangcl
      * @date 2018年7月25日 下午3:12:48 
      * @version 1.0.0.1
      */
-    public List<E> selectByPrimaryKey(PK id);
+    public List<E> findListByForeignKey(PK id); 
     
     /**
      * @description: 根据实体条件，返回View视图列表

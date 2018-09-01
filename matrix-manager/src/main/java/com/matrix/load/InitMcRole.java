@@ -14,7 +14,7 @@ import com.matrix.dao.IMcRoleMapper;
 import com.matrix.pojo.cache.McRoleCache;
 /**
  * @description: 如果缓存取值为空则此处做处理
-  * key: xd-McRole-18
+ * key: xd-McRole-18
  * value: 
 				{
 				    "ids": "75,77,79,80,83,84,112,113,114,115,116,126,127,128,129,132,133,134,135,136,137,149,161,162,163,164",

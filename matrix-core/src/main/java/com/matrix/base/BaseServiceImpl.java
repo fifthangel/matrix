@@ -355,15 +355,15 @@ public class BaseServiceImpl<PK extends Serializable , E extends BaseEntity , D 
     }
     
     /**
-     * @description: 该方法不提倡使用
+     * @description: 根据主表的外键返回实体集合
      *
      * @param id
      * @author Yangcl
      * @date 2018年7月25日 下午3:12:48 
      * @version 1.0.0.1
      */
-    public List<E> selectByPrimaryKey(PK id){
-    	return baseDao.selectByPrimaryKey(id);
+    public List<E> findListByForeignKey(PK id){
+    	return baseDao.findListByForeignKey(id);
     }
     
     /**
