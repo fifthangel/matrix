@@ -13,7 +13,7 @@ public class SysJob extends BaseEntity{
     private String jobTitle;
     private String jobClass;
     private String jobTriger;
-    private String runGroupId;
+    private Long runGroupId;
     private Integer concurrentType;
     private Date beginTime;
     private Integer maxExecTime;
@@ -46,10 +46,10 @@ public class SysJob extends BaseEntity{
 	public void setJobTriger(String jobTriger) {
 		this.jobTriger = jobTriger;
 	}
-	public String getRunGroupId() {
+	public Long getRunGroupId() {
 		return runGroupId;
 	}
-	public void setRunGroupId(String runGroupId) {
+	public void setRunGroupId(Long runGroupId) {
 		this.runGroupId = runGroupId;
 	}
 	public Integer getConcurrentType() {

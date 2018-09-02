@@ -35,17 +35,13 @@ public class SysJobInit  extends BaseClass implements ILoadCache{
 		JSONObject result = new JSONObject();
 		SysJob e = sysJobMapper.find(Long.valueOf(key));
 		if(e != null) {
-			result = JSONObject.parseObject(JSONObject.toJSONString(e));
-			result.put("groupName" , "");
-			result.put("remark", "");
-			result.put("ipList", new JSONArray());
+			result = JSONObject.parseObject(JSONObject.toJSONString(e)); 
 			
-			String group = launch.loadDictCache(DCacheEnum.SysJobGroup, "SysJobGroupInit").get(e.getRunGroupId());
+			String group = launch.loadDictCache(DCacheEnum.SysJobGroup, "SysJobGroupInit").get( String.valueOf(e.getRunGroupId()) );
 			if(StringUtils.isNotBlank(group)) {
 				JSONObject gr = JSONObject.parseObject(group);
 				result.put("groupName" , gr.getString("groupName"));
-				result.put("remark", gr.getString("remark"));
-				result.put("ipList", gr.getJSONArray("ipList")); 
+				result.put("ip", gr.getString("ip")); 
 			}
 			
 			String value = result.toJSONString();

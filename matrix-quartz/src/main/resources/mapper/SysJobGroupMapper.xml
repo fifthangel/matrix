@@ -16,12 +16,14 @@
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.SysJobGroup" extends="BaseMap">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
 		<result column="remark" property="remark" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	
 	<sql id="table_column_list">
 		id, 
 		group_name, 
+		ip, 
 		remark,
 		create_time, 
 		create_user_id, 
@@ -59,6 +61,9 @@
 			<if test="groupName != null">
 				group_name,
 			</if>
+			<if test="ip != null">
+				ip,
+			</if>
 			<if test="createTime != null">
 				create_time,
 			</if>
@@ -90,6 +95,9 @@
 			</if>
 			<if test="groupName != null">
 				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
 			</if>
 			<if test="createTime != null">
 				#{createTime,jdbcType=TIMESTAMP},
@@ -124,6 +132,9 @@
 		<set>
 			<if test="groupName != null">
 				group_name = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				ip = #{ip,jdbcType=VARCHAR},
 			</if>
 			<if test="remark != null">
 				remark = #{remark,jdbcType=LONGVARCHAR},

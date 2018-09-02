@@ -68,11 +68,13 @@
 			jobcenter.sys_job  
 		where
 			delete_flag = 1
-		and 	
-			run_group_id in 
-			<foreach item="item" index="index" collection="rglist"  open="(" separator="," close=")">
-                   #{item} 
-            </foreach>
+		<if test="runGroupId != null">
+			 and 	
+				run_group_id in 
+				<foreach item="item" index="index" collection="rglist"  open="(" separator="," close=")">
+	                   #{item} 
+	            </foreach>
+		</if>
 		<if test="flagEnable != null">
 			and 
 				flag_enable = #{flagEnable , jdbcType=INTEGER}

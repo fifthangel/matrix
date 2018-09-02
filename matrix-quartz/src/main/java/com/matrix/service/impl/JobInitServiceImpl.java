@@ -1,10 +1,13 @@
 package com.matrix.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.matrix.dao.ISysJobMapper;
+import com.matrix.pojo.entity.SysJob;
 import com.matrix.service.IJobInitService;
 
 
@@ -21,6 +24,12 @@ public class JobInitServiceImpl implements IJobInitService {
 
 	@Resource
 	private ISysJobMapper sysJobMapper;
+
+	
+	
+	public List<SysJob> findSysJobList() {
+		return sysJobMapper.findListByDto(null); 
+	}
 	
 	
 	

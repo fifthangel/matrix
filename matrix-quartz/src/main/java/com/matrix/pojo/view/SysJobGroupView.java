@@ -8,6 +8,7 @@ public class SysJobGroupView extends BaseView {
 	
 	private Long id;
     private String groupName;
+    private String ip;
     private String remark;
     
 	public Long getId() {
@@ -21,6 +22,12 @@ public class SysJobGroupView extends BaseView {
 	}
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public String getRemark() {
 		return remark;

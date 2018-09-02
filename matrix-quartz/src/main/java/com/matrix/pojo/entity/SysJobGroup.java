@@ -7,15 +7,8 @@ public class SysJobGroup extends BaseEntity{
 	
 	private Long id;
     private String groupName;
+    private String ip;
     private String remark;
-    
-//    private Date createTime;
-//    private Long createUserId;
-//    private String createUserName;
-//    private Date updateTime;
-//    private Long updateUserId;
-//    private String updateUserName;
-//    private Integer deleteFlag;
     
 	public Long getId() {
 		return id;
@@ -28,6 +21,12 @@ public class SysJobGroup extends BaseEntity{
 	}
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public String getRemark() {
 		return remark;
