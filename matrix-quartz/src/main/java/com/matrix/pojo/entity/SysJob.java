@@ -10,6 +10,7 @@ public class SysJob extends BaseEntity{
 	private static final long serialVersionUID = 3203663999653179352L;
 	
 	private Long id;
+	private String jobName;
     private String jobTitle;
     private String jobClass;
     private String jobTriger;
@@ -27,6 +28,12 @@ public class SysJob extends BaseEntity{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getJobName() {
+		return jobName;
+	}
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 	public String getJobTitle() {
 		return jobTitle;

@@ -15,6 +15,7 @@
 
 	<resultMap id="BaseResultMap" type="com.matrix.pojo.entity.SysJob" extends="BaseMap">
 		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="job_name" property="jobName" jdbcType="VARCHAR" />
 		<result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
 		<result column="job_class" property="jobClass" jdbcType="VARCHAR" />
 		<result column="job_triger" property="jobTriger" jdbcType="VARCHAR" />
@@ -30,6 +31,7 @@
 	
 	<sql id="table_column_list">
 		id, 
+		job_name, 
 		job_title, 
 		job_class, 
 		job_triger, 
@@ -95,6 +97,9 @@
 			<if test="id != null">
 				id,
 			</if>
+			<if test="jobName != null">
+				job_name,
+			</if>
 			<if test="jobTitle != null">
 				job_title,
 			</if>
@@ -150,6 +155,9 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="jobName != null">
+				#{jobName , jdbcType=VARCHAR},
 			</if>
 			<if test="jobTitle != null">
 				#{jobTitle,jdbcType=VARCHAR},

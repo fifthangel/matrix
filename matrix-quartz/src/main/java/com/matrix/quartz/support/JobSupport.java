@@ -62,12 +62,15 @@ public class JobSupport extends BaseClass {
 				scheduler.start();
 			}
 			@SuppressWarnings("unchecked")
-			Class<IBaseJob> jClass = ClassUtils.getClass(mJobInfo.getJobClass());
-			JobDetail job = JobBuilder.newJob(jClass).withIdentity(mJobInfo.getJobName(), Scheduler.DEFAULT_GROUP).build(); // 设置作业，具体操作在SimpleJob类里
+			Class<IBaseJob> jobClass = ClassUtils.getClass(mJobInfo.getJobClass());
+			JobDetail job = JobBuilder.newJob(jobClass).
+					withIdentity(
+							mJobInfo.getJobName() , 
+							Scheduler.DEFAULT_GROUP).build(); // 设置作业，具体操作在SimpleJob类里
 
 			CronTrigger trigger = (CronTrigger) TriggerBuilder
 					.newTrigger()
-					.withIdentity("trigger_" + mJobInfo.getJobName(),Scheduler.DEFAULT_GROUP)
+					.withIdentity("trigger_" + mJobInfo.getJobName() , Scheduler.DEFAULT_GROUP)
 					.withSchedule(CronScheduleBuilder.cronSchedule(mJobInfo.getJobTriger())).build(); // 设置触发器
 
 			Set<CronTrigger> sTriggers = new HashSet<CronTrigger>();
