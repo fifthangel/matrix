@@ -39,22 +39,25 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		String sLockKey = "";
 		boolean bFlagExec = true;
-		Date sBeginTime = new Date();
-		Date sNextTime = null;
-		Date sEndTime = null;
+		Date beginTime = new Date();
+		Date nextTime = null;
+		Date endTime = null;
 
 		MJobInfo mJobInfo = new MJobInfo();
 		try {
-			if (context != null && context.getMergedJobDataMap() != null && context.getMergedJobDataMap().containsKey( TopConst.CONST_JOB_START + "status")) {
+			if ( context != null 
+				  && context.getMergedJobDataMap() != null 
+				  && context.getMergedJobDataMap().containsKey( TopConst.CONST_JOB_START + "status") ) {   // job_status
+				
 				if (context.getNextFireTime() != null) {
-					sNextTime = context.getNextFireTime(); 
+					nextTime = context.getNextFireTime(); 
 				}
 				mJobInfo = (MJobInfo) context.getMergedJobDataMap().get(TopConst.CONST_JOB_START + "status");
 
 				// 判断如果记日志
 				if (mJobInfo.getExtendTypeLog() == 1) {
 					MLogJob mLogJob = new MLogJob();
-					mLogJob.setNextExecTime(DateUtil.formatDate(sNextTime));
+					mLogJob.setNextExecTime(DateUtil.formatDate(nextTime));
 					mLogJob.setJobInfo(mJobInfo);
 //					LogHelper.addLog("run_job", mLogJob);   TODO  此处考虑使用ActiveMq处理消息
 				}
@@ -69,8 +72,8 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 			}
 
 			if (bFlagExec) {
-				doExecute(context);
-				sEndTime = new Date();
+				this.doExecute(context);
+				endTime = new Date();
 			}
 		} catch (Exception e) {
 			this.getLogger(logger).logError(200010003 , this.getClass().getName());     
@@ -83,15 +86,19 @@ public abstract class RootJobForLock extends BaseClass implements Job, IBaseJob 
 			DistributedLockHelper.getInstance().unLock(sLockKey);
 		}
 
-		// 开始更新执行日志
+		// 开始更新下次的执行时间
 		if (mJobInfo != null && StringUtils.isNotBlank(mJobInfo.getJobName())) {
 			SysJob entity = new SysJob();
-			entity.setUid(mJobInfo.getJobName());
-			entity.setBeginTime(sBeginTime);
-			entity.setEndTime(sEndTime);
-			entity.setNextTime(sNextTime);
+			entity.setJobName(mJobInfo.getJobName());
+			entity.setBeginTime(beginTime);
+			entity.setEndTime(endTime);
+			entity.setNextTime(nextTime);
 			jobService.updateSysJobByUuid(entity);
 		}
+		
+		
+		
+		
 	}
 	
 

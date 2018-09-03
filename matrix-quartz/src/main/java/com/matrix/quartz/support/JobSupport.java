@@ -61,22 +61,27 @@ public class JobSupport extends BaseClass {
 				scheduler = sf.getScheduler();
 				scheduler.start();
 			}
+			
 			@SuppressWarnings("unchecked")
 			Class<IBaseJob> jobClass = ClassUtils.getClass(mJobInfo.getJobClass());
+			
+			// 设置作业，具体操作在SimpleJob类里
 			JobDetail job = JobBuilder.newJob(jobClass).
 					withIdentity(
 							mJobInfo.getJobName() , 
-							Scheduler.DEFAULT_GROUP).build(); // 设置作业，具体操作在SimpleJob类里
+							Scheduler.DEFAULT_GROUP).build(); 
+			job.getJobDataMap().put(TopConst.CONST_JOB_START + "status", mJobInfo);
 
+			// 设置触发器
+			Set<CronTrigger> triggerSet = new HashSet<CronTrigger>();
 			CronTrigger trigger = (CronTrigger) TriggerBuilder
 					.newTrigger()
 					.withIdentity("trigger_" + mJobInfo.getJobName() , Scheduler.DEFAULT_GROUP)
-					.withSchedule(CronScheduleBuilder.cronSchedule(mJobInfo.getJobTriger())).build(); // 设置触发器
-
-			Set<CronTrigger> sTriggers = new HashSet<CronTrigger>();
-			sTriggers.add(trigger);
-			job.getJobDataMap().put(TopConst.CONST_JOB_START + "status", mJobInfo);
-			scheduler.scheduleJob(job, sTriggers, true); // 设置调度作业
+					.withSchedule(CronScheduleBuilder.cronSchedule( mJobInfo.getJobTriger() )).build(); // 设置触发器
+			triggerSet.add(trigger);
+			
+			
+			scheduler.scheduleJob(job , triggerSet , true); // 设置调度作业
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

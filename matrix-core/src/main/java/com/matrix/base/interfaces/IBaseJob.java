@@ -4,7 +4,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
 /**
- * @description: 定时任务基础接口|包含 Job.java 的 public void execute(JobExecutionContext context); 方法
+ * @description: 定时任务基础接口
  * 
  * @author Yangcl
  * @home https://github.com/PowerYangcl

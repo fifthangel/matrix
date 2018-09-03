@@ -19,7 +19,14 @@ import com.matrix.service.IJobService;
 import com.matrix.system.init.RootInit;
 
 
-// properties配置信息核对完成
+/**
+ * @description: 该类废弃
+ *
+ * @author Yangcl
+ * @home https://github.com/PowerYangcl
+ * @date 2018年9月3日 下午9:53:12 
+ * @version 1.0.0.1
+ */
 public class JobInit extends RootInit {
 	
 	private static Logger logger = Logger.getLogger(JobInit.class);
@@ -30,7 +37,7 @@ public class JobInit extends RootInit {
 	public boolean onInit() {
 		boolean flag = true;
 		
-		String rglist = this.getConfig("matrix-quartz.rglist");  // 获取配置文件中等待执行的【定时任务组】
+		/*String rglist = this.getConfig("matrix-quartz.rglist");  // 获取配置文件中等待执行的【定时任务组】
 		if(StringUtils.isBlank(rglist)){  // 如果项目不需要加载定时任务 - Yangcl
 			return true;
 		}
@@ -78,7 +85,7 @@ public class JobInit extends RootInit {
 				JobSupport.getInstance().addJob(mJobInfo);
 				this.getLogger(logger).logInfo(200010005 , sj.getJobTitle() , sj.getJobTriger() );  
 			}
-		}
+		}*/
 		return flag;     
 	}
 	
