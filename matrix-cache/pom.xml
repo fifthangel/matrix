@@ -12,6 +12,17 @@
 	<name>matrix-cache</name>
 	<url>https://github.com/PowerYangcl</url>
 	
+	<properties>
+		<!-- 全局性控制项目编码为UTF-8 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	
+		<jedis.version>2.9.0</jedis.version>
+		<!-- ZooKeeper 版本 -->
+        <zookeeper.version>3.4.11</zookeeper.version>
+        <!-- Curator(ZooKeeper客户端)版本 -->
+        <curator.version>4.0.0</curator.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.matrix</groupId>
@@ -22,8 +33,52 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
+			<version>${jedis.version}</version>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>org.apache.zookeeper</groupId>
+		    <artifactId>zookeeper</artifactId>
+		    <version>${zookeeper.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-framework</artifactId>
+		    <version>${curator.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-client</artifactId>
+		    <version>${curator.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-recipes</artifactId>
+		    <version>${curator.version}</version>
 		</dependency>
 	</dependencies>
 	
 </project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
