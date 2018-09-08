@@ -1,7 +1,7 @@
 package com.matrix.cache.enums;
 
 /**
- * @description: 
+ * @description: zookeeper分布式锁路径描述，基于zookeeper的分布式锁的参数皆依据此枚举类
  *
  * @author Yangcl
  * @home https://github.com/PowerYangcl
@@ -12,6 +12,6 @@ public enum ZkLockPathEnum {
 
 	zkLockRoot,        // zookeeper锁基础路径
 	
-	
+	zkTest ,                  // 测试锁
 	
 }

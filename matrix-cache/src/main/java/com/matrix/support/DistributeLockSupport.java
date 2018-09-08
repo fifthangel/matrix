@@ -3,6 +3,7 @@ package com.matrix.support;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import com.matrix.base.BaseClass;
@@ -43,7 +44,7 @@ public class DistributeLockSupport extends BaseClass{
 	private CuratorFramework client = null;
 	private DistributeLockSupport() {
 		if(client == null) {
-			client = CuratorFrameworkFactory.newClient("127.0.0.1:2181" , new ExponentialBackoffRetry(1000, 3) );
+			client = CuratorFrameworkFactory.newClient("10.12.51.139:2181" , new ExponentialBackoffRetry(100, 1) );
 			client.start();
 		}
 	}
@@ -58,7 +59,24 @@ public class DistributeLockSupport extends BaseClass{
 	
 	
 	/**
-	 * @description: 创建可重入锁，即是获锁后，还可以再次获取
+	 * @description: 可重入锁。当多个线程同时竞争一把锁的时候，只有等前一个获取锁的线程释放锁后，下一个线程才能获取锁。
+	 * 		使用方法示例：
+	 					InterProcessMutex ipm = DistributeLockSupport.getInstance().zkMutexLock(ZkLockPathEnum.zkTest);
+					 	try{
+				            // 获取锁
+							interProcessMutex.acquire();
+				            System.out.println("acquire read lock");
+				        } catch (Exception e){
+				        	e.printStackTrace();   
+				        } finally {
+				        	try {
+				        		// 释放锁
+								interProcessMutex.release();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+				            System.out.println("release read lock");
+				        }
 	 *
 	 * @param lock 指定锁路径; 此参数需要定义在ZkLockPathEnum.java中统一管理
 	 * @author Yangcl
@@ -74,6 +92,20 @@ public class DistributeLockSupport extends BaseClass{
 	
 	
 	
+	/**
+	 * @description: 创建读写锁
+	 *
+	 * @param lock
+	 * @author Yangcl
+	 * @date 2018年9月9日 上午12:07:42 
+	 * @version 1.0.0.1
+	 */
+	public InterProcessReadWriteLock ReadWriteLock(ZkLockPathEnum lock) {
+		if(lock == null) {
+			return null;
+		}
+		return new InterProcessReadWriteLock(client , rootPath + lock.toString());
+	}
 	
 	
 	
