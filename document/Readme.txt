@@ -25,7 +25,8 @@
 		info.matrix-manager.4000.properties
 		info.matrix-file.5000.properties
 		info.matrix-api.6000.properties
-		
+		info.matrix-circuit-breaker.7000.properties
+
 		info.matrix-example.99999.properties
 
 		
@@ -47,7 +48,7 @@
 		
 【TODO】接口模拟请求测试弹窗		
 【TODO】系统开放接口 - api信息树 此模块需要重新设计		
-		
+【TODO】dubbo之SPI解析 https://blog.csdn.net/qiangcai/article/details/77750541		
 		
 		
 		

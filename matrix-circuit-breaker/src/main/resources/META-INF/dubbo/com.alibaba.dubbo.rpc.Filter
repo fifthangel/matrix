@@ -1,0 +1,3 @@
+#dubbo spi标签 固定扫描此文件夹下的这个名字的配置文件
+
+CircuitBreaker=cn.cecook.scrm.utils.services.circuit_breaker.CircuitBreakerFilter

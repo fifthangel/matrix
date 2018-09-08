@@ -13,6 +13,7 @@
 		<module>matrix-manager</module>
 		<module>matrix-file</module>
 		<module>matrix-api</module>
+		<module>matrix-circuit-breaker</module>
 		
 		<module>matrix-admin</module>
 		<module>matrix-example</module>
@@ -40,6 +41,9 @@
 		<activemq.version>5.7.0</activemq.version>
 		<httpclient.version>4.5.1</httpclient.version>
 		<pagerhelper.version>4.0.3</pagerhelper.version>
+		
+		<dubbo.version>2.6.0</dubbo.version>
+		<hystrix-core.version>1.5.12</hystrix-core.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -358,6 +362,19 @@
 		    <artifactId>bcprov-jdk15on</artifactId>
 		    <version>1.58</version>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<version>${dubbo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.hystrix</groupId>
+			<artifactId>hystrix-core</artifactId>
+			<version>${hystrix-core.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
