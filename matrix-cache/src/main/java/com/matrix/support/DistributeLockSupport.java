@@ -6,6 +6,7 @@ import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import com.matrix.base.BaseClass;
+import com.matrix.cache.enums.ZkLockPathEnum;
 
 /**
  * @description: 基于Zookeeper的高可用分布式锁
@@ -53,7 +54,7 @@ public class DistributeLockSupport extends BaseClass{
 		return LazyHolder.INSTANCE; 
 	}
 	
-	private static final String zkLockPath = "/" + ZkLockPathEnum.zkLockRoot.toString() + "/";     // zookeeper锁基础路径
+	private static final String rootPath = "/" + ZkLockPathEnum.zkLockRoot.toString() + "/";     // zookeeper锁基础路径
 	
 	
 	/**
@@ -68,7 +69,7 @@ public class DistributeLockSupport extends BaseClass{
 		if(lock == null) {
 			return null;
 		}
-		return new InterProcessMutex(client , zkLockPath + lock.toString());
+		return new InterProcessMutex(client , rootPath + lock.toString());
 	}
 	
 	
